@@ -36,7 +36,8 @@ job data will be aggregated from multiple sites. Initially:
 - Indeed.com
 - Jobs2Careers.com
 - Dice.com
-- ZipRecruiter.com
+- ZipRecruiter.com (if time allows)
+
 Secondly, the data collected will be used to build an unsupervised predictive model
 based on the text from the job descriptions.
 
