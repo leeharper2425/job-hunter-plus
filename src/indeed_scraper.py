@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from sys import argv
+from collections import defaultdict
 import time
 
 
@@ -13,16 +14,17 @@ def run_scraper(current_url, dft):
     :return: dft: Pandas dataframe containing scraped information
     """
     flag = "Next"
+    listings = defaultdict(list)
+
     # Run the scraper until it runs out of pages to scrape
     while "Next" in flag:
         my_soup = create_soup(current_url)
         flag = my_soup.find(name="span", attrs={"class": "np"}).text
-        print(flag)
         for div in my_soup.find_all(name="div", attrs={"class": "row"}):
-            listing = get_listing_info(div)
-            dft = dft.append(listing, ignore_index=True)
+            listings = add_listing_info(div, listings)
         current_url = get_next_url(my_soup)
         time.sleep(5)
+    dft = dft.append(pd.DataFrame(listings), ignore_index=True)
     return dft
 
 
@@ -46,16 +48,19 @@ def get_next_url(soup):
     return ''.join(["https://www.indeed.com", d.find_all("a")[-1]["href"]])
 
 
-def get_listing_info(div):
+def add_listing_info(div, lst_dict):
     """
     Get the results of scraping a single listings job listing.
     :param div: the contents of a single listing's div tag
-    :return: dict, the desired scraping information
+    :param lst_dict: the currently scraped listings
+    :return: lst_dict, the desired scraping information
     """
-    return {"job_title": [get_job_title(div)],
-            "location": [get_location(div)],
-            "company": [get_company_name(div)],
-            "url": [get_url_link(div)]}
+    lst_dict["job_title"] += [get_job_title(div)]
+    lst_dict["location"] += [get_location(div)]
+    lst_dict["company"] += [get_company_name(div)]
+    lst_dict["url"] += [get_url_link(div)]
+    lst_dict["jobsite"] += ["Indeed"]
+    return lst_dict
 
 
 def get_number_of_jobs(soup):
