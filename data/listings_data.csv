@@ -1,17 +1,840 @@
-company,job_title,jobsite,location,url
-IBM,2018 Data Scientist Internship,Indeed,Austin TX 73344,/rc/clk?jk=7efe33d6388ee124&fccid=de71a49b535e21cb
-IBM,2018 Senior Data Scientist Internship,Indeed,Austin TX 73344,/rc/clk?jk=c9d2d46405354ccd&fccid=de71a49b535e21cb
-IBM,Cognitive / AI / Machine Learning Software Developer Internship 2018,Indeed,Austin TX 73344,/rc/clk?jk=f703d866bcbe77f9&fccid=de71a49b535e21cb
-IBM,2018 Sr. Cognitive /AI/ Machine Learning Software Developer Internship,Indeed,Austin TX 73344,/rc/clk?jk=b498447940edee49&fccid=de71a49b535e21cb
-IBM,Watson Health - Data Scientist,Indeed,Austin TX 73344,/rc/clk?jk=c1bc88d1fbfd8c88&fccid=de71a49b535e21cb
-Texan by Nature,Data Analysis Intern,Indeed,Austin TX,/company/Texan-by-Nature/jobs/Data-Analysis-Intern-bea8c0de2a0a3612?fccid=60272c3302a8e071
-CDK Global,Software Development Internship - Austin,Indeed,Austin TX,/rc/clk?jk=1cebb889b301d804&fccid=cf4c744760f4998e
-Colorado River Alliance,Program Coordinator,Indeed,Austin TX,/rc/clk?jk=c043d42b087af77e&fccid=1153f9b6a570cbf3
-Charles Schwab,2018 Schwab Intern Academy: Analytics and Business Insight Intern Track,Indeed,Austin TX 73344,/rc/clk?jk=16079903e7c0f8c6&fccid=3c74eafe288fc8ca
-Nano Global,Engineering Product Development Intern,Indeed,Austin TX,/rc/clk?jk=eee8a480cce817fd&fccid=ee3c12953393e88f
-Rocket Software,Data Scientist Intern (Summer 2018),Indeed,Austin TX,/rc/clk?jk=714676ddbd902349&fccid=f9684e7d32b8c49e
-Rocket Software,Machine Learning Intern (Summer 2018),Indeed,Austin TX,/rc/clk?jk=00a38c7959224bff&fccid=f9684e7d32b8c49e
-CACI,Software Developer Internship,Indeed,Austin TX 78759 (Arboretum area),/rc/clk?jk=6e38c6fe54d5bbb4&fccid=290a4498a64fc044
-Atlassian,2018 Summer Software Developer Intern - Austin TX,Indeed,Austin TX,/rc/clk?jk=aad2c4a5eff31e29&fccid=e6d4ba9e2cfe7902
-National Instruments,Business Application Development Intern 2018,Indeed,Austin TX,/rc/clk?jk=d77449177cfb64e1&fccid=9f94228dbf8b1bd3
-National instrument,Business Application Development Intern 2018,Indeed,Austin TX,/rc/clk?jk=5d15580167f2b46b&fccid=263d9a07b538b758
+company,job_description,job_title,jobsite,location,url
+IBM,"Job Description
+IBM LOGO
+DO YOUR BEST WORK EVER.
+Job DescriptionSTART AND END DATES FOR THIS INTERNSHIP ARE SPRING 2018 (6 Months), SUMMER 2018 (3 Months) and FALL 2018 (6 Months)At IBM we have an amazing opportunity to transform the world with cognitive technology.
+By using the vast amounts of information available today to identify new patterns and make new discoveries, we are helping cities become smarter, hospitals transform patient care, financial institutions minimize risk, and pharmaceuticals find cures for rare diseases.
+Join the forward-thinking teams at IBM solving some of the world’s most complex problems – there is no better place to grow your career!Data Scientist Interns extract knowledge or insights from structured or unstructured data.
+They draw upon the practice of data analysis, using predictive analytics, data mining, pattern recognition, data modeling, machine learning and various statistical methods in order to solve large scale optimization problems and to understand the meaning behind vast data setsData Scientist Interns are in demand across IBM's growth areas.
+You'll be matched and deployed to a team in a strategic business, based on your offered location and fit.
+These are office-based positions in IBM locations including:AZ - PhoenixCA - Almaden, Costa Mesa, Emeryville, Foster City, Redwood City, San Francisco, San JoseCO - DenverGA - AtlantaIL - ChicagoMA - Andover, Cambridge, LittletonMI - Ann ArborMN - RochesterNC - Raleigh-DurhamNY - New York City, North Castle, Poughkeepsie, Yorktown HeightsOH - Cleveland, Dublin, HartlandOR - HillsboroPA - Blue Bell, PittsburghTX - Austin, DallasVT - Essex JunctionOpportunities in these locations will vary based on business demand. What You’ll Do:You will implement and validate predictive models, and create and maintain statistical models with a focus on big data.You’ll communicate with internal and external clients to understand business needs and provide analytical solutions.You will use statistical concepts such as regression, time series, mixed model, Bayesian methods, clustering, etc., to analyze data and provide insights.You’ll work in an Agile, collaborative environment, partnering with other scientists, engineers, and database administrators of all backgrounds and disciplines to bring analytical rigor and statistical methods to the challenges of predicting behaviors.
+Who You Are:You are great at solving problems; debugging; troubleshooting; and designing & implementing solutions to complex technical issues. You thrive on teamwork and have excellent verbal and written communication skills.
+You have strong technical and analytical abilities, a knack for driving impact and growth, and some experience with programming/scripting in a language such as Java or Python.You have a basic understanding of statistical programming in a language such as R,
+SAS, or Python.Required Technical and Professional ExpertiseMust have basic knowledge of statistical concepts such as regression, time series, mixed model, Bayesian methods, clustering, etc., to analyze data and provide insights. Must have basic understanding of statistical programming in a language such as R,
+SAS, or Python.Preferred Tech and Prof ExperienceWilling to travel up to 10%Bachelors or Masters DegreeEO StatementIBM
+is committed to creating a diverse environment and is proud to be an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to race, color, religion, gender, gender identity or expression, sexual orientation, national origin, genetics, disability, age, or veteran status. IBM is also committed to compliance with all fair employment practices regarding citizenship and immigration status.
+Please join our community so you can receive relevant career information.
+*First Name*Last Name*Primary Email
+By clicking ""Connect"" you agree to receive career opportunity information at IBM. Your information will be kept confidential and will never be distributed or sold to any third party.
+©IBM
+THIS IS YOU TO THE POWER OF IBM.
+Follow us
+Linkedin
+Facebook
+Twitter
+Youtube
+ibm-instagram-link
+Blog
+Contact
+Privacy
+Terms of Use
+Accessibility",2018 Data Scientist Internship,Indeed,Austin TX 73344,/rc/clk?jk=7efe33d6388ee124&fccid=de71a49b535e21cb
+IBM,"Job Description
+IBM LOGO
+DO YOUR BEST WORK EVER.
+Job DescriptionSTART AND END DATES FOR THIS INTERNSHIP ARE SPRING 2018 (6 Months), SUMMER 2018 (3 Months) and FALL 2018 (6 Months)At IBM we have an amazing opportunity to transform the world with cognitive technology.
+By using the vast amounts of information available today to identify new patterns and make new discoveries, we are helping cities become smarter, hospitals transform patient care, financial institutions minimize risk, and pharmaceuticals find cures for rare diseases.
+Join the forward-thinking teams at IBM solving some of the world’s most complex problems – there is no better place to grow your career!Data Scientist Interns extract knowledge or insights from structured or unstructured data.
+They draw upon the practice of data analysis, using predictive analytics, data mining, pattern recognition, data modeling, machine learning and various statistical methods in order to solve large scale optimization problems and to understand the meaning behind vast data setsData Scientist Interns are in demand across IBM's growth areas.
+You'll be matched and deployed to a team in a strategic business, based on your offered location and fit.
+These are office-based positions in IBM locations including:AZ - PhoenixCA - Almaden, Costa Mesa, Emeryville, Foster City, Redwood City, San Francisco, San JoseCO - DenverGA - AtlantaIL - ChicagoMA - Andover, Cambridge, LittletonMI - Ann ArborMN - RochesterNC - Raleigh-DurhamNY - New York City, North Castle, Poughkeepsie, Yorktown HeightsOH - Cleveland, Dublin, HartlandOR - HillsboroPA - Blue Bell, PittsburghTX - Austin, DallasVT - Essex JunctionOpportunities in these locations will vary based on business demand. What You’ll Do:You will implement and validate predictive models, and create and maintain statistical models with a focus on big data.You’ll communicate with internal and external clients to understand business needs and provide analytical solutions.You will use statistical concepts such as regression, time series, mixed model, Bayesian methods, clustering, etc., to analyze data and provide insights.You’ll work in an Agile, collaborative environment, partnering with other scientists, engineers, and database administrators of all backgrounds and disciplines to bring analytical rigor and statistical methods to the challenges of predicting behaviors.
+Who You Are:You are great at solving problems; debugging; troubleshooting; and designing & implementing solutions to complex technical issues. You thrive on teamwork and have excellent verbal and written communication skills.
+You have strong technical and analytical abilities, a knack for driving impact and growth, and some experience with programming/scripting in a language such as Java or Python.You have a basic understanding of statistical programming in a language such as R,
+SAS, or Python.Required Technical and Professional ExpertiseMust have basic knowledge of statistical concepts such as regression, time series, mixed model, Bayesian methods, clustering, etc., to analyze data and provide insights. Must have basic understanding of statistical programming in a language such as R,
+SAS, or Python.Preferred Tech and Prof ExperienceWilling to travel up to 10%Bachelors or Masters DegreeEO StatementIBM
+is committed to creating a diverse environment and is proud to be an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to race, color, religion, gender, gender identity or expression, sexual orientation, national origin, genetics, disability, age, or veteran status. IBM is also committed to compliance with all fair employment practices regarding citizenship and immigration status.
+Please join our community so you can receive relevant career information.
+*First Name*Last Name*Primary Email
+By clicking ""Connect"" you agree to receive career opportunity information at IBM. Your information will be kept confidential and will never be distributed or sold to any third party.
+©IBM
+THIS IS YOU TO THE POWER OF IBM.
+Follow us
+Linkedin
+Facebook
+Twitter
+Youtube
+ibm-instagram-link
+Blog
+Contact
+Privacy
+Terms of Use
+Accessibility",2018 Senior Data Scientist Internship,Indeed,Austin TX 73344,/rc/clk?jk=c9d2d46405354ccd&fccid=de71a49b535e21cb
+IBM,"Job Description
+IBM LOGO
+DO YOUR BEST WORK EVER.
+Job DescriptionSTART AND END DATES FOR THIS INTERNSHIP ARE SPRING 2018 (6 Months), SUMMER 2018 (3 Months) and FALL 2018 (6 Months)At IBM we have an amazing opportunity to transform the world with cognitive technology.
+By using the vast amounts of information available today to identify new patterns and make new discoveries, we are helping cities become smarter, hospitals transform patient care, financial institutions minimize risk, and pharmaceuticals find cures for rare diseases.
+Join the forward-thinking teams at IBM solving some of the world’s most complex problems – there is no better place to grow your career!Cognitive Software Developer Interns that enable humans and machines to perform better than either humans or machines alone.
+These systems are designed to create new partnerships between people and machines to augment and scale human expertise in every industry, from healthcare to financial services to education. Cognitive Software Developer Interns are in demand across IBM's growth areas.
+You'll be matched and deployed to a development team in a strategic business, based on your offered location and fit.
+These are office-based positions in IBM locations including: AZ - PhoenixCA - Almaden, Costa Mesa, Emeryville, Foster City, Redwood City, San Francisco, San JoseCO - DenverGA - AtlantaMA - Andover, Cambridge, LittletonMN - RochesterNC - Raleigh-DurhamNY - New York City, North Castle, Poughkeepsie, Yorktown HeightsOH - Cleveland, Dublin, HartlandOR - HillsboroPA - Blue Bell, PittsburghTX - Austin, DallasVT - Essex JunctionOpportunities in these locations will vary based on business demand.What You’ll Do:You will create and maintain machine learning models with a focus on big data. You’ll work in an Agile, collaborative environment to understand requirements, design, code and test innovative applications in areas such as machine learning, computational linguistics, and Natural Language Processing (NLP), advanced and semantic information search, extraction, induction, classification and exploration. You’ll assist with implementing, testing and improving algorithms in these areas, and will proactively identify and file patentable technology. You’ll employ IBM’s Design Thinking to create products that provide a great user experience along with high performance, security, quality, and stability. Who You Are:You are great at solving problems, debugging, troubleshooting, designing and implementing solutions to complex technical issues. You thrive on collaboration, working side by side with engineers and scientists of all backgrounds and disciplines, and you have very strong verbal and written communication skills. You know something about knowledge representation and reasoning. You have a basic understanding of software development and programming in a language such as Java or Python.Required Technical and Professional ExpertiseMust have basic knowledge in one of the following technology areas: Java or Python.Preferred Tech and Prof ExperienceWilling to travel up to 10%Bachelors or Masters DegreeEO StatementIBM
+is committed to creating a diverse environment and is proud to be an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to race, color, religion, gender, gender identity or expression, sexual orientation, national origin, genetics, disability, age, or veteran status. IBM is also committed to compliance with all fair employment practices regarding citizenship and immigration status.
+Please join our community so you can receive relevant career information.
+*First Name*Last Name*Primary Email
+By clicking ""Connect"" you agree to receive career opportunity information at IBM. Your information will be kept confidential and will never be distributed or sold to any third party.
+©IBM
+THIS IS YOU TO THE POWER OF IBM.
+Follow us
+Linkedin
+Facebook
+Twitter
+Youtube
+ibm-instagram-link
+Blog
+Contact
+Privacy
+Terms of Use
+Accessibility",Cognitive / AI / Machine Learning Software Developer Internship 2018,Indeed,Austin TX 73344,/rc/clk?jk=f703d866bcbe77f9&fccid=de71a49b535e21cb
+IBM,"Job Description
+IBM LOGO
+DO YOUR BEST WORK EVER.
+Job DescriptionSTART AND END DATES FOR THIS INTERNSHIP ARE SPRING 2018 (6 Months), SUMMER 2018 (3 Months) and FALL 2018 (6 Months)At IBM we have an amazing opportunity to transform the world with cognitive technology.
+By using the vast amounts of information available today to identify new patterns and make new discoveries, we are helping cities become smarter, hospitals transform patient care, financial institutions minimize risk, and pharmaceuticals find cures for rare diseases.
+Join the forward-thinking teams at IBM solving some of the world’s most complex problems – there is no better place to grow your career!Cognitive Software Developer Interns that enable humans and machines to perform better than either humans or machines alone.
+These systems are designed to create new partnerships between people and machines to augment and scale human expertise in every industry, from healthcare to financial services to education. Cognitive Software Developer Interns are in demand across IBM's growth areas.
+You'll be matched and deployed to a development team in a strategic business, based on your offered location and fit.
+These are office-based positions in IBM locations including: AZ - PhoenixCA - Almaden, Costa Mesa, Emeryville, Foster City, Redwood City, San Francisco, San JoseCO - DenverGA - AtlantaMA - Andover, Cambridge, LittletonMN - RochesterNC - Raleigh-DurhamNY - New York City, North Castle, Poughkeepsie, Yorktown HeightsOH - Cleveland, Dublin, HartlandOR - HillsboroPA - Blue Bell, PittsburghTX - Austin, DallasVT - Essex JunctionOpportunities in these locations will vary based on business demand.What You’ll Do:You will create and maintain machine learning models with a focus on big data. You’ll work in an Agile, collaborative environment to understand requirements, design, code and test innovative applications in areas such as machine learning, computational linguistics, and Natural Language Processing (NLP), advanced and semantic information search, extraction, induction, classification and exploration. You’ll assist with implementing, testing and improving algorithms in these areas, and will proactively identify and file patentable technology. You’ll employ IBM’s Design Thinking to create products that provide a great user experience along with high performance, security, quality, and stability. Who You Are:You are great at solving problems, debugging, troubleshooting, designing and implementing solutions to complex technical issues. You thrive on collaboration, working side by side with engineers and scientists of all backgrounds and disciplines, and you have very strong verbal and written communication skills. You know something about knowledge representation and reasoning. You have a basic understanding of software development and programming in a language such as Java or Python.Required Technical and Professional ExpertiseMust have basic knowledge in one of the following technology areas: Java or Python.Preferred Tech and Prof ExperienceWilling to travel up to 10%Bachelors or Masters DegreeEO StatementIBM
+is committed to creating a diverse environment and is proud to be an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to race, color, religion, gender, gender identity or expression, sexual orientation, national origin, genetics, disability, age, or veteran status. IBM is also committed to compliance with all fair employment practices regarding citizenship and immigration status.
+Please join our community so you can receive relevant career information.
+*First Name*Last Name*Primary Email
+By clicking ""Connect"" you agree to receive career opportunity information at IBM. Your information will be kept confidential and will never be distributed or sold to any third party.
+©IBM
+THIS IS YOU TO THE POWER OF IBM.
+Follow us
+Linkedin
+Facebook
+Twitter
+Youtube
+ibm-instagram-link
+Blog
+Contact
+Privacy
+Terms of Use
+Accessibility",2018 Sr. Cognitive /AI/ Machine Learning Software Developer Internship,Indeed,Austin TX 73344,/rc/clk?jk=b498447940edee49&fccid=de71a49b535e21cb
+IBM,"Job Description
+IBM LOGO
+DO YOUR BEST WORK EVER.
+Job DescriptionAs Watson Health Client Engagement Data Scientist you will be supporting the sales of solutions that will transform healthcare & life sciences with cognitive computing. You will collaborate with a team of modeling scientists and optimization scientists to deliver high quality predictive models and cutting-edge analytical solutions to clients. Expected to have expertise of Advanced Analytics techniques that are traditionally applied to structured data, as well as deep understanding of Natural Language Processing and Machine Learning techniques for unstructured content, so as to enable composition of holistic cognitive solutions. You will work with external clients along with other IBM team members, across business and geographical boundaries, to design and execute projects that are related with Watson Healthcare. Candidates should have a strong coding and/or analytic skills coupled with strong business acumen and an ability to present complex information to nonacademic audiences.Responsibilities:- A client facing role defining solutions and be a trusted advisor for our Watson Health segments- Implement and validate predictive models and ensure successful customer delivery- Communicate with intern/external clients to understand business needs and provide analytical solutions- Research on new statistical methods to model merchandising behavior and recommend algorithms, tools and solutions in alignment with Watson Health’s strategy- Provide industry expertise for key customer engagements during sales cycle.- Support collection and annotation of data for algorithm development and evaluation- Integration of cognitive systems and components in Watson Health architecture, including Watson Health cloud- Collaboration with cross-functional and external teams, as well as clinical partners in support of Watson Health’s offering roadmap Required Technical and Professional Expertise5 year of Experience with large scale real world problems using Data Analytics, Natural Language Processing (NLP), and Machine LearningStrong Programming skills with one or more statistical/machine learning tool (R, Python, Scala)Experience with software systems architecture, web services, web applications, and current software development toolsStrong knowledge of clinical information analytics domain, having applied NLP and machine learning techniques on unstructured data in EMRsDemonstrated collaboration and communication skills; comfortable speaking with both scientific and business audiences at all levels of an organizationPreferred Tech and Prof ExperienceMore than 5 year of experience in Data Mining and in using related Data Mining techniques and Packages (like SPSS, R etc)Strong experience in Machine Learning, including deep learning and statistical modelsInterest or experience with healthcare information protocols and common interoperability standards, such as IHE, HL7, DICOM, XDS and IHE, and healthcare systems such as PACS, EMR, EHR, HIS and RIS;EO StatementIBM is committed to creating a diverse environment and is proud to be an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to race, color, religion, gender, gender identity or expression, sexual orientation, national origin, genetics, disability, age, or veteran status. IBM is also committed to compliance with all fair employment practices regarding citizenship and immigration status.
+Please join our community so you can receive relevant career information.
+*First Name*Last Name*Primary Email
+By clicking ""Connect"" you agree to receive career opportunity information at IBM. Your information will be kept confidential and will never be distributed or sold to any third party.
+©IBM
+THIS IS YOU TO THE POWER OF IBM.
+Follow us
+Linkedin
+Facebook
+Twitter
+Youtube
+ibm-instagram-link
+Blog
+Contact
+Privacy
+Terms of Use
+Accessibility",Watson Health - Data Scientist,Indeed,Austin TX 73344,/rc/clk?jk=c1bc88d1fbfd8c88&fccid=de71a49b535e21cb
+Texan by Nature,"Data Analysis Intern job - Texan by Nature - Austin, TX | Indeed.com
+Skip to Job Description, SearchClose
+Find JobsCompany ReviewsFind SalariesFind ResumesEmployers / Post Job
+Upload your resume
+Sign in
+:
+What
+Where
+Advanced Job Search
+job title, keywords or company
+city, state, or zip
+Data Analysis Intern
+Texan by Nature
+-
+Austin, TX
+$10 an hour -
+Internship
+Internship DescriptionTexan by Nature, a new brand of Texas conservation founded by former First Lady, Laura Bush, is seeking a dedicated intern with an instinct for data analysis to join our team. You will have the opportunity to immerse yourself in the impact-focused world of nonprofit and conservation, working alongside professionals who are passionate about their work and enjoy working together.Ideal candidates are driven, creative, trustworthy, hard-working, and interested in collaborating with great minds to help cultivate change and foster engagement in conservation. This internship program will equip you with the skills necessary to prosper in this industry along with excellent referrals to a wide variety of brands and agencies.LocationTexan by Nature Office3500 Jefferson St., Ste 301 Austin, Texas 78731www.texanbynature.orgTermMinimum of nine weeks between January and May. Specific start/end dates flexible. Minimum of 15 hours per week, with the potential to work up to 25 hours per week depending on workload.ResponsibilitiesAssist the Executive Director, Program Manager, and Symposium Director with data planningResearch conservation ROI metrics and methodologies as directedIdentify data gaps and recommend strategies, reports, and analysis for Conservation measurementWork with program managers to assess and develop repeatable ROI analysis for Conservation Wrangler projectsAttend site visits, conferences, and eventsBecome familiar with and communicate regularly with TxN’s Conservation and Business PartnersPrepare reports using macros and advanced formulas in Excel; build Excel dashboardsPresent data in an easily understood, storytelling formatPerform day to day office administrative tasks, answer phones, check email, take notes, etc.QualificationsUndergraduate or graduate student majoring a science or math based field with a passion for data analysisMust have own transportationStrong writing, communication, and multitasking skillsProficient in Microsoft Office programs, especially Microsoft Excel and Microsoft WordMust represent the office in a professional manner and be willing/able to travel to and from and represent the organization at eventsCompensationTexan by Nature will provide an hourly wage of $10 per hour.ApplicationPlease submit a cover letter, resume, and one writing sample by January 22nd to Taylor Keys, via email. Interviews will occur the first week in February.Applicants will be notified by February 12th of acceptance.Job Type: InternshipSalary: $10.00 /hour
+5 days ago
+-
+save job
+» Apply Now
+Please review all application instructions before applying to Texan by Nature.
+Other jobs you may like
+Electronic Data Interchange (EDI) Business An...
+Adaptivestack Technologies Inc. -
+Austin, TX
+1 day ago
+Easily apply
+Programs Intern
+Texan by Nature -
+Austin, TX
+5 days ago
+Easily apply
+Energy and Performance Analysis Intern
+Intel -
+Austin, TX
+3 days ago
+Desktop Support Analyst
+Blackstone Technology Group -
+Austin, TX
+2 days ago
+Easily apply
+Data Analyst (Healthcare, SQL, ETL, DW, BO, B...
+Oyster Tech Inc -
+Austin, TX
+3 days ago
+Easily apply
+Let employers find youThousands of employers search for candidates on IndeedUpload Your Resume
+About - Help Center
+©2017 Indeed - Cookies, Privacy and Terms
+Let Employers Find You
+Upload Your Resume
+Indeed Salary EstimateWe know salary is a key component of your decision whether or not to apply for a job. So when the hiring company hasn’t provided a salary for a job, we look at salary data from related companies and locations to come up with a reasonable estimate for what you can expect.With over 450,000,000 salaries collected from other jobs and employees, we use one of the biggest salary databases in the world to inform these estimates. And because we are continually adding feedback from users like you, we are able to keep refining our accuracy.These salary estimates are not endorsed by the hiring companies and may vary from what’s actually offered, but we have a pretty great record of getting close enough for you to make an informed decision.Is this your job listing? Send us feedback to correct an inaccurate salary estimate.",Data Analysis Intern,Indeed,Austin TX,/company/Texan-by-Nature/jobs/Data-Analysis-Intern-bea8c0de2a0a3612?fccid=60272c3302a8e071
+CDK Global,"Software Development Internship - Austin
+English
+French
+Czech
+Spanish
+View Profile
+Home
+About Us
+North America
+International
+Featured Jobs
+Software Engineer Jobs
+Customer Support Jobs
+Product Management Jobs
+Implementation Jobs
+Digital Marketing Jobs
+Sales Jobs
+Finance Jobs
+Jobs in the Americas
+Jobs in Europe, Middle East and Africa
+Jobs in Asia Pacific
+Locations
+Join Our Talent Community
+Featured Jobs
+Software Engineer Jobs
+Customer Support Jobs
+Product Management Jobs
+Implementation Jobs
+Digital Marketing Jobs
+Sales Jobs
+Finance Jobs
+Jobs in the Americas
+Jobs in Europe, Middle East and Africa
+Jobs in Asia Pacific
+Not finding a job?
+Join Our Talent Community
+View All Jobs
+Search Jobs
+Search Jobs
+Share this Job
+Create Alert
+×
+Send me alerts every
+days
+Join with LinkedIn
+Join with Facebook
+Join Now
+Start
+Please wait...
+Software Development Internship - Austin
+Apply now »
+Apply now
+Start apply with LinkedIn
+Start apply with Facebook
+Apply Now
+Start
+Please wait...
+Apply now
+×
+Apply for Job
+×
+×
+×
+Enter your email to apply
+Date:
+Dec 8, 2017
+Location:
+Austin, TX, US
+Company:
+CDK
+Job Description
+Stability meets Agility.
+With more than $2 billion in revenues, CDK Global (NASDAQ:CDK) is a leading global provider of integrated information technology and digital marketing solutions to the automotive retail industry.  CDK Global provides solutions in more than 100 countries, serving more than 27,000 retail locations and most automotive manufacturers.
+CDK Global’s solutions automate and integrate critical processes from pre-sale targeted advertising to the sale, financing, insurance, parts supply, repair and maintenance of vehicles, with an increasing focus on utilizing data analytics and predictive intelligence.
+From data scientists to sales and operations experts, we’re hiring to support your growth and ours - Green light your career.
+CDK Global Stability meets Agility.  CDK is one of the largest technology providers to the automotive industry, with more than 26,000 dealer sites in over 100 countries and nearly 9,000 employees worldwide. From data scientists to sales and operations experts, we’re hiring to support your growth and ours.
+CDK Global works in a broad variety of technologies, so your Java, .Net, C#, C++, JavaScript, HTML5, CSS3 or any one of a broad range of technologies and skills may work well with us. We work on software that is used by consumers to shop for cars (or trucks or boats or motorcycles or tractors or more), as well as the systems used by about two-thirds of the dealers in the US to take care of their customers and their interface with the manufacturers. If you recently ordered a Ferrari, or a Ford, you likely have used our products!
+The most important thing to us about you is that you have a passion for working on cool stuff. And can work well with cool people. We love the energy shown in your projects (and those side projects you do, ‘just for you’). And we love that you can get in a room with amazing developers and learn and teach and contribute and grow. Our Agile, collaborative approach is important to everyone here.
+So, if you have software development skills and interests, and can enjoy joining a team that is building on our market leading, Fortune 1000 product mix, we want to hear from you. Perhaps you will work oniOS or Android, Cloud Computing or Big Data, AngularJS or the next cutting-edge thing. We are in all those areas and more.
+As a Software Development Intern you will help to engineer the next generation of enterprise class software solutions at CDK utilizing a broad range of the latest technologies. The intern's primary responsibilities include development of services and components (design, coding, testing). The internship will provide hands-on technical experience and will work with other team members, architects and product owners in the early and continuous delivery of high quality software products that delight our customers. Student must be a results oriented individual, who can use agile software development principles to achieve the desired business outcome.
+What you bring to the table:
+Software skills
+A great attitude
+A drive to learn and innovate
+Computer Science/Computer Engineering degree in progress, ideally as a Junior
+The ability to participate in a Summer internship program of 10+ weeks (June start date)
+CDK Global is an Equal Opportunity Employer; Minorities/Women/Veterans/Disabled.
+We believe that diversity in all aspects of business leads to strength.
+Nearest Major Market: Austin
+Job Segment:
+Developer, Cloud, Supply, Computer Science, Advertising, Technology, Operations, Marketing
+Apply now »
+Apply now
+Start apply with LinkedIn
+Start apply with Facebook
+Apply Now
+Start
+Please wait...
+Apply now
+×
+Apply for Job
+×
+×
+×
+Enter your email to apply
+Find similar jobs:
+Technology Jobs in Austin,
+Supply Jobs in Austin,
+Software Engineer Jobs,
+Operations Jobs in Austin,
+Jobs in the US, Canada and Mexico
+×
+Sign in
+We noticed that you are already a member of our Talent Community. Please enter your password to continue.
+Email*
+Not you?
+Password*
+Forgot Password?
+Submit
+Cancel
+* required field
+×
+Sign in
+We noticed that you are already a member of our Talent Community. Please enter your password to continue.
+Email*
+Not you?
+Password*
+Forgot Password?
+Submit
+Cancel
+* required field
+×
+Account Verification
+We noticed you have accounts in our “Talent Community"" and “Application"" systems. We take security seriously and need to verify your identity to synchronize your accounts.
+Account Email:
+Please follow these steps to synchronize your accounts.
+1. Reset your password:
+The ""reset password"" link will open in a new browser window. Return to this page to enter your new password.
+Click here to reset your Password
+2. Enter your NEW password here:
+Submit
+Cancel
+×
+Account Verification
+We noticed you have accounts in our “Talent Community"" and “Application"" systems. We take security seriously and need to verify your identity to synchronize your accounts.
+Account Email:
+Please follow these steps to synchronize your accounts.
+1. Reset your password:
+The ""reset password"" link will open in a new browser window. Return to this page to enter your new password.
+Click here to reset your Password
+2. Enter your NEW password here:
+Submit
+Cancel
+×
+Account Verification
+Your accounts have been successfully synchronized. Use your new password when accessing our systems.
+Confirm
+×
+Account Verification
+Your accounts have been successfully synchronized. Use your new password when accessing our systems.
+Confirm
+×
+Already a Member
+You are already a user of this site. Please sign in.
+Email*
+Not you?
+Password*
+Forgot Password?
+Sign in
+Cancel
+* required field
+×
+Already a Member
+You are already a user of this site. Please sign in.
+Email*
+Not you?
+Password*
+Forgot Password?
+Sign in
+Cancel
+* required field
+×
+Start Your Application
+Existing Users
+Email*
+Password*
+Forgot Password?
+Sign in
+* required field
+New Users
+Create a new account now!
+Start Your Application
+Receive Email Updates
+Join our Talent Community
+Create
+×
+Create Profile
+Working...
+Next »
+×
+Create Profile
+Working...
+Next »
+What does CDK Global do:
+Powering automotive retailing globally. From Engineers to Executives, CDK is hiring to fuel your growth and ours.
+Sign Up for Job Email Alerts
+We'd like to network with you.
+CDK Global International
+www.cdk-global.com
+CDK Global North America
+www.cdk.com
+View More Information
+CDK Global International
+www.cdk-global.com
+International Twitter
+International Facebook
+International LinkedIn
+International YouTube
+International Weibo
+CDK Global North America
+www.cdk.com
+North America Twitter
+North America Faceboo
+North America LinkedIn
+North America YouTube
+CDKGlobal.com
+View All Jobs
+Top Job Searches
+Featured Jobs
+Software Engineer Jobs
+Customer Support Jobs
+Product Management Jobs
+Implementation Jobs
+Digital Marketing Jobs
+Sales Jobs
+Finance Jobs
+Jobs in the Americas
+Jobs in Europe, Middle East and Africa
+Jobs in Asia Pacific
+Privacy Policy
+US: © 2017 CDK Global, LLC / CDK Global is a trademark of CDK Global, LLC.
+CDKGlobal.com
+View All Jobs
+Top Job Searches
+Featured Jobs
+Software Engineer Jobs
+Customer Support Jobs
+Product Management Jobs
+Implementation Jobs
+Digital Marketing Jobs
+Sales Jobs
+Finance Jobs
+Jobs in the Americas
+Jobs in Europe, Middle East and Africa
+Jobs in Asia Pacific
+Privacy Policy",Software Development Internship - Austin,Indeed,Austin TX,/rc/clk?jk=1cebb889b301d804&fccid=cf4c744760f4998e
+Colorado River Alliance,"Program Coordinator #0007 job at Colorado River Alliance in Austin, TX, powered by JobScore
+Colorado River Alliance
+Your browser cookies must be enabled in order to apply for this job. Please contact support@jobscore.com if you need further instruction on how to do that.
+Program Coordinator
+Program | Austin, TX | Full Time
+Job Description
+BACKGROUND
+The Colorado River Alliance (the Alliance) is a not-for-profit organization that champions the long-term vitality of the Texas Colorado River through education and engagement. (More info at www.ColoradoRiver.org.) We are seeking a Program Coordinator to manage one of the Alliance’s signature education initiatives, the Mobile River Program. Launched in 2015 and featuring the award-winning Texas Colorado River Rolling Exhibit (a.k.a., the Mobile River), this program’s primary audience is Austin Independent School District 7th graders and educators. In addition, this water-science-center-on-wheels visits community events and, on occasional one- and two-week trips, middle schools across the state within the Texas Colorado River’s watershed. The program was developed to help students, including at-risk and underserved students, learn vital concepts such as water conservation, aquatic science, the uses of water, and healthy river ecosystems. Our goal is to inspire the next generation of water scientists and leaders. The Mobile River was developed and operates in partnership with the City of Austin’s water utility, Austin Water, and the Austin Independent School District. A short video about this program is available here.
+The Program Coordinator’s principal duties focus on (1) coordinating with school personnel and managing a robust school-visit program for 5,500 7th-grade students annually, along with visits to about 10 community events per year; (2) training and coaching 7th-grade teachers daily on using the Mobile River’s curriculum units, classroom models, and instructional materials; and (3) managing the operating systems of a mobile science center, including electrical and computer systems, fuel and HVAC systems, technology-based exhibit functions, and trailer set-up and close-down.
+JOB RESPONSIBILITIES
+Program Management
+• Manage day-to-day operations of the Alliance’s Mobile River program including planning and execution of school-campus visits during the school year and deployment to public events.
+• Provide on-site support to Mobile River school-campus and event visits including exhibit deployment; teacher training and orientation; exhibit supervision and curatorship; data collection; and assistance in teaching classroom curriculum.
+• Maintain professional correspondence with school teachers and administrators for training sessions, program marketing, school-visit scheduling, program updates, and more.
+• Conduct program evaluations, collect educator feedback and student test data, and communicate results and recommendations to managers, program partners, and other stakeholders.
+• Develop and maintain relationships with community organizations and school districts to propel Mobile River programming and teacher utilization of Mobile River and associated teaching curriculum.
+• Establish and maintain collaborative relationships with Alliance employees and volunteers, transportation crews, community organizations and schools, and public-event coordinators.
+• Drive the strategic growth of bilingual programming to support Spanish-speaking visitors.
+• Maintain all program files, databases, and teaching materials. Conduct inventory, maintain supply levels, and restock as necessary.
+• Provide basic support and coordinate maintenance for the deployment and operation of this trailer-based educational exhibit system, including trailer slide-outs, wheelchair lift, generator and HVAC checks, computer systems, and fueling.
+• Make occasional presentations to community groups, such as attendees at education conferences.
+Volunteer Management
+• Manage up to 6 volunteers and interns per programming season (fall, summer, spring), including training, professional and educational development, and active daily coaching.
+• Co-coordinate and implement volunteer and intern recruitment, training, and management with the Alliance’s Program Director, including seasonal Volunteer Open Houses and volunteer-appreciation events.
+General Alliance Responsibilities
+• Work with Alliance staff on major events and projects as needed, such as Alliance fundraising events, Barstow Speaker Series luncheons, and the annual Lake Travis Cleanup.
+• Assist with the Alliance’s social media presence by posting on various platforms, multiple times each week.
+• Represent the Alliance to the public and help spread its message and mission.
+• Take on non-traditional office tasks as needed, such as running errands for events and participating in outdoor recreational programs, etc.
+• Maintain a basic familiarity with current water issues and trends affecting the Texas Colorado River.
+MINIMUM REQUIREMENTS
+• Fully bilingual in Spanish and English.
+• Bachelor’s degree, plus a minimum of one year’s experience of teaching school or managing in-school programs. Preference for more than one year’s teaching experience and specific background in public middle-school work.
+• Must be highly motivated, energetic, deadline-oriented, and able to handle multiple priorities on a daily basis.
+• Must enjoy working with children and community members.
+• Must have a basic background in environmental science, aquatic science, or a relevant STEM discipline.
+• Excellent interpersonal skills as well as verbal and written communication skills.
+• Comfortable working closely and continuously with a variety of people on a day-to-day basis.
+• Strong computer literacy (Word, Excel, basic website content administration such as WordPress).
+• Must enjoy making public presentations and discussing water science and issues with a wide diversity of visitors.
+• Favorable results of all necessary background checks.
+• Position includes regular lifting of objects up to 40 lbs. and daily outdoor work.
+The Program Coordinator reports to the Program Director and works collaboratively with Alliance staff and volunteers.
+This staff person functions with a high degree of independence and must take daily initiative in structuring and implementing the Mobile River Program's school and community-event programming. The Program Coordinator travels 4–6 weeks per year, working inside an air-conditioned/heated mobile education facility, attending public events, and working at approximately 20 school campuses in Austin and across the Texas Colorado River basin annually. Daily travel regularly includes transporting education equipment in a personal vehicle. The Program Coordinator is asked to work with and maintain mobile-facility support systems like generators and batteries. The Program Coordinator works and transports gear in a variety of weather conditions, including heat and rain.
+Salary $40,000. Expected Start Date: No later than January 1st, 2018.
+Excellent benefits include paid health, dental, and vision insurance; generous PTO program; retirement contributions; mileage reimbursements; a flexible work environment; and an office on Lady Bird Lake.
+The Colorado River Alliance is committed to providing a non-discriminatory employment environment for its employees. As an Equal Opportunity Employer, we do not discriminate on the basis of age, religion, gender identity, sexual orientation, ethnicity or national origin, socioeconomic class, or physical impairments.
+NOTE: The ""Apply"" button below is not an acceptable way to apply, because our website form includes some initial application and screening questions. Applications will be reviewed as they are received, and this position is open until filled.
+Return to Colorado River Alliance
+Apply for this job
+Apply for this job
+Apply for this job
+SHARE
+Not the right job?
+Join our Talent Network
+Return to Colorado River Alliance
+POWERED BY
+APPLICANT TRACKING",Program Coordinator,Indeed,Austin TX,/rc/clk?jk=c043d42b087af77e&fccid=1153f9b6a570cbf3
+Charles Schwab,"2018 Schwab Intern Academy: Analytics and Business Insight Intern Track
+Job in Austin, TX at Schwab
+Charles Schwab Corporation
+WHO WE ARE
+WHAT WE DO
+LEADERSHIP
+CAREERS
+CITIZENSHIP
+PERSPECTIVES
+Investor Relations
+Governance
+NEWS ROOM
+Diversity
+Financial Consultants
+Grads and Students
+Veterans
+Women
+Events
+Careers Home
+> Job Details
+2018 Schwab Intern Academy: Analytics and Business Insight Intern Track
+Apply Now
+Job ID: 1101-36920
+Job Category: Campus Programs/Internships
+Relevant Work Experience: No Work Experience
+Current Licenses / Certifications: None
+Position Located In: TX - Austin, AZ - Phoenix, CO - Lone Tree, CA - San Francisco
+Education: BA/BS
+Job Type: Full Time
+Description: Austin - TX, AUS1, 2309 Gracy Farms Lane, 78758Amy Elizabeth Munson1101-36920We believe that, when done right, investing liberates people to create their own destiny. We are driven by our purpose to champion every client’s goals with passion and integrity. We respect and appreciate the diversity of our employees, our clients, and the communities we serve. We challenge conventions strategically to create value for our clients, our firm and the world. We live and bring to life the concept of ‘own your tomorrow’ every day. We champion our employee strengths, guide their development, and invest in their long-term success. We hire optimistic, results-oriented, curious, innovative, and adaptable people with the desire to help our clients and one another succeed.
+As a company, we were established by Chuck over 40 years ago to champion Main Street over Wall Street, and to help Americans transform themselves from earners to owners. Through advocacy and innovation, we work to make investing more affordable, accessible and understandable for all.  As we enter our fifth decade, we are looking for talented, innovative and driven people who believe they can help themselves, and our clients, create a better future.
+Our Opportunity:
+Work with a company that has been challenging the conventions of the financial services industry for over 40 years through an internship with Charles Schwab. Schwab’s mission is to help our clients create a better future for themselves, their families, and their communities. It is summed up in our tagline – Own your tomorrow – and it permeates everything we do.
+Schwab Intern Academy is our centrally managed summer internship program that recruits juniors and rising seniors within a year of graduation. As an affirmative action employer, Schwab takes affirmative action to employ qualified minorities, women, individuals with disabilities, and protected veterans in our intern program.  As a culture that values Diversity and Inclusion, Schwab encourages the application of Women, Minorities, Individuals with Disabilities and Protected Veterans.
+The design of the program invites interns to engage directly in Schwab’s culture of service, while challenging them with a blend of learning programs, team-building activities, networking opportunities, and enriching work projects. Features of our 2018 program include:
+Business Track Project: Work with a Schwab organization that provides a meaningful and valuable experience to translate classroom learning into real business projects.
+Intern Cohort Project: Partner with other interns to brainstorm, discuss learning experiences, and present solutions.
+Learning Activities: Participate in facilitated classroom training, team discussions and events, individual assessments and activities, senior leader meetings, and on-the-job training.
+Feedback Loop: Receive regular feedback from your manager, participate in career-related discussions, and provide your own feedback.
+Strengths Application: Learn about yourself and how to apply your unique strengths, abilities, and goals to the work you do as part of Schwab’s ‘strengths-based’ culture.
+Networking: Gain support by interacting with professionals across Schwab, including senior leaders, peers, and Schwab Intern Academy Alumni.
+We look for students with:
+Optimism and curiosity, who are inspired by a keen sense of purpose, awareness, and knowledge
+Adaptability and flexibility, who enjoy working through cross-functional partnerships and collaboration to achieve a common purpose
+An innovative and questioning mindset, who constantly look for better ways to do things, have  a passion for service, and aim to exceed client expectations
+Because interns are considered a primary pipeline for full-time opportunities, every intern candidate must be eligible for full-time employment upon graduation and must also meet the following requirements:
+Enrolled in a current undergraduate program tracking to a bachelor’s degree
+Plan to graduate between December 2018 and May/June 2019
+Can work full time and on-site at Schwab during the 9-week program (June 11 to August 10)
+Have specific skills as needed by the hosting Business Track
+Schwab is recognized as an industry leader, and our welcoming culture will embrace your individuality and partner you with other like-minded and solution-focused students. We will invest in your summer experience by providing you direction and leadership for a robust and well-rounded internship, as well as helping you focus on a potential future career with Schwab.
+Please Note: The 2018 Schwab Intern Academy features multiple job opportunities. We encourage you to apply for all positions for which you are qualified and interested. Regardless of which opportunity you pursue, we will provide you with a consistent and unique experience – one you won’t soon forget!
+Analytics and Business Insight Intern Track
+Analytics and Business Insight is a department of 150+ team members focused on firm-wide strategic decision support, client behavior diagnostics, advanced analytics, market research, client loyalty, management reporting, and client and prospect data management. Our mission is to help Schwab compete on analytics – in particular, to serve our clients and cultivate their loyalty by understanding their needs and goals better than anyone, and then to make data-driven, strategic decisions. Our services are in heavy demand due to our reputation for accuracy, strong business insight, outstanding productivity, and attention to detail.
+Are you interested in learning how to discover insights and influence others to turn them into action? As an intern with our group you will develop the skillset to deliver quantitative and qualitative insights to support data-driven decision making and measure the impact.  We work collaboratively across the company to drive strategic thinking and deliver impactful analysis and reporting.
+What you'll do:
+Analytics Interns
+The Analytics function at Charles Schwab provides advanced quantitative analyses to deliver insights to help business partners and senior leadership better understand our prospects, clients, and products. These insights help guide Charles Schwab in the development of new product/service offerings, better target prospects and clients, increase acquisition of desired prospects, understand the ROI of advertising and marketing promotions, and identify strategies to grow client engagement, retention, and loyalty.  Our analytical services are in heavy demand across the firm as our team is a critical component in Schwab’s commitment to being a leading data-driven organization.
+During the course of the summer you will learn how analytics supports a large organization including being able to successfully articulate the linkage between business decisions, business objectives, and analytical approaches & findings. You will work on a specific analytics problem under the guidance of an experienced analytics manager that will involve development of an analytical framework, identifying data needed to solve the problem, exploring and visualizing data, developing conclusions and building a final presentation deck.  During the process you will develop contextual skills with analytical tools such as SAS, R, SQL, Excel and Tableau.
+Business Intelligence Intern
+The Business Intelligence function is an internal consulting group that leverages data, analytics and research to build out measurement, reporting, and analytics solutions that help our business partners track progress and make strategic business decisions to grow the business.  These solutions help Charles Schwab track new product/service offerings, better understand prospects and clients, increase acquisition of desired prospects, understand the ROI of advertising and marketing promotions, and identify strategies to grow client engagement, retention, and loyalty.  Our measurement and reporting solutions are in heavy demand across the firm as our team is a critical component in Schwab’s commitment to being a leading data-driven organization.
+During the course of the summer you will learn how business intelligence solutions support a large organization including how to leverage an analytic mindset to develop reporting solutions to drive informed decision making across product and business lines. You will work on a specific business intelligence project under the guidance of an experienced business intelligence manager that will involve development of business intelligence assets involving complex data sets, identifying key trends and visualizing those findings into a final presentation.  During the process you will develop contextual skills with analytical and reporting tools such as Tableau, SQL, Excel, SAS, and R.
+Data Science Intern
+The Data Science team at Charles Schwab provides advanced capabilities in Machine Learning, Data Mining and Statistical Analyses to deliver actionable insights to help business partners and senior leadership better understand our prospects, clients, and products. These insights help guide Charles Schwab in the development of new product/service offerings, better target prospects and clients, increase acquisition of desired prospects, understand the ROI of advertising and marketing promotions, and identify strategies to grow client engagement, retention, and loyalty.  Our services are in heavy demand across the firm as our team is a critical component in Schwab’s commitment to being a leading data-driven organization.
+During the course of the summer you will learn how data science and machine learning supports a large organization including being able to successfully articulate the linkage between business decisions, business objectives, and analytical approaches & findings. You will work on a specific data science problem under the guidance of an experienced data scientist that will involve development of a methodology framework, identifying datasets needed to solve the problem, exploring and visualizing data, developing conclusions and creating a final presentation. During the process you will develop contextual skills with the latest data science tool stack within the R, Python and Spark ecosystems.
+What you have:
+Planned graduation date between December 2018 and May/June 2019, earning a bachelor’s degree in Economics, Psychology, Hard Sciences, Applied Math, Computer Science, Information Systems, Information Technology, Engineering, Operational Research, Finance or a similar major.
+Coursework or interest in learning SQL, SAS, Excel, R, Python, Spark or Tableau.
+Curiosity to learn how to work with and interpret large data sets and turn the findings into actionable insights.
+Excellent communication skills (written and verbal)
+Excellent  organizational skills, enabling one to manage multiple priorities
+Ability to build strong relationships and work effectively with various levels of the organization throughout the Company
+Charles Schwab & Co., Inc. is an equal opportunity and affirmative action employer committed to diversifying its workforce. It is Schwab's policy to provide equal employment opportunities to all employees and applicants without regard to race, color, religion, sex (including pregnancy, childbirth, breastfeeding, or related medical conditions), gender identity or expression, national origin, ancestry, age, disability, legally protected medical condition, genetic information, marital status, sexual orientation, protected veteran status, military status, citizenship status or any other status that is protected by law. Schwab also does not discriminate against applicants or employees because they have inquired about, discussed, or disclosed their own pay or the pay of another employee or applicant.  At Schwab, we believe that every employee, through their diverse abilities and experiences, can contribute to our growth, innovation and client loyalty. We embrace diversity and are committed to providing equal opportunity to all employees and applicants. If you have a disability, and require reasonable accommodations in the application process, call Human Resources at 800-725-3535. We will be happy to assist you. Schwab will only share your accommodation request with those individuals who have a specific need to know. The request for an accommodation will not affect Schwab’s hiring decisions. All other submissions should be performed online.
+Charles Schwab & Co., Inc. will consider for employment qualified applicants with criminal histories consistent with San Francisco ordinance 17-14 and federal law and regulations applicable to Charles Schwab.
+Job Specifications
+Relocation Offered?:
+No
+Work Schedule:
+Days
+Languages:
+English - spoken
+Current Licenses / Certifications:
+None
+Relevant Work Experience:
+No Work Experience
+Position Located In:
+TX - Austin, AZ - Phoenix, CO - Lone Tree, CA - San Francisco
+Education:
+BA/BS
+Job Type:
+Full Time
+Category:Campus Programs/Internships
+Activation Date: Wednesday, November 1, 2017
+Expiration Date: Saturday, November 25, 2017
+Apply Here
+Apply Now
+Link for schema
+Brokerage Products: Not
+FDIC Insured • No Bank Guarantee • May Lose Value
+Charles Schwab & Co., Inc. is an equal opportunity and affirmative action employer committed to diversifying its workforce.
+It is Schwab's policy to provide equal employment opportunities to all employees and applicants without regard to race, color, religion, sex
+(including pregnancy, childbirth, breastfeeding, or related medical conditions), gender identity or expression,
+national origin, ancestry, age, disability, legally protected medical condition, genetic information, marital status, sexual orientation, protected veteran status, military status, citizenship status or any other status that is protected by law.
+Schwab also does not discriminate against applicants or employees because they have inquired about, discussed, or disclosed their own pay or the pay of another employee or applicant.
+At Schwab, we believe that every employee, through their diverse abilities and experiences, can contribute to our growth, innovation and client loyalty. We embrace diversity and are committed to providing equal opportunity to all employees and applicants. If you have a disability, and require reasonable accommodations in the application process, call Human Resources at 800-725-3535. We will be happy to assist you. Schwab will only share your accommodation request with those individuals who have a specific need to know. The request for an accommodation will not affect Schwab’s hiring decisions. All other submissions should be performed online.
+The Charles Schwab Corporation provides a full range of securities, brokerage, banking, money
+management, and financial advisory services through its operating subsidiaries. Its broker-dealer
+subsidiary, Charles Schwab & Co., Inc. (“Schwab”),
+Member
+SIPC
+, offers investment services and products, including Schwab brokerage accounts. Its banking
+subsidiary, Charles Schwab Bank (member FDIC and an Equal Housing Lender), provides deposit and lending
+services and products.
+© Charles Schwab & Co., Inc. (Member SIPC) All rights reserved. (1115-7068)
+Contact
+Site map
+Schwab.com
+Facebook
+Twitter
+YouTube
+LinkedIn
+Google Plus
+Powered by SmashFly",2018 Schwab Intern Academy: Analytics and Business Insight Intern Track,Indeed,Austin TX 73344,/rc/clk?jk=16079903e7c0f8c6&fccid=3c74eafe288fc8ca
+Nano Global,"Nano Global - Jobs: Engineering Product Development Intern - Apply online
+All jobs
+→
+Engineering Product Development Intern
+Engineering Product Development Intern
+Austin, Texas, United States · Engineering
+DescriptionNano Global is seeking an Engineering Product Development Intern to join our team of creative entrepreneurs, scientists, and technologists (and other interns!) developing and delivering innovative solutions to human and environmental health problems. The Engineering Interns will work on new product development projects in an engineering lab environment conducting research, development, and prototyping of multiple hardware products that will comprise Nano’s molecular data sensing, processing and communicating systems. The ideal team member is passionate about engineering R&D and prototyping for highly innovative technology commercialization creating real commercial product opportunities, and is highly motivated by our mission to do good in the world. Responsibilities Engineering Product Development Interns will work on R&D projects in the following areas:
+Optical Engineering Evaluation, feasibility testing, prototyping related to utilization of optical sensors for in situ data capture Research, evaluation, development of miniaturized optical sensors including environmental bio- and chemo- sensors and spectroscopy Research, evaluation, development of sensor fusion hardware and methods, connecting multiple sensors together
+Systems Engineering / Robotics / Electrical Engineering Evaluation, feasibility testing, prototyping related to utilization of networked low-power wireless devices for monitoring of environmental health conditions – both stationary and mobile. Includes both custom development and modification of off-the-shelf products Deconstruction and re-engineering of current commercial products for ideation for future products
+Software engineering / Data Science Large scale database development and correlation of incoming data from multiple data libraries including image processing and machine learning
+RequirementsDesired skills and experience include the following
+Engineering students at the university Junior or Senior level with coursework and/or experience, and demonstrated passion in any of the following: Biomedical Engineering
+Electrical Engineering Systems Engineering
+Software Engineering and Data Science AI and Machine Learning
+Strong desire to work on prototyping solutions using interdisciplinary engineering skills Ability to take technology out of the controlled laboratory setting into real world applications
+Self-motivated, self-starter able to thrive and contribute in a creative, unstructured environment Entrepreneurial mindset with a strong desire to create real solutions to critical health issues Demonstrated resourcefulness and ability to find feasible sources and options appropriate to the problem set Strong communication skills with ability to communicate complex technical and engineering content between disciplines and to differing stakeholders Strong sense of curiosity and desire to conduct primary and secondary research Candidates must be in the Austin, TX area to be considered, and must be able to work from our Central Austin office location. Benefits Hands-on experience with highly innovative technology commercialization, working with a team pursuing a vast market opportunity, with strong investment backing and proven development partners, and a serially successful entrepreneurial leadership team.
+Practical, real-life utilization and application of technology directly related to engineering studies - researching and developing beyond the lab and classroom. Highly relevant experience in the field, to complement and enhance the academic environment. $12 / hour
+Apply for this job
+Use your Indeed resume
+to apply for this job
+Nano Global website
+Powered by
+Workable",Engineering Product Development Intern,Indeed,Austin TX,/rc/clk?jk=eee8a480cce817fd&fccid=ee3c12953393e88f
+Rocket Software,"Rocket Software Careers
+HomeCareersAbout Rocket SoftwareHelpful Hints for Applicants
+Search Current OpeningsUpdate Your ProfileCreate a Job AgentUpdate Job Agent
+Your user session will timeout in 5 minutes.
+Please click OK to continue with your application.
+Data Scientist Intern (Summer 2018)
+Tracking Code
+1080-509
+Job Description
+Rocket Software is building a next generation experience for database and system administration founded on a simple idea: offer our users a substantially more efficient, intelligence augmented and value-added way to accomplish their tasks. As an integral part of a new Advanced Analytics team, you will be responsible for implementing a new, innovative and highly collaborative cross-functional analytics program, by leveraging, extending and introducing new organizational capabilities and technology assets. You will have opportunity to experience working in fast-paced team with ample opportunities to shine.
+The ideal candidate is a creative and passionate problem-solver who thinks big, acts quickly, and is motivated to develop new approaches to optimizing operational efficiencies using quantitative techniques, machine learning methods, and cutting-edge technology. We are looking for someone with strong experience solving difficult IT and system optimization problems.
+What You'll Be Doing:
+Engage broadly with the end-users to frame, structure and prioritize operational efficiency problems where analytic projects or tools can have the biggest impact for the end-user's efficiency.Help the senior data scientist perform large-scale statistical research, analysis, and modeling in the areas of machine data (activity records, interaction graphs, performance data, etc.), optimizations, forecasting, and anomaly detection.Work closely with a team of machine learning engineers to deploy and maintain models in production environments. Implement optimization algorithms, working with cross-functional teams to develop and deploy models as needed
+Required Skills
+What You'll Bring:
+Experience working with SQL and NOSQL data sources
+Experience working with Spark, Hadoop
+Fluent with experimental design
+Fluency with statistical and machine learning algorithms such as decision trees, neural networks, collaborative filtering, clustering, survival analysis, graph theory, etc.
+Experience with deep learning frameworks such as TensorFlow, CNTK, Caffe (preferred)
+Experience with time series analysis and forecasts
+Knowledge of visualization tools such as d3.js
+Strong scripting skills in bash and at least one analytic programming language (python or R)
+Excellent writing and verbal communication
+Willingness to push boundaries and be uncomfortable
+Why Join Us?
+The internship experience will provide an insider view of how a fast moving, innovative, and entrepreneurial company operates through an exciting and challenging work experience. Our interns will operate as a team to design and build, from the ground up, brand new and innovative applications related to statistical analysis, and supervised machine learning.
+The “Rocketship” is also designed to give you multiple opportunities to interact with members of Rocket Software’s Executive Team, an invaluable chance to showcase your skills and start building a network of professionals for future internships or post-graduate work.
+Our program includes participation in a professional development program together with other interns with a goal to develop and deliver an executive level presentation to senior members of Rocket Software’s Executive Team at the end of the summer.
+Rocket Software Inc. is committed to creating a diverse environment and is proud to be an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to race, color, religion, gender, gender identity or expression, sexual orientation, national origin, genetics, disability, age, or veteran status. Rocket Software Inc. is also committed to compliance with all fair employment practices regarding citizenship and immigration status.
+Rocket is committed to working with and providing reasonable accommodation to individuals with physical and mental disabilities.  If you need special assistance or an accommodation while seeking employment, please call: 781-577-4321 or send an email to hr@rocketsoftware.com.  We will make a determination on your request for reasonable accommodation on a case-by-case basis.
+Job Location
+Austin, Texas, United States
+Position Type
+Intern
+Apply
+Connect
+Who do you know at
+Rocket Software
+Share
+Return To Job Listings
+Contact Us Site Map Legal Privacy Policy
+Rocket Software develops, licenses, and supports enterprise infrastructure software and solutions.
+Rocket services customers in all geographies through our worldwide sales force, support team, and R&D labs.
+Our customers deploy our products in these strategic infrastructure domains: application development, application modernization, business intelligence, compliance and security, consumer productivity, database servers, database tools, file transfer, mainframe productivity, network management, publishing and search, SOA and integration, storage management, terminal emulation,
+and text mining.
+© 2012 Rocket Software, Inc. All rights reserved.
+Rocket and the Rocket Software logos are registered trademarks of Rocket Software, Inc.
+Other product and service names might be trademarks of Rocket Software or other companies.
+Rocket Software
+77 Fourth Avenue
+Waltham, MA 02451-1468
+t +1 781 577 4321
+w www.rocketsoftware.com
+e info@rocketsoftware.com
+Privacy Policy | Legal",Data Scientist Intern (Summer 2018),Indeed,Austin TX,/rc/clk?jk=714676ddbd902349&fccid=f9684e7d32b8c49e
+Rocket Software,"Rocket Software Careers
+HomeCareersAbout Rocket SoftwareHelpful Hints for Applicants
+Search Current OpeningsUpdate Your ProfileCreate a Job AgentUpdate Job Agent
+Your user session will timeout in 5 minutes.
+Please click OK to continue with your application.
+Machine Learning Intern (Summer 2018)
+Tracking Code
+1081-509
+Job Description
+The Emerging Technology Research team at Rocket is looking for a passionate Machine Learning Engineer to help us implement and deploy advanced analytic models that enable the intelligence for an enterprise scale real-time cognitive feedback engine.  You will work on building, publishing and measuring machine learning models for enterprise IT to analyze, predict faults, recommend mitigation strategies based on trade-off analytics, and predict user behavior for a better more intuitive experience. You will be involved in a team that is solving some of the hardest problems for our Fortune 500 customers.
+Join our team and take on this unique opportunity to reinvent IT operations as we know it. If you are a developer who is passionate about data science and analytics, we want to talk to you!
+What You'll Be Doing?
+Bring together a combination of mathematical rigor and innovative algorithm design to create recipes that extract relevant insights from millions of rows of data to meaningfully improve enterprise IT operations.
+Learn, develop, and apply new techniques in the intersection of math, probability, and optimization.
+Translate unstructured, complex business problems into an abstract mathematical framework, making intelligent approximations when needed to put your algorithm to work at scale.
+Deploy, maintain and tweak scoring models based on feedback loops and real-time performance.
+Work closely with various product development engineering teams to solve key prediction, mitigation, recommendation and discovery problems in the field of IT operations.
+Explore, investigate and prototype innovative machine learning concepts.
+Required Skills
+What You'll Bring?
+You are passionate about building software that matters.
+You believe in reimagining and redefining the world through software that is elegant and simple.
+You have an obsession about discovering and solving customer issues.
+You can work independently and drive results.
+You are open to new challenges, and willing to learn.
+You have a strong background in analyzing and discovering patterns in seemingly disparate data.
+You are a strong Java or Scala programmer who loves Apache Spark.
+The intersection of mathematical models and algorithm design excites you.
+Bonus
+You are familiar with the IBM z Systems platform.
+You are familiar with the operational aspects of an enterprise relational database like IBM DB2 for z/OS.
+You have experience with R or other such data science tools.
+Why Join Us?
+The internship experience will provide an insider view of how a fast moving, innovative, and entrepreneurial company operates through an exciting and challenging work experience. Our interns will operate as a team to design and build, from the ground up, brand new and innovative applications related to statistical analysis, and supervised machine learning.
+The “Rocketship” is also designed to give you multiple opportunities to interact with members of Rocket Software’s Executive Team, an invaluable chance to showcase your skills and start building a network of professionals for future internships or post-graduate work.
+Our program includes participation in a professional development program together with other interns with a goal to develop and deliver an executive level presentation to senior members of Rocket Software’s Executive Team at the end of the summer.
+Rocket Software Inc. is committed to creating a diverse environment and is proud to be an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to race, color, religion, gender, gender identity or expression, sexual orientation, national origin, genetics, disability, age, or veteran status. Rocket Software Inc. is also committed to compliance with all fair employment practices regarding citizenship and immigration status.
+Rocket is committed to working with and providing reasonable accommodation to individuals with physical and mental disabilities.  If you need special assistance or an accommodation while seeking employment, please call: 781-577-4321 or send an email to hr@rocketsoftware.com.  We will make a determination on your request for reasonable accommodation on a case-by-case basis.
+Job Location
+Austin, Texas, United States
+Position Type
+Intern
+Apply
+Connect
+Who do you know at
+Rocket Software
+Share
+Return To Job Listings
+Contact Us Site Map Legal Privacy Policy
+Rocket Software develops, licenses, and supports enterprise infrastructure software and solutions.
+Rocket services customers in all geographies through our worldwide sales force, support team, and R&D labs.
+Our customers deploy our products in these strategic infrastructure domains: application development, application modernization, business intelligence, compliance and security, consumer productivity, database servers, database tools, file transfer, mainframe productivity, network management, publishing and search, SOA and integration, storage management, terminal emulation,
+and text mining.
+© 2012 Rocket Software, Inc. All rights reserved.
+Rocket and the Rocket Software logos are registered trademarks of Rocket Software, Inc.
+Other product and service names might be trademarks of Rocket Software or other companies.
+Rocket Software
+77 Fourth Avenue
+Waltham, MA 02451-1468
+t +1 781 577 4321
+w www.rocketsoftware.com
+e info@rocketsoftware.com
+Privacy Policy | Legal",Machine Learning Intern (Summer 2018),Indeed,Austin TX,/rc/clk?jk=00a38c7959224bff&fccid=f9684e7d32b8c49e
+CACI,"Software Developer Internship
+in
+Austin, TX
+| CACI International
+Small Business  |
+Suppliers
+About Us
+|
+What We Do
+|
+Media & Events
+|
+Investors
+|
+Careers
+|
+Contracts
+|
+Contact Us
+Join Our Talent Network
+About Us
+What We Do
+Media & Events
+Investors
+Careers
+Contracts
+Contact Us
+Small Business
+Suppliers
+Careers
+| Software Developer Internship - Austin, TX
+Share This Job
+Apply Now
+Software Developer Internship
+Req #: 200563
+Location:
+Austin,
+TX
+US
+Job Category: Administration
+Security Clearance: None
+Clearance Status: Not Applicable
+Job DescriptionSoftware Developer Internship Internship Opportunity: Are you a problem solver, ready for a challenge this summer? Ticom Geomatics (TGI) is seeking 2018 Summer Interns for Software Developer Internships! TGI is an Austin-based company and recognized industry leader providing Mission-Ready Geolocation and ISR Systems and Services to Government and Industry. Through our Intern program's on the job training and mentorship, you will gain experience with cutting edge technology alongside engineers and computer scientists.About the Team: The Software Development Group is responsible for maintaining and enhancing large distributed systems and developing software for future products and systems.  Responsibilities include developing new server applications, maintenance of existing applications, interfacing with the system's data repository, and developing new user interface visualizations and workflows.What you'll get to do:Description: This position is for individuals interested in a broad area of Software Development. The ideal candidate should have strong academic credentials and experience working in a teamwork environment and have not only academic, but also interpersonal skills to help optimize our teams. The single most important attribute is an inquisitive nature and a strong desire to learn real world applications to compliment your academic experience. Familiarity with hardware or software tools should be appropriate for your academic level.  The internship will be ~11 weeks in the summer of 2018. You’ll Bring These Qualifications:- Current status as a Sophomore, Junior, or Senior- Minimum of 3.2 GPA- Must be a US Citizen, as required by US Government Contracts- Requires 0-2 years of experience and must be pursuing a Bachelors or Master's degree in Electrical Engineering, Computer Engineering, Signal Processing, Physics, Math, Computer Science, or a related degreeThese Qualifications Would be Nice to Have:- Java programming of JEE or servlet-based applications- JavaScript development- C/C++ development- Linux/Unix operating systemsWhat We Can Offer You:- We’ve been named a Best Place to Work by the Washington Post.- Our employees value the flexibility at CACI that allows them to balance quality work and their personal lives.- We offer competitive benefits and learning and development opportunities.- We are mission-oriented and ever vigilant in aligning our solutions with the nation’s highest priorities.- For over 55 years, the principles of CACI’s unique, character-based culture have been the driving force behind our success.Job LocationUS-Austin-TX-AUSTIN
+CACI employs a diverse range of talent to create an environment that fuels innovation and fosters continuous improvement and success. At CACI, you will have the opportunity to make an immediate impact by providing information solutions and services in support of national security missions and government transformation for Intelligence, Defense, and Federal Civilian customers. CACI is proud to provide dynamic careers for employees worldwide. CACI is an Equal Opportunity Employer - Females/Minorities/Protected Veterans/Individuals with Disabilities.
+Apply Now
+Link for schema
+Featured Careers
+Explore our featured opportunities available on multiple current and future programs.Take A Look
+Benefits
+CACI is proud to provide benefits that address your and your family's needs, today and for the future.Explore
+Hiring Events
+Visit us at an upcoming hiring event to learn more about what makes us an employer of choice.View Calendar
+Our Culture
+CACI has a vibrant culture and strong foundation of innovation - firmly based on ethics and integrity.Learn More
+Talent Network
+Join our Talent Network to be notified of events and careers at CACI.
+Subscribe Today
+Equal Opportunity Employer |
+E-Verify |
+Recruitment Fraud Alert  |
+FAQs  |
+© 2017 CACI International  |
+Terms of Use  |
+Powered by SmashFly",Software Developer Internship,Indeed,Austin TX 78759 (Arboretum area),/rc/clk?jk=6e38c6fe54d5bbb4&fccid=290a4498a64fc044
+Atlassian,"Atlassian 2018 Summer Software Developer Intern - Austin, TX | SmartRecruiters
+2018 Summer Software Developer Intern - Austin, TXAustin, TXInternCompany DescriptionSoftware is changing the world, and we’re at the center of it all. With a customer list that reads like a who&apos;s who in tech, and a highly disruptive business model, we’re advancing the art of team collaboration with products like Jira, Confluence, Bitbucket, Trello, and now Stride. Driven by honest values, an amazing culture, and consistent revenue growth, we’re out to unleash the potential of every team. From Amsterdam and Austin to Sydney and San Francisco, we’re looking for people who are powered by passion and eager to do the best work of their lives in a highly autonomous yet collaborative, no B.S. environment.Job DescriptionJoin Atlassian as an intern and spend your summer with us having a direct impact on how millions of users collaborate and use software. The most amazing thinkers—like NASA rocket scientists and Tesla engineers—are coming to us for solutions. We’re in the business of developing software to help teams everywhere get amazing ideas on the ground and into the world. Sound like an exciting place to start your career? Here you&apos;ll be encouraged to use your imagination and try new things. You&apos;ll be guided (as we are) by our core values, and you&apos;ll be supported by some of the best minds in tech. We want you to have everything you need to do amazing work from the get-go.You love to innovate and to build your dreams. Ambitious and driven, you are excited about the opportunity to work with smart people on complex challenges. You’re a natural team player, inquisitive and enjoy dissecting and tackling hard problems (the more challenging the better). You have a great foundation in computer science and awesome skills in writing software with minimal bugs. Whilst passionate about your work and delivering amazing quality, you’re still able to go fast, which means killer instincts when it comes to the workload and using your time wisely. You’ll learn a lot, but you’ll also need to be able to stand up for your own ideas when the time comes.Apply for our Summer 2018 intern program and start an awesome career!More about youOn your first day, we&apos;ll expect you to:Must be currently enrolled in a full-time degree program and returning to the program after the completion of the internship, graduating by June 2019Experience with Java, Python, C, C++, or other related object-oriented programming languageBe able to commit to a full-time (40hrs / week) internship between June 2018 - August 2018It’s great, but not required, if you:Have a real passion for software engineering, as demonstrated by previous internships, work experience, projects, or publicationsDeep understanding of data structures, in particular how they are implemented and how to apply them to solve problemsFamiliarity with application of common design patternsMore about our teamYou’ll be joining a team that is smart and very direct. We challenge each other constantly to improve our work, learn, and ask hard questions. We&apos;re dedicated to agile methodology and are big believers in ‘lean’ (which means we don’t do documentation for documentation&apos;s sake). We know the importance of validating assumptions about users and use various types of testing to figure out whether we&apos;re right (or wrong). Our bottom line is improving our user’s experience—no matter what.Additional InformationWe believe that the unique contributions of all Atlassians is the driver of our success. To make sure that our products and culture continue to incorporate everyone&apos;s perspectives and experience we never discriminate on the basis of race, religion, national origin, gender identity or expression, sexual orientation, age, or marital, veteran, or disability status.All your information will be kept confidential according to EEO guidelines.Not eligible for visa sponsorship.Videos To WatchI'm interestedI'm interestedRefer a friendshare this jobPowered by",2018 Summer Software Developer Intern - Austin TX,Indeed,Austin TX,/rc/clk?jk=aad2c4a5eff31e29&fccid=e6d4ba9e2cfe7902
+National Instruments,"National InstrumentsBuild the future. Build your career.As a member of the NI family, you’ll help empower engineers and scientists to solve the world’s greatest engineering challenges.Go to the main content section.|My Account Options|Sign InThis service is set to disconnect automatically after {0} minutes of inactivity. Your session will end in {1} minutes.Click OK to reset the timer to {0} minutes.You have been signed out.This service is set to sign out after {0} minutes of inactivity.Job SearchMy JobpageBasic Search|My Submissions|My Job Cart|My Saved Searches|Beginning of the main content section.Return to the home pagePrintable FormatReturn to previous position on page    - ()   Qualifications  Primary Location: Other Locations: Work Locations:     Job: Business Unit: Employee Status: Shift: Job Type: Travel: Job Posting: Refer a friend for this jobRefer a friendRefer a candidateSubmit a candidate's profile
+©
+National Instruments. All rights reserved.
+Legal |Privacy|2017",Business Application Development Intern 2018,Indeed,Austin TX,/rc/clk?jk=d77449177cfb64e1&fccid=9f94228dbf8b1bd3
+National instrument,"National InstrumentsBuild the future. Build your career.As a member of the NI family, you’ll help empower engineers and scientists to solve the world’s greatest engineering challenges.Go to the main content section.|My Account Options|Sign InThis service is set to disconnect automatically after {0} minutes of inactivity. Your session will end in {1} minutes.Click OK to reset the timer to {0} minutes.You have been signed out.This service is set to sign out after {0} minutes of inactivity.Job SearchMy JobpageBasic Search|My Submissions|My Job Cart|My Saved Searches|Beginning of the main content section.Return to the home pagePrintable FormatReturn to previous position on page    - ()   Qualifications  Primary Location: Other Locations: Work Locations:     Job: Business Unit: Employee Status: Shift: Job Type: Travel: Job Posting: Refer a friend for this jobRefer a friendRefer a candidateSubmit a candidate's profile
+©
+National Instruments. All rights reserved.
+Legal |Privacy|2017",Business Application Development Intern 2018,Indeed,Austin TX,/rc/clk?jk=5d15580167f2b46b&fccid=263d9a07b538b758

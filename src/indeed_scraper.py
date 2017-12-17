@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from sys import argv
 from collections import defaultdict
-import time
+from time import sleep
 
 
 def run_scraper(current_url, dft):
@@ -22,8 +22,9 @@ def run_scraper(current_url, dft):
         flag = my_soup.find(name="span", attrs={"class": "np"}).text
         for div in my_soup.find_all(name="div", attrs={"class": "row"}):
             listings = add_listing_info(div, listings)
+            sleep(5)
         current_url = get_next_url(my_soup)
-        time.sleep(5)
+        sleep(5)
     dft = dft.append(pd.DataFrame(listings), ignore_index=True)
     return dft
 
@@ -58,8 +59,10 @@ def add_listing_info(div, lst_dict):
     lst_dict["job_title"] += [get_job_title(div)]
     lst_dict["location"] += [get_location(div)]
     lst_dict["company"] += [get_company_name(div)]
-    lst_dict["url"] += [get_url_link(div)]
     lst_dict["jobsite"] += ["Indeed"]
+    spec_link = get_url_link(div)
+    lst_dict["url"] += [spec_link]
+    lst_dict["job_description"] += [get_job_description(spec_link)]
     return lst_dict
 
 
@@ -116,6 +119,27 @@ def get_location(div):
     """
     location = div.find(name="span", attrs={"class": "location"})
     return location.text.replace(",", "")
+
+
+def get_job_description(link):
+    """
+    Get the raw text of the job description from the linked webpage.
+    :param link: str, the url of the job description webpage
+    :return: str, the text from the webpage
+    """
+    soup = create_soup(''.join(["https://www.indeed.com", link]))
+
+    # Remove all script and style elements
+    for script in soup(["script", "style"]):
+        script.extract()
+    text = soup.get_text()
+
+    # break into lines and remove leading and trailing space on each
+    lines = (line.strip() for line in text.splitlines())
+    # break multi-headlines into a line each
+    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+    # drop any blank lines
+    return '\n'.join(chunk for chunk in chunks if chunk)
 
 
 if __name__ == "__main__":
