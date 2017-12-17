@@ -142,14 +142,15 @@ def get_job_description(link):
     # drop any blank lines
     return '\n'.join(chunk for chunk in chunks if chunk)
 
-def create_df_file:
+
+def create_df_file():
     """
     If it doesn't exist, create the initial listings_data file
     :return: None
     """
-    df = pd.DataFrame(columns=["job_title", "location", "company",
-                               "url", "jobsite", "job_description"])
-    df.to_csv("data/listings_data.csv", index=False)
+    df_new = pd.DataFrame(columns=["job_title", "location", "company",
+                                   "url", "jobsite", "job_description"])
+    df_new.to_csv("data/listings_data.csv", index=False)
 
 
 if __name__ == "__main__":
