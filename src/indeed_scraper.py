@@ -4,6 +4,7 @@ import pandas as pd
 from sys import argv
 from collections import defaultdict
 from time import sleep
+import os
 
 
 def run_scraper(current_url, dft):
@@ -141,11 +142,22 @@ def get_job_description(link):
     # drop any blank lines
     return '\n'.join(chunk for chunk in chunks if chunk)
 
+def create_df_file:
+    """
+    If it doesn't exist, create the initial listings_data file
+    :return: None
+    """
+    df = pd.DataFrame(columns=["job_title", "location", "company",
+                               "url", "jobsite", "job_description"])
+    df.to_csv("data/listings_data.csv", index=False)
+
 
 if __name__ == "__main__":
     """
     Code that runs if called from the command line
     """
+    if not os.path.isfile("data/listings_data.csv"):
+        create_df_file()
     df = pd.read_csv("data/listings_data.csv")
     first_url = ''.join(["https://www.indeed.com/jobs?q=data+scientist+intern&l=",
                          argv[1], "&radius=50&sort=date"])

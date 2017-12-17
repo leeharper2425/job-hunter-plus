@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58d6eee1-bb58-4751-968c-825c4566f479" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IndeedExperimentation.ipynb" afterPath="$PROJECT_DIR$/IndeedExperimentation.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/listings_data.csv" afterPath="$PROJECT_DIR$/data/listings_data.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/indeed_scraper.py" afterPath="$PROJECT_DIR$/src/indeed_scraper.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,8 +16,8 @@
       <file leaf-file-name="indeed_scraper.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/indeed_scraper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="54" column="33" lean-forward="true" selection-start-line="54" selection-start-column="33" selection-end-line="54" selection-end-column="33" />
+            <state relative-caret-position="380">
+              <caret line="152" column="0" lean-forward="true" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -180,8 +178,8 @@
     <entry file="file://$PROJECT_DIR$/data/indeed_scraper.py" />
     <entry file="file://$PROJECT_DIR$/src/indeed_scraper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="54" column="33" lean-forward="true" selection-start-line="54" selection-start-column="33" selection-end-line="54" selection-end-column="33" />
+        <state relative-caret-position="380">
+          <caret line="152" column="0" lean-forward="true" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
