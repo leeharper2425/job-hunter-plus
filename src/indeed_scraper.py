@@ -5,6 +5,9 @@ from sys import argv
 from collections import defaultdict
 from time import sleep
 import os
+import boto3
+from io import StringIO, BytesIO
+
 
 
 def run_scraper(current_url, dft):
@@ -16,16 +19,20 @@ def run_scraper(current_url, dft):
     """
     flag = "Next"
     listings = defaultdict(list)
-
+    i = 0
     # Run the scraper until it runs out of pages to scrape
     while "Next" in flag:
         my_soup = create_soup(current_url)
         flag = my_soup.find(name="span", attrs={"class": "np"}).text
         for div in my_soup.find_all(name="div", attrs={"class": "row"}):
             listings = add_listing_info(div, listings)
-            sleep(5)
+            i += 1
+            sleep(2)
+            print(i)
         current_url = get_next_url(my_soup)
-        sleep(5)
+        sleep(2)
+        if i == 10:
+            break
     dft = dft.append(pd.DataFrame(listings), ignore_index=True)
     return dft
 
@@ -143,24 +150,50 @@ def get_job_description(link):
     return '\n'.join(chunk for chunk in chunks if chunk)
 
 
-def create_df_file():
+def create_df_new():
     """
     If it doesn't exist, create the initial listings_data file
     :return: None
     """
     df_new = pd.DataFrame(columns=["job_title", "location", "company",
                                    "url", "jobsite", "job_description"])
-    df_new.to_csv("data/listings_data.csv", index=False)
+    return df_new
+
+def write_file_to_s3(df):
+    """
+    Save the updated dataframe to a file on the project's AWS S3 bucket.
+    :param df: DataFrame to write to file
+    :return: None
+    """
+    csv_buffer = StringIO()
+    df.to_csv(csv_buffer, index=False)
+    s3 = boto3.resource("s3", aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
+                        aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"])
+    s3.Object("job-hunter-plus-data", "listings_data.csv").put(Body=csv_buffer.getvalue())
+
+
+def access_s3_to_df():
+    """
+    Access the project's S3 bucket and load the file into a dataframe for appending.
+    :return: df: a pandas dataframe containing the data.
+    """
+
+    s3 = boto3.client("s3", aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
+                          aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"])
+    try:
+        obj = s3.get_object(Bucket="job-hunter-plus-data", Key="listings_data_test.csv")
+        return pd.read_csv(BytesIO(obj["Body"].read()))
+    except:
+        return create_df_new()
 
 
 if __name__ == "__main__":
     """
     Code that runs if called from the command line
+    Call: python indeed_scraper.py "<city>"
     """
-    if not os.path.isfile("data/listings_data.csv"):
-        create_df_file()
-    df = pd.read_csv("data/listings_data.csv")
+    df = access_s3_to_df()
     first_url = ''.join(["https://www.indeed.com/jobs?q=data+scientist+intern&l=",
-                         argv[1], "&radius=50&sort=date"])
+                          argv[1], "&radius=50&sort=date"])
     df = run_scraper(first_url, df)
-    df.to_csv("data/listings_data.csv", index=False)
+    write_file_to_s3(df)
