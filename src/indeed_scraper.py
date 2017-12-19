@@ -19,20 +19,15 @@ def run_scraper(current_url, dft):
     """
     flag = "Next"
     listings = defaultdict(list)
-    i = 0
     # Run the scraper until it runs out of pages to scrape
     while "Next" in flag:
         my_soup = create_soup(current_url)
         flag = my_soup.find(name="span", attrs={"class": "np"}).text
         for div in my_soup.find_all(name="div", attrs={"class": "row"}):
             listings = add_listing_info(div, listings)
-            i += 1
             sleep(2)
-            print(i)
         current_url = get_next_url(my_soup)
         sleep(2)
-        if i == 10:
-            break
     dft = dft.append(pd.DataFrame(listings), ignore_index=True)
     return dft
 
