@@ -9,7 +9,6 @@ import boto3
 from io import StringIO, BytesIO
 
 
-
 def run_scraper(current_url, dft):
     """
     Run the web scraper that will scrape Indeed
@@ -17,29 +16,46 @@ def run_scraper(current_url, dft):
     :param dft: Pandas dataframe, the listings data from previous scrapings
     :return: dft: Pandas dataframe containing scraped information
     """
-    flag = "Next"
+    flag = True
     listings = defaultdict(list)
+    results_page = 0
     # Run the scraper until it runs out of pages to scrape
-    while "Next" in flag:
+    while flag:
         my_soup = create_soup(current_url)
-        flag = my_soup.find(name="span", attrs={"class": "np"}).text
+        flag = check_flag(my_soup)
         for div in my_soup.find_all(name="div", attrs={"class": "row"}):
             listings = add_listing_info(div, listings)
-            sleep(2)
+            sleep(4)
+        results_page += 1
+        # Save the file after every 10 results pages, in case of failure
+        if results_page % 10 == 0:
+            write_file_to_s3(dft)
         current_url = get_next_url(my_soup)
-        sleep(2)
+        sleep(4)
     dft = dft.append(pd.DataFrame(listings), ignore_index=True)
     return dft
 
 
 def create_soup(url):
     """
-    Get the HTML contents of the URL.
+    Get the HTML contents of the URL. It the URL doesn't exist, return None
     :param url: string, the url to scrape
     :return: soup: a BeautifulSoup object
     """
     page = requests.get(url)
+    if page.status_code == 404:
+        return None
     return BeautifulSoup(page.text, "html.parser")
+
+
+def check_flag(soup):
+    """
+    Check the span tags np classes to check for the next page label
+    :param soup: Beautiful soup object to check
+    :return: flag, a Boolean indicating the presence of the next page
+    """
+    all_np_tags = soup.find_all(name="span", attrs={"class": "np"})
+    return any(["Next" in tag.text for tag in all_np_tags])
 
 
 def get_next_url(soup):
@@ -131,40 +147,42 @@ def get_job_description(link):
     :return: str, the text from the webpage
     """
     soup = create_soup(''.join(["https://www.indeed.com", link]))
+    if soup is not None:
+        # Remove all script and style elements
+        for script in soup(["script", "style"]):
+            script.extract()
+        text = soup.get_text()
 
-    # Remove all script and style elements
-    for script in soup(["script", "style"]):
-        script.extract()
-    text = soup.get_text()
-
-    # break into lines and remove leading and trailing space on each
-    lines = (line.strip() for line in text.splitlines())
-    # break multi-headlines into a line each
-    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
-    # drop any blank lines
-    return '\n'.join(chunk for chunk in chunks if chunk)
+        # break into lines and remove leading and trailing space on each
+        lines = (line.strip() for line in text.splitlines())
+        # break multi-headlines into a line each
+        chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+        # drop any blank lines
+        return '\n'.join(chunk for chunk in chunks if chunk)
+    return "N/A"
 
 
 def create_df_new():
     """
-    If it doesn't exist, create the initial listings_data file
+    If it doesn't exist, create the initial indeed_data file
     :return: None
     """
     df_new = pd.DataFrame(columns=["job_title", "location", "company",
                                    "url", "jobsite", "job_description"])
     return df_new
 
-def write_file_to_s3(df):
+
+def write_file_to_s3(df_write):
     """
     Save the updated dataframe to a file on the project's AWS S3 bucket.
-    :param df: DataFrame to write to file
+    :param df_write: DataFrame to write to file
     :return: None
     """
     csv_buffer = StringIO()
-    df.to_csv(csv_buffer, index=False)
+    df_write.to_csv(csv_buffer, index=False)
     s3 = boto3.resource("s3", aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
                         aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"])
-    s3.Object("job-hunter-plus-data", "listings_data.csv").put(Body=csv_buffer.getvalue())
+    s3.Object("job-hunter-plus-data", "indeed_data.csv").put(Body=csv_buffer.getvalue())
 
 
 def access_s3_to_df():
@@ -174,9 +192,9 @@ def access_s3_to_df():
     """
 
     s3 = boto3.client("s3", aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
-                          aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"])
+                      aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"])
     try:
-        obj = s3.get_object(Bucket="job-hunter-plus-data", Key="listings_data_test.csv")
+        obj = s3.get_object(Bucket="job-hunter-plus-data", Key="indeed_data.csv")
         return pd.read_csv(BytesIO(obj["Body"].read()))
     except:
         return create_df_new()
@@ -188,7 +206,7 @@ if __name__ == "__main__":
     Call: python indeed_scraper.py "<city>"
     """
     df = access_s3_to_df()
-    first_url = ''.join(["https://www.indeed.com/jobs?q=data+scientist+intern&l=",
-                          argv[1], "&radius=50&sort=date"])
+    first_url = ''.join(["https://www.indeed.com/jobs?q=data&l=",
+                         argv[1], "&radius=50&sort=date"])
     df = run_scraper(first_url, df)
     write_file_to_s3(df)
