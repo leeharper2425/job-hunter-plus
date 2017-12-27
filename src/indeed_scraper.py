@@ -27,8 +27,10 @@ def run_scraper(current_url, dft):
             listings = add_listing_info(div, listings)
             sleep(4)
         results_page += 1
-        # Save the file after every 10 results pages, in case of failure
-        if results_page % 10 == 0:
+        # Save the file after every 3 results pages, in case of failure
+        if results_page % 3 == 0:
+            dft = dft.append(pd.DataFrame(listings), ignore_index=True)
+            listings = defaultdict(list)
             write_file_to_s3(dft)
         current_url = get_next_url(my_soup)
         sleep(4)
@@ -42,10 +44,13 @@ def create_soup(url):
     :param url: string, the url to scrape
     :return: soup: a BeautifulSoup object
     """
-    page = requests.get(url)
-    if page.status_code == 404:
+    try:
+        page = requests.get(url)
+        if page.status_code == 404:
+            return None
+        return BeautifulSoup(page.text, "html.parser")
+    except:
         return None
-    return BeautifulSoup(page.text, "html.parser")
 
 
 def check_flag(soup):
@@ -146,7 +151,13 @@ def get_job_description(link):
     :param link: str, the url of the job description webpage
     :return: str, the text from the webpage
     """
-    soup = create_soup(''.join(["https://www.indeed.com", link]))
+    # Don't get the sponsored ads - these jobs appear in the list anyway, and they cost
+    # companies money if they get clicked on.
+    if "pagead" not in link:
+        soup = create_soup(''.join(["https://www.indeed.com", link]))
+    else:
+        return "N/A"
+
     if soup is not None:
         # Remove all script and style elements
         for script in soup(["script", "style"]):
@@ -203,10 +214,10 @@ def access_s3_to_df():
 if __name__ == "__main__":
     """
     Code that runs if called from the command line
-    Call: python indeed_scraper.py "<city>"
+    Call: python indeed_scraper.py "<city>" "<query>"
     """
     df = access_s3_to_df()
-    first_url = ''.join(["https://www.indeed.com/jobs?q=data&l=",
+    first_url = ''.join(["https://www.indeed.com/jobs?q=", argv[2], "l=",
                          argv[1], "&radius=50&sort=date"])
     df = run_scraper(first_url, df)
     write_file_to_s3(df)
