@@ -18,7 +18,6 @@ def run_scraper(current_url, dft):
     """
     flag = True
     listings = defaultdict(list)
-    results_page = 0
     # Run the scraper until it runs out of pages to scrape
     while flag:
         my_soup = create_soup(current_url)
@@ -26,12 +25,9 @@ def run_scraper(current_url, dft):
         for div in my_soup.find_all(name="div", attrs={"class": "row"}):
             listings = add_listing_info(div, listings)
             sleep(4)
-        results_page += 1
-        # Save the file after every 3 results pages, in case of failure
-        if results_page % 3 == 0:
-            dft = dft.append(pd.DataFrame(listings), ignore_index=True)
-            listings = defaultdict(list)
-            write_file_to_s3(dft)
+        # Save the file after each results page, in case of failure
+        dft2 = dft.append(pd.DataFrame(listings), ignore_index=True)
+        write_file_to_s3(dft2)
         current_url = get_next_url(my_soup)
         sleep(4)
     dft = dft.append(pd.DataFrame(listings), ignore_index=True)
@@ -80,11 +76,16 @@ def add_listing_info(div, lst_dict):
     :param lst_dict: the currently scraped listings
     :return: lst_dict, the desired scraping information
     """
+    spec_link = get_url_link(div)
+    # If link is a duplicate on the current run, then don't add it
+    if spec_link in set(lst_dict["url"]):
+        return lst_dict
+
+    # Add the job spec details
     lst_dict["job_title"] += [get_job_title(div)]
     lst_dict["location"] += [get_location(div)]
     lst_dict["company"] += [get_company_name(div)]
     lst_dict["jobsite"] += ["Indeed"]
-    spec_link = get_url_link(div)
     lst_dict["url"] += [spec_link]
     lst_dict["job_description"] += [get_job_description(spec_link)]
     return lst_dict
@@ -151,13 +152,7 @@ def get_job_description(link):
     :param link: str, the url of the job description webpage
     :return: str, the text from the webpage
     """
-    # Don't get the sponsored ads - these jobs appear in the list anyway, and they cost
-    # companies money if they get clicked on.
-    if "pagead" not in link:
-        soup = create_soup(''.join(["https://www.indeed.com", link]))
-    else:
-        return "N/A"
-
+    soup = create_soup(''.join(["https://www.indeed.com", link]))
     if soup is not None:
         # Remove all script and style elements
         for script in soup(["script", "style"]):
@@ -190,10 +185,11 @@ def write_file_to_s3(df_write):
     :return: None
     """
     csv_buffer = StringIO()
+    df_write.drop_duplicates(["url"], inplace=True)  #Remove any duplicate postings
     df_write.to_csv(csv_buffer, index=False)
     s3 = boto3.resource("s3", aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
                         aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"])
-    s3.Object("job-hunter-plus-data", "indeed_data.csv").put(Body=csv_buffer.getvalue())
+    s3.Object("job-hunter-plus-data", "indeed_data_dsa.csv").put(Body=csv_buffer.getvalue())
 
 
 def access_s3_to_df():
@@ -205,7 +201,7 @@ def access_s3_to_df():
     s3 = boto3.client("s3", aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
                       aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"])
     try:
-        obj = s3.get_object(Bucket="job-hunter-plus-data", Key="indeed_data.csv")
+        obj = s3.get_object(Bucket="job-hunter-plus-data", Key="indeed_data_dsa.csv")
         return pd.read_csv(BytesIO(obj["Body"].read()))
     except:
         return create_df_new()
@@ -217,7 +213,8 @@ if __name__ == "__main__":
     Call: python indeed_scraper.py "<city>" "<query>"
     """
     df = access_s3_to_df()
-    first_url = ''.join(["https://www.indeed.com/jobs?q=", argv[2], "l=",
-                         argv[1], "&radius=50&sort=date"])
+    # Look for jobs within a 15 mile radius of the location, show 50 results per page.
+    first_url = ''.join(["https://www.indeed.com/jobs?q=", argv[2], "&l=",
+                         argv[1], "&radius=15&sort=date&limit=50"])
     df = run_scraper(first_url, df)
     write_file_to_s3(df)
