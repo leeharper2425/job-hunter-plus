@@ -185,7 +185,7 @@ def write_file_to_s3(df_write):
     :return: None
     """
     csv_buffer = StringIO()
-    df_write.drop_duplicates(["url"], inplace=True)  #Remove any duplicate postings
+    df_write.drop_duplicates(["url"], inplace=True)  # Remove any duplicate postings
     df_write.to_csv(csv_buffer, index=False)
     s3 = boto3.resource("s3", aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
                         aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"])
@@ -211,10 +211,23 @@ if __name__ == "__main__":
     """
     Code that runs if called from the command line
     Call: python indeed_scraper.py "<city>" "<query>"
+    Or to run all cities and queries: indeed_scraper.py
+    Look for jobs within a 15 mile radius of the location, show 50 results per page.
     """
     df = access_s3_to_df()
-    # Look for jobs within a 15 mile radius of the location, show 50 results per page.
-    first_url = ''.join(["https://www.indeed.com/jobs?q=", argv[2], "&l=",
-                         argv[1], "&radius=15&sort=date&limit=50"])
-    df = run_scraper(first_url, df)
-    write_file_to_s3(df)
+    # Run a single city / query combination
+    if len(argv) > 1:
+        first_url = ''.join(["https://www.indeed.com/jobs?q=", argv[2], "&l=",
+                             argv[1], "&radius=15&sort=date&limit=50"])
+        df = run_scraper(first_url, df)
+        write_file_to_s3(df)
+    # Run 4 selected cities and 3 relevant queries
+    else:
+        cities = ["Austin", "Chicago", "San+Francisco", "New+York"]
+        jobs = ["Data+Scientist", "Data+Analyst", "Business+Intelligence"]
+        for city in cities:
+            for job in jobs:
+                first_url = ''.join(["https://www.indeed.com/jobs?q=", job, "&l=",
+                                     city, "&radius=15&sort=date&limit=50"])
+                df = run_scraper(first_url, df)
+                write_file_to_s3(df)
