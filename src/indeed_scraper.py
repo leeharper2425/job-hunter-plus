@@ -9,7 +9,7 @@ import boto3
 from io import StringIO, BytesIO
 
 
-def run_scraper(current_url, dft):
+def run_scraper(current_url, dft, search_term):
     """
     Run the web scraper that will scrape Indeed
     :param current_url: string, the initial URL to scrape
@@ -23,7 +23,7 @@ def run_scraper(current_url, dft):
         my_soup = create_soup(current_url)
         flag = check_flag(my_soup)
         for div in my_soup.find_all(name="div", attrs={"class": "row"}):
-            listings = add_listing_info(div, listings)
+            listings = add_listing_info(div, listings, search_term)
             sleep(4)
         # Save the file after each results page, in case of failure
         dft2 = dft.append(pd.DataFrame(listings), ignore_index=True)
@@ -69,7 +69,7 @@ def get_next_url(soup):
     return ''.join(["https://www.indeed.com", d.find_all("a")[-1]["href"]])
 
 
-def add_listing_info(div, lst_dict):
+def add_listing_info(div, lst_dict, search):
     """
     Get the results of scraping a single listings job listing.
     :param div: the contents of a single listing's div tag
@@ -88,6 +88,7 @@ def add_listing_info(div, lst_dict):
     lst_dict["jobsite"] += ["Indeed"]
     lst_dict["url"] += [spec_link]
     lst_dict["job_description"] += [get_job_description(spec_link)]
+    lst_dict["search_term"] += [search]
     return lst_dict
 
 
@@ -119,6 +120,8 @@ def get_company_name(div):
     :return: string, the company name
     """
     company = div.find(name="span", attrs={"class": "company"})
+    if company is None:
+        return "N/A"
     a = div.find(name="a", attrs={"data-tn-element": "companyName"})
     if not a:
         return ' '.join(company.text.split()).replace(",", "")
@@ -170,11 +173,11 @@ def get_job_description(link):
 
 def create_df_new():
     """
-    If it doesn't exist, create the initial indeed_data file
+    If it doesn't exist, create the initial dataframe.
     :return: None
     """
     df_new = pd.DataFrame(columns=["job_title", "location", "company",
-                                   "url", "jobsite", "job_description"])
+                                   "url", "jobsite", "job_description", "search_term"])
     return df_new
 
 
@@ -189,7 +192,7 @@ def write_file_to_s3(df_write):
     df_write.to_csv(csv_buffer, index=False)
     s3 = boto3.resource("s3", aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
                         aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"])
-    s3.Object("job-hunter-plus-data", "indeed_data_dsa.csv").put(Body=csv_buffer.getvalue())
+    s3.Object("job-hunter-plus-data", "indeed_data.csv").put(Body=csv_buffer.getvalue())
 
 
 def access_s3_to_df():
@@ -201,7 +204,7 @@ def access_s3_to_df():
     s3 = boto3.client("s3", aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
                       aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"])
     try:
-        obj = s3.get_object(Bucket="job-hunter-plus-data", Key="indeed_data_dsa.csv")
+        obj = s3.get_object(Bucket="job-hunter-plus-data", Key="indeed_data.csv")
         return pd.read_csv(BytesIO(obj["Body"].read()))
     except:
         return create_df_new()
@@ -219,7 +222,7 @@ if __name__ == "__main__":
     if len(argv) > 1:
         first_url = ''.join(["https://www.indeed.com/jobs?q=", argv[2], "&l=",
                              argv[1], "&radius=15&sort=date&limit=50"])
-        df = run_scraper(first_url, df)
+        df = run_scraper(first_url, df, argv[2])
         write_file_to_s3(df)
     # Run 4 selected cities and 3 relevant queries
     else:
@@ -227,7 +230,8 @@ if __name__ == "__main__":
         jobs = ["Data+Scientist", "Data+Analyst", "Business+Intelligence"]
         for city in cities:
             for job in jobs:
+                print(city, job)
                 first_url = ''.join(["https://www.indeed.com/jobs?q=", job, "&l=",
                                      city, "&radius=15&sort=date&limit=50"])
-                df = run_scraper(first_url, df)
+                df = run_scraper(first_url, df, job)
                 write_file_to_s3(df)
