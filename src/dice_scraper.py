@@ -226,13 +226,12 @@ if __name__ == "__main__":
         write_file_to_s3(df)
     # Run 4 selected cities and 3 relevant queries
     else:
-        #cities = ["Austin", "Chicago", "San+Francisco", "New+York"]
-        #jobs = ["Data+Scientist", "Data+Analyst", "Business+Intelligence"]
-        cities = ["New+York", "San+Francisco"]
-        jobs = ["Data+Scientist", "Data+Analyst"]
+        cities = ["Austin", "Chicago", "San+Francisco", "New+York"]
+        jobs = ["Data+Scientist", "Data+Analyst", "Business+Intelligence"]
         for city in cities:
             for job in jobs:
+                print(city, job)
                 first_url = ''.join(["https://www.indeed.com/jobs?q=", job, "&l=",
-                                     city, "&radius=15&limit=50"])
+                                     city, "&radius=15&sort=date&limit=50"])
                 df = run_scraper(first_url, df, job)
                 write_file_to_s3(df)

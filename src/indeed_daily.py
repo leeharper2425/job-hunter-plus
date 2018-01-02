@@ -21,10 +21,11 @@ def run_scraper(current_url, dft, search_term):
     # Run the scraper until it runs out of pages to scrape
     while flag:
         my_soup = create_soup(current_url)
-        flag = check_flag(my_soup)
         for div in my_soup.find_all(name="div", attrs={"class": "row"}):
-            listings = add_listing_info(div, listings, search_term)
-            sleep(4)
+            listings, flag = add_listing_info(div, listings, search_term)
+            if not flag:
+                break
+            sleep(2)
         # Save the file after each results page, in case of failure
         dft2 = dft.append(pd.DataFrame(listings), ignore_index=True)
         write_file_to_s3(dft2)
@@ -49,16 +50,6 @@ def create_soup(url):
         return None
 
 
-def check_flag(soup):
-    """
-    Check the span tags np classes to check for the next page label
-    :param soup: Beautiful soup object to check
-    :return: flag, a Boolean indicating the presence of the next page
-    """
-    all_np_tags = soup.find_all(name="span", attrs={"class": "np"})
-    return any(["Next" in tag.text for tag in all_np_tags])
-
-
 def get_next_url(soup):
     """
     Get the URL of the next listings page.
@@ -74,12 +65,20 @@ def add_listing_info(div, lst_dict, search):
     Get the results of scraping a single listings job listing.
     :param div: the contents of a single listing's div tag
     :param lst_dict: the currently scraped listings
+    :param search: the search term being used
     :return: lst_dict, the desired scraping information
+    :return: flag, stops the job when a job not posted today appears
     """
     spec_link = get_url_link(div)
     # If link is a duplicate on the current run, then don't add it
     if spec_link in set(lst_dict["url"]):
-        return lst_dict
+        return lst_dict, True
+    #We don't want sponsored links on the daily job
+    if "pagead" in spec_link:
+        return lst_dict, True
+    #If job wasn't posted today, then skip it and stop scraping
+    if not get_today(div):
+        return lst_dict, False
 
     # Add the job spec details
     lst_dict["job_title"] += [get_job_title(div)]
@@ -89,7 +88,19 @@ def add_listing_info(div, lst_dict, search):
     lst_dict["url"] += [spec_link]
     lst_dict["job_description"] += [get_job_description(spec_link)]
     lst_dict["search_term"] += [search]
-    return lst_dict
+    return lst_dict, True
+
+def get_today(div):
+    """
+    Get the day that the job was posted, and return True if today
+    :param soup: Beautiful soup object to check
+    :return: flag, a Boolean indicating whether the job was posted "today"
+    """
+    date_tag = div.find(name="span", attrs={"class": "date"})
+    if date_tag.text == "Today" or data_tag.text == "Just posted"
+        return True
+    return False
+
 
 
 def get_number_of_jobs(soup):
@@ -218,18 +229,10 @@ if __name__ == "__main__":
     Look for jobs within a 15 mile radius of the location, show 50 results per page.
     """
     df = access_s3_to_df()
-    # Run a single city / query combination
-    if len(argv) > 1:
-        first_url = ''.join(["https://www.indeed.com/jobs?q=", argv[2], "&l=",
-                             argv[1], "&radius=15&sort=date&limit=50"])
-        df = run_scraper(first_url, df, argv[2])
-        write_file_to_s3(df)
     # Run 4 selected cities and 3 relevant queries
     else:
-        #cities = ["Austin", "Chicago", "San+Francisco", "New+York"]
-        #jobs = ["Data+Scientist", "Data+Analyst", "Business+Intelligence"]
-        cities = ["New+York", "San+Francisco"]
-        jobs = ["Data+Scientist", "Data+Analyst"]
+        cities = ["Austin", "Chicago", "San+Francisco", "New+York"]
+        jobs = ["Data+Scientist", "Data+Analyst", "Business+Intelligence"]
         for city in cities:
             for job in jobs:
                 first_url = ''.join(["https://www.indeed.com/jobs?q=", job, "&l=",
