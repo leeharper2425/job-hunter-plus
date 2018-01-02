@@ -97,7 +97,7 @@ def get_today(div):
     :return: flag, a Boolean indicating whether the job was posted "today"
     """
     date_tag = div.find(name="span", attrs={"class": "date"})
-    if date_tag.text == "Today" or data_tag.text == "Just posted"
+    if date_tag.text == "Today" or date_tag.text == "Just posted":
         return True
     return False
 
@@ -230,12 +230,13 @@ if __name__ == "__main__":
     """
     df = access_s3_to_df()
     # Run 4 selected cities and 3 relevant queries
-    else:
-        cities = ["Austin", "Chicago", "San+Francisco", "New+York"]
-        jobs = ["Data+Scientist", "Data+Analyst", "Business+Intelligence"]
-        for city in cities:
-            for job in jobs:
-                first_url = ''.join(["https://www.indeed.com/jobs?q=", job, "&l=",
-                                     city, "&radius=15&limit=50"])
-                df = run_scraper(first_url, df, job)
-                write_file_to_s3(df)
+    cities = ["New+York", "Chicago", "Austin" "San+Francisco"]
+    jobs = ["Data+Scientist", "Data+Analyst", "Business+Intelligence"]
+    #cities = ["Austin"]
+    #jobs = ["Data+Scientist"]
+    for city in cities:
+        for job in jobs:
+            first_url = ''.join(["https://www.indeed.com/jobs?q=", job, "&l=",
+                                 city, "&sort=date&radius=15&limit=50"])
+            df = run_scraper(first_url, df, job)
+            write_file_to_s3(df)
