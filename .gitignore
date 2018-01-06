@@ -107,3 +107,5 @@ ENV/
 *.tsv
 *.idea/
 *data/
+*.idea/
+*legacy/
