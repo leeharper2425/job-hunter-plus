@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-from sys import argv
 from collections import defaultdict
 from time import sleep
 import os
@@ -93,7 +92,7 @@ def add_listing_info(div, lst_dict, search):
 def get_today(div):
     """
     Get the day that the job was posted, and return True if today
-    :param soup: Beautiful soup object to check
+    :param div: A single job posting
     :return: flag, a Boolean indicating whether the job was posted "today"
     """
     date_tag = div.find(name="span", attrs={"class": "date"})
@@ -230,10 +229,8 @@ if __name__ == "__main__":
     """
     df = access_s3_to_df()
     # Run 4 selected cities and 3 relevant queries
-    cities = ["New+York", "Chicago", "Austin" "San+Francisco"]
+    cities = ["New+York", "Chicago", "Austin", "San+Francisco"]
     jobs = ["Data+Scientist", "Data+Analyst", "Business+Intelligence"]
-    #cities = ["Austin"]
-    #jobs = ["Data+Scientist"]
     for city in cities:
         for job in jobs:
             first_url = ''.join(["https://www.indeed.com/jobs?q=", job, "&l=",
