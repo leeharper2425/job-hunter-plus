@@ -13,7 +13,7 @@ class IndeedScraper:
     """
     A class that deploys an indeed web scraper, saving results in an S3 bucket.
     """
-    def __init__(self, bucket, filename, query, location):
+    def __init__(self, bucket, filename, query, location, daily=False):
         """
         Function that is called when the class is instantiated.
         An object is created for each search query and city separately.
@@ -21,6 +21,7 @@ class IndeedScraper:
         :param location: str, the city to be searched.
         :param bucket: str, AWS S3 bucket where data is stored.
         :param filename: str, filename of data.
+        :param daily: bool, indicates full scrape or daily update.
         """
         self.url = ''.join(["https://www.indeed.com/jobs?q=", query, "&l=",
                             location, "&radius=15&sort=date&limit=50"])
@@ -31,10 +32,11 @@ class IndeedScraper:
         self.flag = True
         self.listings = defaultdict(list)
         self.soup = None
+        self.daily = daily
 
     def run_scraper(self):
         """
-        Run the web scraper that will scrape Indeed
+        Method that controls the core functionality of the scraper.
         """
         # Run the scraper until it runs out of pages to scrape
         while self.flag:
@@ -42,6 +44,8 @@ class IndeedScraper:
             self._check_flag()
             for div in self.soup.find_all(name="div", attrs={"class": "row"}):
                 self._add_listing_info(div)
+                if not self.flag:   # Stop if daily update is finished.
+                    break
                 sleep(2)
             # Save the file after each results page
             self.df = self.df.append(pd.DataFrame(self.listings), ignore_index=True)
@@ -81,7 +85,7 @@ class IndeedScraper:
         Update the object with the URL of the next listings page.
         """
         d = self.soup.find(name="div", attrs={"class": "pagination"})
-        if d is None:  #This occurs if there is only one page of results
+        if d is None:  # This occurs if there is only one page of results
             return
         self.url = ''.join(["https://www.indeed.com", d.find_all("a")[-1]["href"]])
 
@@ -94,6 +98,16 @@ class IndeedScraper:
         # If link is a duplicate on the current run, then don't add it
         if job_url in set(self.listings["url"]):
             return
+
+        # Extra code checks for the daily updates:
+        if self.daily:
+            # We don't want sponsored links on the daily job
+            if "pagead" in job_url:
+                return
+            # If job wasn't posted today, then skip it and stop scraping
+            if not self._get_today(div):
+                self.flag = False
+                return
 
         # Add the job spec details
         self._get_job_title(div)
@@ -113,6 +127,19 @@ class IndeedScraper:
         """
         a = div.find(name="a", attrs={"data-tn-element": "jobTitle"})
         return a["href"]
+
+    @staticmethod
+    def _get_today(div):
+        """
+        Get the day that the job was posted, and return True if today
+        :param div: A single job posting
+        :return flag: a Boolean indicating whether the job was posted
+                      "Today" or "Just posted"
+        """
+        date_tag = div.find(name="span", attrs={"class": "date"})
+        if date_tag.text == "Today" or date_tag.text == "Just posted":
+            return True
+        return False
 
     def get_number_of_jobs(self):
         """
@@ -229,19 +256,14 @@ if __name__ == "__main__":
     if len(argv) == 5:
         scraper = IndeedScraper(argv[1], argv[2], argv[3], argv[4])
         scraper.run_scraper()
-
     # Run 4 selected cities and 3 relevant queries
     cities = ["Austin", "Chicago", "San+Francisco", "New+York"]
     jobs = ["Data+Scientist", "Data+Analyst", "Business+Intelligence"]
-    if len(argv) == 3:
+    if len(argv) == 3 or len(argv) == 4:
         for city in cities:
             for job in jobs:
-                scraper = IndeedScraper(argv[1], argv[2], job, city)
+                if len(argv) == 3:
+                    scraper = IndeedScraper(argv[1], argv[2], job, city)
+                else:
+                    scraper = IndeedScraper(argv[1], argv[2], job, city, True)
                 scraper.run_scraper()
-    # elif len(argv) == 4:
-    #     for city in cities:
-    #         for job in jobs:
-    #             scraper = IndeedScraper(argv[1], argv[2], job, city)
-    #             scraper.run_scraper()
-
-
