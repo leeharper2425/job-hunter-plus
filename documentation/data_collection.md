@@ -19,14 +19,17 @@ The calls for running the web scraper script from its root directory using the c
 
 ### Option 1: Scraping on a single query and city
 `python web_scraper.py s3_bucket filename query city`
+
 For example: `python web_scraper.py bucket_1 file.csv data+science austin`
 
 ### Option 2: Performing a complete scrape (see below):
 `python web_scraper.py <s3_bucket> <filename>`
+
 For example: `python web_scraper.py bucket_1 file.csv`
 
 ### Option 3: Getting all jobs that were added on the current day
 `python web_scraper.py <s3_bucket> <filename> daily`
+
 For example: `python web_scraper.py bucket_1 file.csv daily`
 
 ## 2: Data Dictionary
