@@ -23,12 +23,12 @@ The calls for running the web scraper script from its root directory using the c
 For example: `python web_scraper.py bucket_1 file.csv data+science austin`
 
 ### Option 2: Performing a complete scrape (see below):
-`python web_scraper.py <s3_bucket> <filename>`
+`python web_scraper.py s3_bucket filename`
 
 For example: `python web_scraper.py bucket_1 file.csv`
 
 ### Option 3: Getting all jobs that were added on the current day
-`python web_scraper.py <s3_bucket> <filename> daily`
+`python web_scraper.py s3_bucket filename daily`
 
 For example: `python web_scraper.py bucket_1 file.csv daily`
 
@@ -87,4 +87,4 @@ and AWS EC2 micro instance, and the results were stored in the job-hunter-plus-d
 
 Ongoing data collection was performed on a daily basis, with a unix cron job being launched at 9.30pm CST froman EC2 instance. This job
 sorts the results by date, and then only scrapes the jobs that were posted on the day of the current job, identified by the "Today" or
-"Just posted" text in the date posted div of the job listing.
+"Just posted" text in the date posted div of the job listing. The results are appended to the current result set, and the data file is then overwritten.
