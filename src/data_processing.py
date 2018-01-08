@@ -2,13 +2,12 @@ import pandas as pd
 import re
 import numpy as np
 from .utils import import_data
-from nltk.corpus import stopwords
-from nltk import word_tokenize
 from nltk.stem.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 class Processing:
     """
@@ -37,11 +36,28 @@ class Processing:
         :param filename: str or None, the data filename.
         :return: Numpy arrays, the document and label arrays.
         """
-        df = data if data else import_data(bucket, filename)
+        df = import_data(bucket, filename) if data is None else data
         replace_dict = {"CA": 0, "NY": 1, "IL": 2, "TX": 3}
-        label =   df["location"].str.extract("(TX|CA|NY|IL)", expand=True)\
-                                    .replace(replace_dict)
-        return self._strip_format(df["job_description"]), label.as_matrix()
+        df["label"] = df["location"].str.extract("(TX|CA|NY|IL)", expand=True)\
+                                        .replace(replace_dict)
+        df = self._remove_null(df)
+        df = self._remove_null(df, "label")
+        #For now, modified to only retain New York and San Francisco classes
+        df = df[df['location'].str.contains("CA") |
+                df["location"].str.contains("NY")]
+
+        return self._strip_format(df["job_description"]),\
+               df["label"].as_matrix()
+
+    @staticmethod
+    def _remove_null(df, field="job_description"):
+        """
+        Remove any rows where the given field is null
+        :param df: Pandas DataFrame
+        :param field: str, the column to filter on
+        :return: Pandas DataFrame, with nulls removed
+        """
+        return df[df[field].notnull()]
 
     @staticmethod
     def _strip_format(series):
@@ -52,16 +68,16 @@ class Processing:
         """
         sm = series.as_matrix()
         for index, document in enumerate(series):
-            sm[index] = re.sub('[^\w\s]|â', "", document, flags=re.UNICODE)
+            document = document.replace("\n", " ")
+            sm[index] = re.sub("[^\w\s]|â", "", document, flags=re.UNICODE)
         return sm
-
 
     def snowball_stemmatizer(self):
         """
         Apply the snowball stemmatizer to the job description text.
         """
         stemmer = SnowballStemmer('english')
-        self.transformed = ["" "".join([stemmer.stem(word) for word in text.split(" ")])
+        self.transformed = [" ".join([stemmer.stem(word) for word in text.split(" ")])
                             for text in self.docs]
 
     def porter_stemmatizer(self):
@@ -69,7 +85,7 @@ class Processing:
         Apply the Porter stemmatizer to the job description text.
         """
         stemmer = PorterStemmer()
-        self.transformed = ["" "".join([stemmer.stem(word) for word in text.split(" ")])
+        self.transformed = [" " .join([stemmer.stem(word) for word in text.split(" ")])
                             for text in self.docs]
 
     def wordnet_lemmatizer(self):
@@ -77,14 +93,39 @@ class Processing:
         Apply the WordNet lemmatizer to the job description text.
         """
         lemma = WordNetLemmatizer()
-        self.transformed = ["" "".join([lemma.lemmatize(word) for word in text.split(" ")])
+        self.transformed = [" ".join([lemma.lemmatize(word) for word in text.split(" ")])
                             for text in self.docs]
 
-    def count_vectorize(self, min_df = 1,  max_df = 1.0):
+    def count_vectorize(self, min_df=1,  max_df=1.0):
         """
-        Vectorize the corpus using Count Vectorization
+        Vectorize the corpus using bag of words vectorization
         :param min_df: float or int, minimum document frequency of term.
         :param max_df: float or int, maximum document frequency of term.
+        :return: SK Learn vectorizer object
         """
+        self.vectorize = CountVectorizer(self.transformed, stop_words="english",
+                                         min_df=min_df, max_df=max_df)
+        self.vectorize.fit(self.transformed)
 
+    def tfidf_vectorize(self, min_df=1, max_df=1.0):
+        """
+        Vectorize the corpus using TFIDF vectorization
+        :param min_df: float or int, minimum document frequency of term.
+        :param max_df: float or int, maximum document frequency of term.
+        :return: SK Learn vectorizer object
+        """
+        self.vectorize = TfidfVectorizer(self.transformed, stop_words="english",
+                                         min_df=min_df, max_df=max_df)
+        self.vectorize.fit(self.transformed)
 
+    def fit(self):
+        """
+        Performs fitting for the final model, will be populated later
+        """
+        pass
+
+    def transform(self):
+        """
+        Transforms the feature matrix based upon the model that is built.
+        """
+        pass
