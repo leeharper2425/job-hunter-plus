@@ -57,10 +57,34 @@ related jobs for the cities that this project is targeting. In addition, since I
 hosting its own postings, many of the jobs that appeared on the other boards were also present there. Thus, the decision was
 made to only consider Indeed.com.
 
-The next parameter to tune was the job search query that was being made to Indeed.com. The goal here was to find a set of queries
-that gave high numbers of relevant results. For example, should one search for data+science (more results in general), or for
-data+scientist (more relevant results). After manual investigation, the following queries were used, with a focus on relevancy
-rather than corpus volume:
+It is worth noting here that, for a given PHP query string, Indeed.com will return at most 1000 job listings. Thus, for searches
+that yield considerably more than 1000 results, one is better off optimizing for the quality of results rather than their quantity.
+
+### Query Parameters
+
+Given this finding, the next parameter to tune was the job search query that was being made to Indeed.com. The goal here was to
+find a set of queries that gave a relatively high number of relevant results, subject to the 1000 result restriction. For example,
+should one search for data+science (more results in general), or for data+scientist (more relevant results). After manual
+investigation, the following queries were used, with a focus on relevancy rather than corpus volume:
 - data+scientist
 - data+analyst
 - business+intelligence
+
+Some other miscellaneous parameters were also optimized by manual inspection:
+- Results were limited to a 15 mile radius of the target city.
+- The maximum number of results (50) was displayed on each results page. This minimizes the number of URL requests that are made to
+Indeed.com's servers, and minimizes the number of sponsored listings (which often repeat themselves).
+
+### Data Collection Protocol
+
+An initial csv file was generated on December 29-30 2017. In order to get more job listings than the 1000 result limit would normally
+allow for, the scrape was performed in two ways:
+1. Sort by relevancy (this is the Indeed default, so the sort parameter was skipped in the query)
+2. Sort by date posted
+
+This generated approximately 9000 job listings across the three target search terms and four target cities. All scraping was done using
+and AWS EC2 micro instance, and the results were stored in the job-hunter-plus-data S3 bucket
+
+Ongoing data collection was performed on a daily basis, with a unix cron job being launched at 9.30pm CST froman EC2 instance. This job
+sorts the results by date, and then only scrapes the jobs that were posted on the day of the current job, identified by the "Today" or
+"Just posted" text in the date posted div of the job listing.
