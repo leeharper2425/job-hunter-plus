@@ -14,38 +14,41 @@ class Processing:
     Provides methods for transforming text data.
     """
 
-    def __init__(self, data=None, bucket=None, filename=None, stemlem=None):
+    def __init__(self, data=None, bucket=None, filename=None, stemlem=None,
+                 num_cities=2):
         """
         Instantiate the preprocessing class.
         :param data: Pandas DataFrame containing data.
         :param bucket: str S3 bucket of data if applicable.
         :param filename: str, name of the data file, if applicable.
         :param stemlem: str, stemmatizer or lemmatizer to use.
+        :param num_cities: int, the number of cities to retain.
         """
         self.model = None
-        self.docs, self.labels = self._extract_info(data, bucket, filename)
+        self.docs, self.labels = self._extract_info(data, bucket, filename,
+                                                    num_cities)
         self.stemlem = stemlem
         self.transformed = self.docs
         self.vectorize = None
 
-    def _extract_info(self, data, bucket, filename):
+    def _extract_info(self, data, bucket, filename, num_cities):
         """
         Load data and extract descriptions and state labels.
         :param data: Pandas DataFrame, or None.
         :param bucket: str or None, s3 bucket name.
         :param filename: str or None, the data filename.
+        :param num_cities: int, the number of cities to retain
         :return: Numpy arrays, the document and label arrays.
         """
         df = import_data(bucket, filename) if data is None else data
         replace_dict = {"CA": 0, "NY": 1, "IL": 2, "TX": 3}
         df["label"] = df["location"].str.extract("(TX|CA|NY|IL)", expand=True)\
                                         .replace(replace_dict)
+        # Remove any null values from the important fields
         df = self._remove_null(df)
         df = self._remove_null(df, "label")
-        #For now, modified to only retain New York and San Francisco classes
-        df = df[df['location'].str.contains("CA") |
-                df["location"].str.contains("NY")]
-
+        # Retain a user decided number of cities.
+        df = df[df["label"] < num_cities]
         return self._strip_format(df["job_description"]),\
                df["label"].as_matrix()
 
