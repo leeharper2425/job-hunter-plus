@@ -14,70 +14,70 @@ class Processing:
     Provides methods for transforming text data.
     """
 
-    def __init__(self, stemlem=None):
+    def __init__(self, stemlem=None, min_df=1, max_df=1.0, num_cities=2):
         """
         Instantiate the preprocessing class.
-
-
         :param stemlem: str, stemmatizer or lemmatizer to use.
+        :param num_cities: int, the number of cities to retain.
+        :param min_df: float or int, minimum document frequency of term.
+        :param max_df: float or int, maximum document frequency of term.
 
         """
         self.model = None
         self.stemlem = stemlem
+        self.min_df = min_df
+        self.max_df = max_df
+        self.num_cities = num_cities
+        self.vectorize = None
 
-
-    def fit(self, data=None, bucket=None, min_df=1, max_df=1.0, num_cities=2):
+    def fit(self, data=None, bucket=None, filename=None):
         """
         Single function to fit the NLP transformations.
-        Uses a snowball stemmer combined with TFIDF vectorization
+        Uses a user defined stemmer/lemmatizer with TFIDF vectorization.
         :param data: Pandas DataFrame containing data.
         :param bucket: str S3 bucket of data if applicable.
         :param filename: str, name of the data file, if applicable.
-        :param num_cities: int, the number of cities to retain.
-        :param min_df: float or int, minimum document frequency of term.
-        :param max_df: float or int, maximum document frequency of term.
-        """
-        self.snowball_stemmatizer()
-        self.tfidf_vectorize(min_df, max_df)
-        self.transformed = self.docs
-        self.vectorize = None
-
-
-    def _extract_info(self, data, bucket, filename, num_cities):
-        """
-        Load data and extract descriptions and state labels.
-        :param data: Pandas DataFrame, or None.
-        :param bucket: str or None, s3 bucket name.
-        :param filename: str or None, the data filename.
-        :param num_cities: int, the number of cities to retain
-        :return: Numpy arrays, the document and label arrays.
         """
         df = import_data(bucket, filename) if data is None else data
-        replace_dict = {"CA": 0, "NY": 1, "IL": 2, "TX": 3}
-        df["label"] = df["location"].str.extract("(TX|CA|NY|IL)", expand=True)\
-                                        .replace(replace_dict)
-        # Remove any null values from the important fields
-        df = self._remove_null(df)
-        df = self._remove_null(df, "label")
-        # Retain a user decided number of cities.
-        df = df[df["label"] < num_cities]
-        return self._strip_format(df["job_description"]),\
-               df["label"].as_matrix()
+        df - self._remove_null(df, ["job_description"])
+        df = self._create_labels(df)
+        df = df[df["label"] < self.num_cities]
+        X = self._create_text_matrix(df["job_description"])
+        y = df["label"]
+        self.stemlem(X)
+        self.tfidf_vectorize(X)
 
     @staticmethod
-    def _remove_null(df, field="job_description"):
+    def _remove_null(df, fields):
         """
-        Remove any rows where the given field is null
+        Remove any rows where the given fields are null
         :param df: Pandas DataFrame
-        :param field: str, the column to filter on
+        :param fields: list of str, the columns to filter on
         :return: Pandas DataFrame, with nulls removed
         """
-        return df[df[field].notnull()]
+        for column_name in fields:
+            df = df[df[column_name].notnull()]
+        return df
 
     @staticmethod
-    def _strip_format(series):
+    def _create_labels(df):
         """
-        Strip special HTML / unicode characters from text
+        Creates integer numeric label based on city_term
+        0 = San+Francisco, 1 = New+York, 2 = Chicago, 3 = Austin
+        :param df: Pandas DataFrame containing data
+        :return: Pandas DataFrame with extra label fields converted to int
+        """
+        replace_dict = {"San+Francisco": 0,
+                        "New+York": 1,
+                        "Chicago": 2,
+                        "Austin": 3}
+        df["label"] = df["city_term"].replace(replace_dict)
+        return df
+
+    @staticmethod
+    def _create_text_matrix(series):
+        """
+        Strip special characters and return cleaned text in a vector.
         :param series: Pandas Series, the job description text
         :return: Numpy array, the cleaned up text
         """
@@ -87,51 +87,52 @@ class Processing:
             sm[index] = re.sub("[^\w\s]|â", "", document, flags=re.UNICODE)
         return sm
 
-    def snowball_stemmatizer(self):
+    @staticmethod
+    def snowball_stemmatizer(documents):
         """
         Apply the snowball stemmatizer to the job description text.
         """
         stemmer = SnowballStemmer('english')
-        self.transformed = [" ".join([stemmer.stem(word) for word in text.split(" ")])
-                            for text in self.docs]
+        return [" ".join([stemmer.stem(word) for word in text.split(" ")])
+                for text in documents]
 
-    def porter_stemmatizer(self):
+    @staticmethod
+    def porter_stemmatizer(documents):
         """
         Apply the Porter stemmatizer to the job description text.
         """
         stemmer = PorterStemmer()
-        self.transformed = [" " .join([stemmer.stem(word) for word in text.split(" ")])
-                            for text in self.docs]
+        return [" " .join([stemmer.stem(word) for word in text.split(" ")])
+                for text in documents]
 
-    def wordnet_lemmatizer(self):
+    @staticmethod
+    def wordnet_lemmatizer(documents):
         """
         Apply the WordNet lemmatizer to the job description text.
         """
         lemma = WordNetLemmatizer()
-        self.transformed = [" ".join([lemma.lemmatize(word) for word in text.split(" ")])
-                            for text in self.docs]
+        return [" ".join([lemma.lemmatize(word) for word in text.split(" ")])
+                for text in documents]
 
-    def count_vectorize(self, min_df=1,  max_df=1.0):
+    def count_vectorize(self, training_docs):
         """
         Vectorize the corpus using bag of words vectorization
-        :param min_df: float or int, minimum document frequency of term.
-        :param max_df: float or int, maximum document frequency of term.
+        :param training_docs: Numpy array, the text to fit the vectorizer
         :return: SK Learn vectorizer object
         """
-        self.vectorize = CountVectorizer(self.transformed, stop_words="english",
-                                         min_df=min_df, max_df=max_df)
-        self.vectorize.fit(self.transformed)
+        self.vectorize = CountVectorizer(training_docs, stop_words="english",
+                                         min_df=self.min_df, max_df=self.max_df)
+        self.vectorize.fit(training_docs)
 
-    def tfidf_vectorize(self, min_df=1, max_df=1.0):
+    def tfidf_vectorize(self, training_docs):
         """
         Vectorize the corpus using TFIDF vectorization
-        :param min_df: float or int, minimum document frequency of term.
-        :param max_df: float or int, maximum document frequency of term.
+        :param training_docs: Numpy array, the text to fit the vectorizer
         :return: SK Learn vectorizer object
         """
-        self.vectorize = TfidfVectorizer(self.transformed, stop_words="english",
-                                         min_df=min_df, max_df=max_df)
-        self.vectorize.fit(self.transformed)
+        self.vectorize = TfidfVectorizer(training_docs, stop_words="english",
+                                         min_df=self.min_df, max_df=self.max_df)
+        self.vectorize.fit(training_docs)
 
 
 
@@ -140,4 +141,4 @@ class Processing:
         Single function to perform the NLP transformation
         :param X: the
         """
-        return p.vectorize.transform(X)
+        pass
