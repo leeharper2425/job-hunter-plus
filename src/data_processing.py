@@ -17,7 +17,7 @@ class Processing:
     def __init__(self, stemlem=None, min_df=1, max_df=1.0, num_cities=2):
         """
         Instantiate the preprocessing class.
-        :param stemlem: str, stemmatizer or lemmatizer to use.
+        :param stemlem: str or list, stemmatizer or lemmatizer to use.
         :param num_cities: int, the number of cities to retain.
         :param min_df: float or int, minimum document frequency of term.
         :param max_df: float or int, maximum document frequency of term.
@@ -39,13 +39,12 @@ class Processing:
         :param filename: str, name of the data file, if applicable.
         """
         df = import_data(bucket, filename) if data is None else data
-        df - self._remove_null(df, ["job_description"])
+        df = self._remove_null(df, ["job_description"])
         df = self._create_labels(df)
         df = df[df["label"] < self.num_cities]
-        X = self._create_text_matrix(df["job_description"])
-        y = df["label"]
-        self.stemlem(X)
-        self.tfidf_vectorize(X)
+        doc_array = self._create_text_matrix(df["job_description"])
+        doc_array = self._do_stemlem(doc_array)
+        self.tfidf_vectorize(doc_array)
 
     @staticmethod
     def _remove_null(df, fields):
@@ -86,6 +85,22 @@ class Processing:
             document = document.replace("\n", " ")
             sm[index] = re.sub("[^\w\s]|â", "", document, flags=re.UNICODE)
         return sm
+
+    def _do_stemlem(self, text_array):
+        """
+        Controls the stemmatization/lemmatization process.
+        Note that, if multiple methods are selected, lemmatization is performed
+        before stemmatization.
+        :param text_array: ndarray, the documents to process.
+        :return: ndarray, the processed documents
+        """
+        if "wordnet" in self.stemlem:
+            text_array = self.wordnet_lemmatizer(text_array)
+        if "snowball" in self.stemlem:
+            text_array = self.snowball_stemmatizer(text_array)
+        elif "porter" in self.stemlem:
+            text_array = self.porter_stemmatizer(text_array)
+        return text_array
 
     @staticmethod
     def snowball_stemmatizer(documents):
@@ -133,7 +148,6 @@ class Processing:
         self.vectorize = TfidfVectorizer(training_docs, stop_words="english",
                                          min_df=self.min_df, max_df=self.max_df)
         self.vectorize.fit(training_docs)
-
 
 
     def transform(self, X):
