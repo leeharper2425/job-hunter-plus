@@ -36,7 +36,7 @@ def create_model_data(data, bucket=None, filename=None, num_cities=2):
     df = remove_null(df, ["job_description"])
     df = create_labels(df)
     df = df[df["label"] < num_cities]
-    return create_text_matrix(df["job_description"]), df["label"]
+    return create_text_matrix(df["job_description"]), df["label"].as_matrix()
 
 
 def remove_null(df, fields):
@@ -76,4 +76,4 @@ def create_text_matrix(series):
     for index, document in enumerate(series):
         document = document.replace("\n", " ")
         sm[index] = re.sub("[^\w\s]|â", "", document, flags=re.UNICODE)
-    return
+    return sm
