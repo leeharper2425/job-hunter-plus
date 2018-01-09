@@ -1,7 +1,6 @@
 import pandas as pd
-import re
 import numpy as np
-from .utils import import_data
+from .utils import import_data, create_model_data
 from nltk.stem.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -38,53 +37,42 @@ class Processing:
         :param bucket: str S3 bucket of data if applicable.
         :param filename: str, name of the data file, if applicable.
         """
-        df = import_data(bucket, filename) if data is None else data
-        df = self._remove_null(df, ["job_description"])
-        df = self._create_labels(df)
-        df = df[df["label"] < self.num_cities]
-        doc_array = self._create_text_matrix(df["job_description"])
+        doc_array, labels = create_model_data(data, bucket,
+                                              filename, self.num_cities)
         doc_array = self._do_stemlem(doc_array)
         self.tfidf_vectorize(doc_array)
 
-    @staticmethod
-    def _remove_null(df, fields):
+    def transform(self, data=None, bucket=None, filename=None):
         """
-        Remove any rows where the given fields are null
-        :param df: Pandas DataFrame
-        :param fields: list of str, the columns to filter on
-        :return: Pandas DataFrame, with nulls removed
+        Single function to apply the NLP transformation.
+        :param data: Pandas DataFrame containing data.
+        :param bucket: str S3 bucket of data if applicable.
+        :param filename: str, name of the data file, if applicable.
+        :return: ndarrays for the feature and label matrices
         """
-        for column_name in fields:
-            df = df[df[column_name].notnull()]
-        return df
+        if self.vectorize is None:
+            raise AttributeError("Must fit a processing pipeline before calling\
+                                 the transform method")
+        doc_array, y = create_model_data(data, bucket, filename,
+                                         self.num_cities)
+        doc_array = self._do_stemlem(doc_array)
+        x = self.vectorize.transform(doc_array)
+        return x, y
 
-    @staticmethod
-    def _create_labels(df):
+    def fit_transform(self, data=None, bucket=None, filename=None):
         """
-        Creates integer numeric label based on city_term
-        0 = San+Francisco, 1 = New+York, 2 = Chicago, 3 = Austin
-        :param df: Pandas DataFrame containing data
-        :return: Pandas DataFrame with extra label fields converted to int
+        Single function to fit model and apply it in one go.
+        :param data: Pandas DataFrame containing data.
+        :param bucket: str S3 bucket of data if applicable.
+        :param filename: str, name of the data file, if applicable.
+        :return: ndarrays for the feature and label matrices
         """
-        replace_dict = {"San+Francisco": 0,
-                        "New+York": 1,
-                        "Chicago": 2,
-                        "Austin": 3}
-        df["label"] = df["city_term"].replace(replace_dict)
-        return df
-
-    @staticmethod
-    def _create_text_matrix(series):
-        """
-        Strip special characters and return cleaned text in a vector.
-        :param series: Pandas Series, the job description text
-        :return: Numpy array, the cleaned up text
-        """
-        sm = series.as_matrix()
-        for index, document in enumerate(series):
-            document = document.replace("\n", " ")
-            sm[index] = re.sub("[^\w\s]|â", "", document, flags=re.UNICODE)
-        return sm
+        doc_array, y = create_model_data(data, bucket, filename,
+                                         self.num_cities)
+        doc_array = self._do_stemlem(doc_array)
+        self.tfidf_vectorize(doc_array)
+        x = self.vectorize.transform(doc_array)
+        return x, y
 
     def _do_stemlem(self, text_array):
         """
@@ -148,11 +136,3 @@ class Processing:
         self.vectorize = TfidfVectorizer(training_docs, stop_words="english",
                                          min_df=self.min_df, max_df=self.max_df)
         self.vectorize.fit(training_docs)
-
-
-    def transform(self, X):
-        """
-        Single function to perform the NLP transformation
-        :param X: the
-        """
-        pass
