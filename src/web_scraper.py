@@ -26,6 +26,7 @@ class IndeedScraper:
         self.url = ''.join(["https://www.indeed.com/jobs?q=", query, "&l=",
                             location, "&radius=15&sort=date&limit=50"])
         self.query = query
+        self.city = location
         self.filename = filename
         self.s3_bucket = bucket
         self.df = self._access_s3_to_df()
@@ -117,6 +118,7 @@ class IndeedScraper:
         self.listings["jobsite"] += ["Indeed"]
         self.listings["url"] += [job_url]
         self.listings["search_term"] += [self.query]
+        self.listings["city_term"] += [self.city]
 
     @staticmethod
     def _get_url_link(div):
@@ -228,7 +230,7 @@ class IndeedScraper:
         """
         return pd.DataFrame(columns=["job_title", "location", "company",
                                      "url", "jobsite", "job_description",
-                                     "search_term"])
+                                     "search_term" "city_term"])
 
     def _write_file_to_s3(self):
         """

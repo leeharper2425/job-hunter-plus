@@ -14,22 +14,34 @@ class Processing:
     Provides methods for transforming text data.
     """
 
-    def __init__(self, data=None, bucket=None, filename=None, stemlem=None,
-                 num_cities=2):
+    def __init__(self, stemlem=None):
         """
         Instantiate the preprocessing class.
+
+
+        :param stemlem: str, stemmatizer or lemmatizer to use.
+
+        """
+        self.model = None
+        self.stemlem = stemlem
+
+
+    def fit(self, data=None, bucket=None, min_df=1, max_df=1.0, num_cities=2):
+        """
+        Single function to fit the NLP transformations.
+        Uses a snowball stemmer combined with TFIDF vectorization
         :param data: Pandas DataFrame containing data.
         :param bucket: str S3 bucket of data if applicable.
         :param filename: str, name of the data file, if applicable.
-        :param stemlem: str, stemmatizer or lemmatizer to use.
         :param num_cities: int, the number of cities to retain.
+        :param min_df: float or int, minimum document frequency of term.
+        :param max_df: float or int, maximum document frequency of term.
         """
-        self.model = None
-        self.docs, self.labels = self._extract_info(data, bucket, filename,
-                                                    num_cities)
-        self.stemlem = stemlem
+        self.snowball_stemmatizer()
+        self.tfidf_vectorize(min_df, max_df)
         self.transformed = self.docs
         self.vectorize = None
+
 
     def _extract_info(self, data, bucket, filename, num_cities):
         """
@@ -121,14 +133,11 @@ class Processing:
                                          min_df=min_df, max_df=max_df)
         self.vectorize.fit(self.transformed)
 
-    def fit(self):
-        """
-        Performs fitting for the final model, will be populated later
-        """
-        pass
 
-    def transform(self):
+
+    def transform(self, X):
         """
-        Transforms the feature matrix based upon the model that is built.
+        Single function to perform the NLP transformation
+        :param X: the
         """
-        pass
+        return p.vectorize.transform(X)
