@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from .utils import import_data, create_model_data
+from .utils import create_model_data, stop_word_addition
 from nltk.stem.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -13,14 +13,14 @@ class Processing:
     Provides methods for transforming text data.
     """
 
-    def __init__(self, stemlem=None, min_df=1, max_df=1.0, num_cities=2):
+    def __init__(self, stemlem="", min_df=1, max_df=1.0, num_cities=2, n_grams=1):
         """
         Instantiate the preprocessing class.
         :param stemlem: str or list, stemmatizer or lemmatizer to use.
         :param num_cities: int, the number of cities to retain.
         :param min_df: float or int, minimum document frequency of term.
         :param max_df: float or int, maximum document frequency of term.
-
+        :param n_grams: int, n-gram to use
         """
         self.model = None
         self.stemlem = stemlem
@@ -28,6 +28,7 @@ class Processing:
         self.max_df = max_df
         self.num_cities = num_cities
         self.vectorize = None
+        self.n_grams = n_grams
 
     def fit(self, data=None, bucket=None, filename=None):
         """
@@ -37,10 +38,9 @@ class Processing:
         :param bucket: str S3 bucket of data if applicable.
         :param filename: str, name of the data file, if applicable.
         """
-        doc_array, labels = create_model_data(data, bucket,
-                                              filename, self.num_cities)
-        doc_array = self._do_stemlem(doc_array)
-        self.tfidf_vectorize(doc_array)
+        fit_array, _, _ = create_model_data(data, bucket, filename, self.num_cities)
+        fit_array = self._do_stemlem(fit_array)
+        self.tfidf_vectorize(fit_array)
 
     def transform(self, data=None, bucket=None, filename=None):
         """
@@ -53,8 +53,8 @@ class Processing:
         if self.vectorize is None:
             raise AttributeError("Must fit a processing pipeline before calling\
                                  the transform method")
-        doc_array, y = create_model_data(data, bucket, filename,
-                                         self.num_cities)
+        _, doc_array, y = create_model_data(data, bucket, filename,
+                                            self.num_cities)
         doc_array = self._do_stemlem(doc_array)
         x = self.vectorize.transform(doc_array)
         return x, y
@@ -67,10 +67,11 @@ class Processing:
         :param filename: str, name of the data file, if applicable.
         :return: ndarrays for the feature and label matrices
         """
-        doc_array, y = create_model_data(data, bucket, filename,
-                                         self.num_cities)
+        fit_array, doc_array, y = create_model_data(data, bucket, filename,
+                                                    self.num_cities)
+        fit_array = self._do_stemlem(fit_array)
+        self.tfidf_vectorize(fit_array)
         doc_array = self._do_stemlem(doc_array)
-        self.tfidf_vectorize(doc_array)
         x = self.vectorize.transform(doc_array)
         return x, y
 
@@ -88,6 +89,8 @@ class Processing:
             text_array = self.snowball_stemmatizer(text_array)
         elif "porter" in self.stemlem:
             text_array = self.porter_stemmatizer(text_array)
+        if self.stemlem == "":
+            text_array = list(text_array)
         return text_array
 
     @staticmethod
@@ -123,7 +126,9 @@ class Processing:
         :param training_docs: Numpy array, the text to fit the vectorizer
         :return: SK Learn vectorizer object
         """
-        self.vectorize = CountVectorizer(training_docs, stop_words="english",
+        stop_words = stop_word_addition()
+
+        self.vectorize = CountVectorizer(training_docs, stop_words=stop_words,
                                          min_df=self.min_df, max_df=self.max_df)
         self.vectorize.fit(training_docs)
 
@@ -133,6 +138,8 @@ class Processing:
         :param training_docs: Numpy array, the text to fit the vectorizer
         :return: SK Learn vectorizer object
         """
-        self.vectorize = TfidfVectorizer(training_docs, stop_words="english",
-                                         min_df=self.min_df, max_df=self.max_df)
+        stop_words = stop_word_addition()
+        self.vectorize = TfidfVectorizer(training_docs, stop_words=stop_words,
+                                         min_df=self.min_df, max_df=self.max_df,
+                                         ngram_range=(self.n_grams, self.n_grams))
         self.vectorize.fit(training_docs)
