@@ -88,7 +88,7 @@ class NLPProcessing:
         :param text_array: ndarray, the documents to process.
         :return: ndarray, the processed documents
         """
-        self.done_stopwords = True
+        self.done_stopwords = False
         if "wordnet" in self.stemlem:
             text_array = self.wordnet_lemmatizer(text_array)
         if "snowball" in self.stemlem:
@@ -96,8 +96,7 @@ class NLPProcessing:
         elif "porter" in self.stemlem:
             text_array = self.porter_stemmatizer(text_array)
         if self.stemlem == "":
-            text_array = list(text_array)
-        self.done_stopwords = False
+            text_array = self.remove_stopwords(text_array)
         return text_array
 
     def snowball_stemmatizer(self, documents):
@@ -129,6 +128,7 @@ class NLPProcessing:
         stop_words = set()
         if self.use_stopwords and not self.done_stopwords:
             stop_words = get_stopwords()
+        self.done_stopwords = True
         if stemmer:
             return [" ".join([model.stem(word) for word in text.split(" ")
                               if word not in stop_words])
@@ -137,6 +137,17 @@ class NLPProcessing:
             return [" ".join([model.lemmatize(word) for word in text.split(" ")
                               if word not in stop_words])
                     for text in documents]
+
+    def remove_stopwords(self, documents):
+        """
+        Pure stopword removal without other text transformations
+        :param documents: ndarray, the documents to transform
+        :return: list, the documents without stop words
+        """
+        if not self.use_stopwords:
+            return list(documents)
+        stop_words = get_stopwords()
+        return [word for word in documents if word not in stop_words]
 
     def count_vectorize(self, training_docs):
         """
