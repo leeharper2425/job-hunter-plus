@@ -103,40 +103,49 @@ class NLPProcessing:
         """
         Apply the snowball stemmatizer to the job description text.
         """
-        return self._do_stem_lem(documents, SnowballStemmer("english"), True)
+        return self._do_stem(documents, SnowballStemmer("english"))
 
     def porter_stemmatizer(self, documents):
         """
         Apply the Porter stemmatizer to the job description text.
         """
-        return self._do_stem_lem(documents, PorterStemmer(), True)
+        return self._do_stem(documents, PorterStemmer())
 
     def wordnet_lemmatizer(self, documents):
         """
         Apply the WordNet lemmatizer to the job description text.
+        This method lemmatizes using all 5 part of speech (POS) tags that
+        the Wordnet lemmatizer supports
+        :param documents: ndarry of the desctiptions to be lemmatized.
+        :return list, the transformed data.
         """
-        return self._do_stem_lem(documents, WordNetLemmatizer(), False)
+        print("hello")
+        wn = WordNetLemmatizer()
+        stop_words = set()
+        if self.use_stopwords:
+            stop_words = get_stopwords()
+        self.done_stopwords = True
+        for pos_tag in ["a", "s", "r", "n", "v"]:
+            documents = [" ".join([wn.lemmatize(word, pos=pos_tag)
+                                   for word in text.split(" ")
+                                   if word not in stop_words])
+                         for text in documents]
+        return documents
 
-    def _do_stem_lem(self, documents, model, stemmer):
+    def _do_stem(self, documents, model):
         """
         Actually perform the stemming / lemmatizing and stop word removal.
         :param documents: the list of documents to transform.
         :param model: the instantiated transformation to use.
-        :param stemmer: bool, True for stemming, False for lemmatizing.
         :return: list, the transformed documents
         """
         stop_words = set()
         if self.use_stopwords and not self.done_stopwords:
             stop_words = get_stopwords()
         self.done_stopwords = True
-        if stemmer:
-            return [" ".join([model.stem(word) for word in text.split(" ")
-                              if word not in stop_words])
-                    for text in documents]
-        else:
-            return [" ".join([model.lemmatize(word) for word in text.split(" ")
-                              if word not in stop_words])
-                    for text in documents]
+        return [" ".join([model.stem(word) for word in text.split(" ")
+                          if word not in stop_words])
+                for text in documents]
 
     def remove_stopwords(self, documents):
         """
@@ -155,12 +164,10 @@ class NLPProcessing:
         :param training_docs: Numpy array, the text to fit the vectorizer
         :return: SK Learn vectorizer object
         """
-        stop_words = set()
-        if self.use_stopwords and self.stemlem == "":
-            stop_words = get_stopwords()
         # Instantiate class and fit vocabulary
-        self.vectorize = CountVectorizer(training_docs, stop_words=stop_words,
-                                         min_df=self.min_df, max_df=self.max_df)
+        self.vectorize = CountVectorizer(training_docs, min_df=self.min_df,
+                                         max_df=self.max_df,
+                                         ngram_range=(self.n_grams, self.n_grams))
         self.vectorize.fit(training_docs)
 
     def tfidf_vectorize(self, training_docs):
@@ -169,11 +176,8 @@ class NLPProcessing:
         :param training_docs: Numpy array, the text to fit the vectorizer
         :return: SK Learn vectorizer object
         """
-        stop_words = set()
-        if self.use_stopwords and self.stemlem == "":
-            stop_words = get_stopwords()
         # Instantiate class and fit vocabulary
-        self.vectorize = TfidfVectorizer(training_docs, stop_words=stop_words,
-                                         min_df=self.min_df, max_df=self.max_df,
+        self.vectorize = TfidfVectorizer(training_docs, min_df=self.min_df,
+                                         max_df=self.max_df,
                                          ngram_range=(self.n_grams, self.n_grams))
         self.vectorize.fit(training_docs)
