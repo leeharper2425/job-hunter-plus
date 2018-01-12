@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
-from .utils import create_model_data, stop_word_addition
+from .utils import get_stopwords
+from .dataframe_processing import create_model_data
 from nltk.stem.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -8,12 +9,13 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
-class Processing:
+class NLPProcessing:
     """
     Provides methods for transforming text data.
     """
 
-    def __init__(self, stemlem="", min_df=1, max_df=1.0, num_cities=2, n_grams=1):
+    def __init__(self, stemlem="", min_df=1, max_df=1.0, num_cities=2,
+                 n_grams=1, use_stopwords=True):
         """
         Instantiate the preprocessing class.
         :param stemlem: str or list, stemmatizer or lemmatizer to use.
@@ -21,6 +23,7 @@ class Processing:
         :param min_df: float or int, minimum document frequency of term.
         :param max_df: float or int, maximum document frequency of term.
         :param n_grams: int, n-gram to use
+        :param use_stopwords: bool, whether to use stopwords or not
         """
         self.model = None
         self.stemlem = stemlem
@@ -29,6 +32,8 @@ class Processing:
         self.num_cities = num_cities
         self.vectorize = None
         self.n_grams = n_grams
+        self.use_stopwords = use_stopwords
+        self.done_stopwords = False
 
     def fit(self, data=None, bucket=None, filename=None):
         """
@@ -39,7 +44,7 @@ class Processing:
         :param filename: str, name of the data file, if applicable.
         """
         fit_array, _, _ = create_model_data(data, bucket, filename, self.num_cities)
-        fit_array = self._do_stemlem(fit_array)
+        fit_array = self._stemlem(fit_array)
         self.tfidf_vectorize(fit_array)
 
     def transform(self, data=None, bucket=None, filename=None):
@@ -55,7 +60,7 @@ class Processing:
                                  the transform method")
         _, doc_array, y = create_model_data(data, bucket, filename,
                                             self.num_cities)
-        doc_array = self._do_stemlem(doc_array)
+        doc_array = self._stemlem(doc_array)
         x = self.vectorize.transform(doc_array)
         return x, y
 
@@ -69,13 +74,13 @@ class Processing:
         """
         fit_array, doc_array, y = create_model_data(data, bucket, filename,
                                                     self.num_cities)
-        fit_array = self._do_stemlem(fit_array)
+        fit_array = self._stemlem(fit_array)
         self.tfidf_vectorize(fit_array)
-        doc_array = self._do_stemlem(doc_array)
+        doc_array = self._stemlem(doc_array)
         x = self.vectorize.transform(doc_array)
         return x, y
 
-    def _do_stemlem(self, text_array):
+    def _stemlem(self, text_array):
         """
         Controls the stemmatization/lemmatization process.
         Note that, if multiple methods are selected, lemmatization is performed
@@ -83,6 +88,7 @@ class Processing:
         :param text_array: ndarray, the documents to process.
         :return: ndarray, the processed documents
         """
+        self.done_stopwords = True
         if "wordnet" in self.stemlem:
             text_array = self.wordnet_lemmatizer(text_array)
         if "snowball" in self.stemlem:
@@ -91,34 +97,46 @@ class Processing:
             text_array = self.porter_stemmatizer(text_array)
         if self.stemlem == "":
             text_array = list(text_array)
+        self.done_stopwords = False
         return text_array
 
-    @staticmethod
-    def snowball_stemmatizer(documents):
+    def snowball_stemmatizer(self, documents):
         """
         Apply the snowball stemmatizer to the job description text.
         """
-        stemmer = SnowballStemmer('english')
-        return [" ".join([stemmer.stem(word) for word in text.split(" ")])
-                for text in documents]
+        return self._do_stem_lem(documents, SnowballStemmer("english"), True)
 
-    @staticmethod
-    def porter_stemmatizer(documents):
+    def porter_stemmatizer(self, documents):
         """
         Apply the Porter stemmatizer to the job description text.
         """
-        stemmer = PorterStemmer()
-        return [" " .join([stemmer.stem(word) for word in text.split(" ")])
-                for text in documents]
+        return self._do_stem_lem(documents, PorterStemmer(), True)
 
-    @staticmethod
-    def wordnet_lemmatizer(documents):
+    def wordnet_lemmatizer(self, documents):
         """
         Apply the WordNet lemmatizer to the job description text.
         """
-        lemma = WordNetLemmatizer()
-        return [" ".join([lemma.lemmatize(word) for word in text.split(" ")])
-                for text in documents]
+        return self._do_stem_lem(documents, WordNetLemmatizer(), False)
+
+    def _do_stem_lem(self, documents, model, stemmer):
+        """
+        Actually perform the stemming / lemmatizing and stop word removal.
+        :param documents: the list of documents to transform.
+        :param model: the instantiated transformation to use.
+        :param stemmer: bool, True for stemming, False for lemmatizing.
+        :return: list, the transformed documents
+        """
+        stop_words = set()
+        if self.use_stopwords and not self.done_stopwords:
+            stop_words = get_stopwords()
+        if stemmer:
+            return [" ".join([model.stem(word) for word in text.split(" ")
+                              if word not in stop_words])
+                    for text in documents]
+        else:
+            return [" ".join([model.lemmatize(word) for word in text.split(" ")
+                              if word not in stop_words])
+                    for text in documents]
 
     def count_vectorize(self, training_docs):
         """
@@ -126,8 +144,10 @@ class Processing:
         :param training_docs: Numpy array, the text to fit the vectorizer
         :return: SK Learn vectorizer object
         """
-        stop_words = stop_word_addition()
-
+        stop_words = set()
+        if self.use_stopwords and self.stemlem == "":
+            stop_words = get_stopwords()
+        # Instantiate class and fit vocabulary
         self.vectorize = CountVectorizer(training_docs, stop_words=stop_words,
                                          min_df=self.min_df, max_df=self.max_df)
         self.vectorize.fit(training_docs)
@@ -138,7 +158,10 @@ class Processing:
         :param training_docs: Numpy array, the text to fit the vectorizer
         :return: SK Learn vectorizer object
         """
-        stop_words = stop_word_addition()
+        stop_words = set()
+        if self.use_stopwords and self.stemlem == "":
+            stop_words = get_stopwords()
+        # Instantiate class and fit vocabulary
         self.vectorize = TfidfVectorizer(training_docs, stop_words=stop_words,
                                          min_df=self.min_df, max_df=self.max_df,
                                          ngram_range=(self.n_grams, self.n_grams))

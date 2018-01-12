@@ -23,16 +23,22 @@ def import_data(bucket, filename):
     return pd.read_csv(BytesIO(obj["Body"].read()))
 
 
-def stop_word_addition():
-    additional_words = {"york", "francisco", "chicago", "ny", "ca", "austin", "chicago", "tx",
-                        "nyu", "san", "il", "emeryville", "berkeley", "sf",
-                        "2017", "nyc", "link", "links", "30", "2018", "2019", "palo", "alto",
-                        "new", "california", "oakland", "bay", "pagejobs", "403", "signin", "jersey",
-                        "brooklyn", "manhattan", "langone", "sign", "nj", "nonloggedinwelcometitle", "save",
-                        "jobdetailsbuttontext", "salariesfind", "reviewsfind", "friendrefer", "searchmy",
-                        "locationsan", "pagejobs", "workday", "peoplesoft", "415", "94105", "uscasan",
-                        "usnynew", "timeout", "navigation", "albany", "cookies", "date", "browser", "searchjobs",
-                        "city", "area", "carequired", "application", "mateo", "copyright", "resume", "indeedcom",
-                        "keywords", "firefox", "texas", "job"}
-    return text.ENGLISH_STOP_WORDS.union(additional_words)
+def get_stopwords():
+    """
+    Return the list of stopwords that are being used for job classification.
+    :return: set, the stopwords to be removed from the corpus
+    """
+    words = {"york", "francisco", "chicago", "ny", "ca", "austin", "chicago",
+             "tx", "nyu", "san", "il", "emeryville", "berkeley", "sf", "2017",
+             "nyc", "link", "links", "30", "2018", "2019", "palo", "alto",
+             "new", "california", "oakland", "bay", "pagejobs", "403",
+             "signin", "jersey", "brooklyn", "manhattan", "langone", "sign",
+             "nj", "nonloggedinwelcometitle", "save", "jobdetailsbuttontext",
+             "salariesfind", "reviewsfind", "friendrefer", "searchmy",
+             "locationsan", "pagejobs", "workday", "peoplesoft", "415",
+             "94105", "uscasan", "usnynew", "timeout", "navigation", "albany",
+             "cookies", "date", "browser", "searchjobs", "city", "area",
+             "carequired", "application", "mateo", "copyright", "resume",
+             "indeedcom", "keywords", "firefox", "texas", "job"}
+    return text.ENGLISH_STOP_WORDS.union(words)
 
