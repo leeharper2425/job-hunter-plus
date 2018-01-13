@@ -41,4 +41,3 @@ def get_stopwords():
              "carequired", "application", "mateo", "copyright", "resume",
              "indeedcom", "keywords", "firefox", "texas", "job"}
     return text.ENGLISH_STOP_WORDS.union(words)
-

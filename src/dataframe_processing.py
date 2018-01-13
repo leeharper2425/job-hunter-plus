@@ -1,3 +1,8 @@
+"""
+Functions that perform basic processing on the dataframe to eventually output
+a transformed set of feature and label arrays for model training and testing.
+"""
+
 from .utils import import_data
 import re
 import pandas as pd

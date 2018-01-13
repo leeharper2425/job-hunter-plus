@@ -1,3 +1,7 @@
+"""
+Class that makes up the natural language processing pipeline.
+"""
+
 import pandas as pd
 import numpy as np
 from .utils import get_stopwords
@@ -92,24 +96,12 @@ class NLPProcessing:
         if "wordnet" in self.stemlem:
             text_array = self.wordnet_lemmatizer(text_array)
         if "snowball" in self.stemlem:
-            text_array = self.snowball_stemmatizer(text_array)
+            text_array = self.do_stem(text_array, SnowballStemmer("english"))
         elif "porter" in self.stemlem:
-            text_array = self.porter_stemmatizer(text_array)
+            text_array = self.do_stem(text_array, PorterStemmer())
         if self.stemlem == "":
             text_array = self.remove_stopwords(text_array)
         return text_array
-
-    def snowball_stemmatizer(self, documents):
-        """
-        Apply the snowball stemmatizer to the job description text.
-        """
-        return self._do_stem(documents, SnowballStemmer("english"))
-
-    def porter_stemmatizer(self, documents):
-        """
-        Apply the Porter stemmatizer to the job description text.
-        """
-        return self._do_stem(documents, PorterStemmer())
 
     def wordnet_lemmatizer(self, documents):
         """
@@ -132,7 +124,7 @@ class NLPProcessing:
                          for text in documents]
         return documents
 
-    def _do_stem(self, documents, model):
+    def do_stem(self, documents, model):
         """
         Actually perform the stemming / lemmatizing and stop word removal.
         :param documents: the list of documents to transform.
