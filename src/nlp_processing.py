@@ -41,7 +41,7 @@ class NLPProcessing:
 
     def fit(self, data=None, bucket=None, filename=None):
         """
-        Single function to fit the NLP transformations.
+        Single function to fit the NLP transformations on clean documents.
         Uses a user defined stemmer/lemmatizer with TFIDF vectorization.
         :param data: Pandas DataFrame containing data.
         :param bucket: str S3 bucket of data if applicable.
@@ -53,7 +53,7 @@ class NLPProcessing:
 
     def transform(self, data=None, bucket=None, filename=None):
         """
-        Single function to apply the NLP transformation.
+        Single function to apply the NLP transformation to every document.
         :param data: Pandas DataFrame containing data.
         :param bucket: str S3 bucket of data if applicable.
         :param filename: str, name of the data file, if applicable.
