@@ -111,7 +111,6 @@ class NLPProcessing:
         :param documents: ndarry of the desctiptions to be lemmatized.
         :return list, the transformed data.
         """
-        print("hello")
         wn = WordNetLemmatizer()
         stop_words = set()
         if self.use_stopwords:
@@ -120,7 +119,7 @@ class NLPProcessing:
         for pos_tag in ["a", "s", "r", "n", "v"]:
             documents = [" ".join([wn.lemmatize(word, pos=pos_tag)
                                    for word in text.split(" ")
-                                   if word not in stop_words])
+                                   if word.lower() not in stop_words])
                          for text in documents]
         return documents
 
@@ -136,7 +135,7 @@ class NLPProcessing:
             stop_words = get_stopwords()
         self.done_stopwords = True
         return [" ".join([model.stem(word) for word in text.split(" ")
-                          if word not in stop_words])
+                          if word.lower() not in stop_words])
                 for text in documents]
 
     def remove_stopwords(self, documents):
@@ -148,7 +147,8 @@ class NLPProcessing:
         if not self.use_stopwords:
             return list(documents)
         stop_words = get_stopwords()
-        return [word for word in documents if word not in stop_words]
+        return [" ".join([word for word in text.split(" ")
+                          if word.lower() not in stop_words]) for text in documents]
 
     def count_vectorize(self, training_docs):
         """
