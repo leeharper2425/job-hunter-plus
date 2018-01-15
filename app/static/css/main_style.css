@@ -1,0 +1,11 @@
+.dtable {
+    width: 100%;
+    display: table;
+    background-color: #e0ffff;
+}
+
+.d_cell {
+    padding: 5px;
+    width: 40%;
+    display: table-cell;
+}
