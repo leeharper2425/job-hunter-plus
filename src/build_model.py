@@ -58,6 +58,7 @@ class JHPModel:
         if isinstance(testing, str):
             testing = [testing]
         testing = self.processing.transform(testing)
+        print(testing)
         return self.model.predict(testing)
 
     def cross_validate(self, data=None, bucket=None, filename=None,

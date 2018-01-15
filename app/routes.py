@@ -6,9 +6,10 @@ from flask import Flask
 from flask import render_template, request
 from app import app
 import pickle
+from .predict import prediction
 
 #Load in the model when the app initializes
-with open("model.pkl") as f:
+with open("model.pkl", "rb") as f:
     model = pickle.load(f)
 
 
@@ -19,7 +20,6 @@ def index():
 
 @app.route("/predict", methods=["POST"])
 def analyze_text():
-    #doc = nlp(request.form['text1'])
-    #data = [(x.text, x.start, x.end) for x in doc.ents]
-    return
-    #return render_template('index.html', title='Named Entity Reco/gnition', data=data)
+    doc = request.form['text1']
+    pred = prediction(model, doc)
+    return render_template('index.html', title="City Prediction", data=pred)
