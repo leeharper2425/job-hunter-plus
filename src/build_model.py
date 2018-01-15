@@ -9,6 +9,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import KFold
+from sklearn.metrics import confusion_matrix
 
 
 class JHPModel:
@@ -34,6 +35,7 @@ class JHPModel:
                                         num_cities, n_grams,
                                         use_stopwords)
         self.model = model
+        self.classes = num_cities
 
     def fit(self, training=None, bucket=None, filename=None):
         """
@@ -46,6 +48,17 @@ class JHPModel:
         df = import_data(bucket, filename) if training is None else training
         features, labels = self.processing.fit_transform(df)
         self.model.fit(features, labels)
+
+    def predict(self, testing):
+        """
+        Make a prediction about testing data.
+        :param testing: str, list or ndarray the documents to predict
+        :return: list, a set of predictions
+        """
+        if isinstance(testing, str):
+            testing = [testing]
+        testing = self.processing.transform(testing)
+        return self.model.predict(testing)
 
     def cross_validate(self, data=None, bucket=None, filename=None,
                        n_splits=5):
@@ -60,11 +73,15 @@ class JHPModel:
         kf = KFold(n_splits, shuffle=True)
         df = import_data(bucket, filename) if data is None else data
         scores = []
+        confusion = np.zeros((self.classes, self.classes))
         for train_index, test_index in kf.split(df):
             self.fit(training=df.iloc[train_index])
             X_test, y_test = self.processing.transform(df.iloc[test_index])
             scores.append(self.model.score(X_test, y_test))
+            confusion += confusion_matrix(y_test, self.model.predict(X_test))
         print("Model Accuracy = {}".format(np.array(scores).mean()))
+        print("Confusion_Matrix:")
+        print(confusion)
 
     def show_informative_features(self, n=20):
         """
