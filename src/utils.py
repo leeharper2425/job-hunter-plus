@@ -7,6 +7,7 @@ import boto3
 import os
 from io import BytesIO
 from sklearn.feature_extraction import text
+import pickle
 
 
 def import_data(bucket, filename):
@@ -39,5 +40,17 @@ def get_stopwords():
              "94105", "uscasan", "usnynew", "timeout", "navigation", "albany",
              "cookies", "date", "browser", "searchjobs", "city", "area",
              "carequired", "application", "mateo", "copyright", "resume",
-             "indeedcom", "keywords", "firefox", "texas", "job"}
+             "indeedcom", "keywords", "firefox", "texas", "job", "long island",
+             "location south"}
     return text.ENGLISH_STOP_WORDS.union(words)
+
+
+def pickle_model(model_object, output):
+    """
+    Pickle a fitted model object
+    :param model_object: A fitted model object.
+    :param output: str, the name of the pkl file to use.
+    :return: None, saves a pickle model object.
+    """
+    with open(output, 'wb') as f:
+        pickle.dump(model_object, f)

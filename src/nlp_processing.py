@@ -159,7 +159,7 @@ class NLPProcessing:
         # Instantiate class and fit vocabulary
         self.vectorize = CountVectorizer(training_docs, min_df=self.min_df,
                                          max_df=self.max_df,
-                                         ngram_range=(self.n_grams, self.n_grams))
+                                         ngram_range=self.n_grams)
         self.vectorize.fit(training_docs)
 
     def tfidf_vectorize(self, training_docs):
@@ -171,5 +171,5 @@ class NLPProcessing:
         # Instantiate class and fit vocabulary
         self.vectorize = TfidfVectorizer(training_docs, min_df=self.min_df,
                                          max_df=self.max_df,
-                                         ngram_range=(self.n_grams, self.n_grams))
+                                         ngram_range=self.n_grams)
         self.vectorize.fit(training_docs)

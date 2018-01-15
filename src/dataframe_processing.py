@@ -20,7 +20,7 @@ def create_model_data(data, bucket=None, filename=None, num_cities=2):
     """
     df = import_data(bucket, filename) if data is None else data
     df = remove_null(df, ["job_description"])
-    df = remove_403_errors(df)
+    df = dedupe_and_403(df)
     df = create_labels(df)
     df = df[df["label"] < num_cities]
     df2 = clean_indeed_jobs(df)
@@ -41,12 +41,13 @@ def remove_null(df, fields):
     return df
 
 
-def remove_403_errors(df):
+def dedupe_and_403(df):
     """
-    Remove any rows where a 403 error was returned
+    Remove any exact duplicate rows and any 403 errors
     :param df: Pandas DataFrame
-    :return: Pandas Dataframe, with 403 errors removed
+    :return: Pandas Dataframe, deduped without 403 errors.
     """
+    df = df.drop_duplicates("job_description")
     return df[~df["job_description"].str.contains("403")]
 
 
