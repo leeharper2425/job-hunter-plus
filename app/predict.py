@@ -15,5 +15,7 @@ def prediction(model, input):
     classes = {0: "San Francisco, CA", 1: "New York, NY", 2: "Chicago, IL",
                3: "Austin, TX"}
     data = model.processing.transform(input)
-    predicted_class = model.model.predict(data)
-    return classes[predicted_class[0]]
+    probs = model.model.predict_proba(data)[0]
+    output = [(v, probs[k]) for k, v in classes.items() if k < len(probs)]
+    output = sorted(output, key=lambda x: x[1], reverse=True)
+    return [(tup[0], str.format("{0:.4f}", tup[1])) for tup in output]

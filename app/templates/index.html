@@ -33,10 +33,14 @@
                         <tbody>
                             <thead>
                                 <th>City</th>
+                                <th>Probability</th>
                             </thead>
+                        {% for city, probability in data %}
                             <tr>
-                                <td>{{data}}</td>
+                                <td>{{city}}</td>
+                                <td>{{probability}}</td>
                             </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                     {% endif %}
