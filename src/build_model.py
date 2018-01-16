@@ -10,6 +10,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import KFold
 from sklearn.metrics import confusion_matrix
+from .dataframe_processing import create_model_data
 
 
 class JHPModel:
@@ -46,7 +47,9 @@ class JHPModel:
         :param filename: str, name of the data file, if applicable.
         """
         df = import_data(bucket, filename) if training is None else training
-        features, labels = self.processing.fit_transform(df)
+        df = create_model_data(df)
+        features = self.processing.fit_transform(df)
+        labels = self._get_labels(df)
         self.model.fit(features, labels)
 
     def predict(self, testing):
@@ -77,7 +80,9 @@ class JHPModel:
         confusion = np.zeros((self.classes, self.classes))
         for train_index, test_index in kf.split(df):
             self.fit(training=df.iloc[train_index])
-            X_test, y_test = self.processing.transform(df.iloc[test_index])
+            df_test = create_model_data(df.iloc[test_index])
+            X_test = self.processing.transform(df_test)
+            y_test = self._get_labels(df_test)
             scores.append(self.model.score(X_test, y_test))
             confusion += confusion_matrix(y_test, self.model.predict(X_test))
         print("Model Accuracy = {}".format(np.array(scores).mean()))
@@ -97,3 +102,12 @@ class JHPModel:
         top = zip(coefs_names[:n], coefs_names[:-(n + 1):-1])
         for (coef_1, fn_1), (coef_2, fn_2) in top:
             print("\t%.4f\t%-15s\t\t%.4f\t%-15s" % (coef_1, fn_1, coef_2, fn_2))
+
+    @staticmethod
+    def _get_labels(df):
+        """
+        Extract the city labels from the dataframe prior to model fitting
+        :param df: Pandas Dataframe from which to extract labels
+        :return: ndarray of the labels
+        """
+        return df["label"].as_matrix()

@@ -23,10 +23,8 @@ def create_model_data(data, bucket=None, filename=None, num_cities=2):
     df = dedupe_and_403(df)
     df = create_labels(df)
     df = df[df["label"] < num_cities]
-    df2 = clean_indeed_jobs(df)
-    return create_text_matrix(df2["job_description"]), \
-           create_text_matrix(df["job_description"]), \
-           df["label"].as_matrix()
+    df = clean_indeed_jobs(df)
+    return df
 
 
 def remove_null(df, fields):
@@ -66,29 +64,20 @@ def create_labels(df):
     return df
 
 
-def create_text_matrix(series):
-    """
-    Strip special characters and return cleaned text in an array.
-    :param series: Pandas Series, the job description text
-    :return: Numpy array, the cleaned up text
-    """
-    series = series.apply(lambda x: re.sub(r"((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))", r" \1", x))
-    sm = series.as_matrix()
-    for index, document in enumerate(series):
-        document = document.replace("\n", " ")
-        sm[index] = re.sub("[^\w\s]|â", "", document, flags=re.UNICODE)
-    return sm
-
-
 def clean_indeed_jobs(df):
     """
     Extract job info only from postings placed directly on Indeed.
     This is possible due to the standardized structure of the page.
     :param df: Pandas DataFrame containing data.
-    :return: DataFrame containing only those jobs, with cleaning performed
+    :return: DataFrame with extra bool "cleaned" column and cleaned descriptions.
     """
     field = "job_description"
-    df = df[df[field].str.contains("Indeed - Cookies, Privacy and Terms")]
-    df[field] = df[field].apply(lambda x: max(x.split('\n'), key=len).split("Job Type:")[0])
-    df = df[~df["job_description"].str.contains("We know salary is a key component")]
+    df["cleaned"] = df[field].str.contains("Indeed - Cookies, Privacy and Terms")
+    df2 = df[df["cleaned"]]
+    df2[field] = df2[field].apply(lambda x: max(x.split('\n'), key=len).split("Job Type:")[0])
+    df2["cleaned"] = ~df2["job_description"].str.contains("We know salary is a key component")
+    df2 = df2[df2["cleaned"]]
+    idx = df2.index.values
+    df = df.drop(idx)
+    df = df.append(df2, ignore_index = True)
     return df

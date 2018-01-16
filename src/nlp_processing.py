@@ -4,7 +4,8 @@ Class that makes up the natural language processing pipeline.
 
 import pandas as pd
 import numpy as np
-from .utils import get_stopwords
+import re
+from .utils import get_stopwords, import_data
 from .dataframe_processing import create_model_data
 from nltk.stem.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
@@ -47,26 +48,30 @@ class NLPProcessing:
         :param bucket: str S3 bucket of data if applicable.
         :param filename: str, name of the data file, if applicable.
         """
-        fit_array, _, _ = create_model_data(data, bucket, filename, self.num_cities)
+        df = import_data(bucket, filename) if data is None else data
+        fit_array = self._create_text_matrix(df[df["cleaned"]]["job_description"])
         fit_array = self._stemlem(fit_array)
         self.tfidf_vectorize(fit_array)
 
     def transform(self, data=None, bucket=None, filename=None):
         """
         Single function to apply the NLP transformation to every document.
-        :param data: Pandas DataFrame containing data.
+        :param data: Pandas DataFrame, str or list containing data.
         :param bucket: str S3 bucket of data if applicable.
         :param filename: str, name of the data file, if applicable.
         :return: ndarrays for the feature and label matrices
         """
+        df = import_data(bucket, filename) if data is None else data
         if self.vectorize is None:
             raise AttributeError("Must fit a processing pipeline before calling\
                                  the transform method")
-        _, doc_array, y = create_model_data(data, bucket, filename,
-                                            self.num_cities)
+        if isinstance(df, pd.DataFrame):
+            doc_array = self._create_text_matrix(df["job_description"])
+        elif isinstance(data, str):
+            doc_array = [data]
         doc_array = self._stemlem(doc_array)
         x = self.vectorize.transform(doc_array)
-        return x, y
+        return x
 
     def fit_transform(self, data=None, bucket=None, filename=None):
         """
@@ -76,13 +81,13 @@ class NLPProcessing:
         :param filename: str, name of the data file, if applicable.
         :return: ndarrays for the feature and label matrices
         """
-        fit_array, doc_array, y = create_model_data(data, bucket, filename,
-                                                    self.num_cities)
+        df = import_data(bucket, filename) if data is None else data
+        fit_array = self._create_text_matrix(df[df["cleaned"]]["job_description"])
         fit_array = self._stemlem(fit_array)
         self.tfidf_vectorize(fit_array)
-        doc_array = self._stemlem(doc_array)
+        doc_array = self._create_text_matrix(df["job_description"])
         x = self.vectorize.transform(doc_array)
-        return x, y
+        return x
 
     def _stemlem(self, text_array):
         """
@@ -173,3 +178,17 @@ class NLPProcessing:
                                          max_df=self.max_df,
                                          ngram_range=self.n_grams)
         self.vectorize.fit(training_docs)
+
+    @staticmethod
+    def _create_text_matrix(series):
+        """
+        Strip special characters and return cleaned text in an array.
+        :param series: Pandas Series, the job description text
+        :return: Numpy array, the cleaned up text
+        """
+        series = series.apply(lambda x: re.sub(r"((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))", r" \1", x))
+        sm = series.as_matrix()
+        for index, document in enumerate(series):
+            document = document.replace("\n", " ")
+            sm[index] = re.sub("[^\w\s]|â", "", document, flags=re.UNICODE)
+        return sm
