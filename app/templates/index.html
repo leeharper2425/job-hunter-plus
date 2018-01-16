@@ -17,7 +17,7 @@
                     to you.
                 </p>
                 <p>
-                    Your data will not be shared with any third parties.
+                    Your response will not be shared with any third parties.
                 </p>
                 <form action="{{ url_for('analyze_text') }}" method="post">
                     <textarea name="text1" cols="100" rows="10"></textarea>
@@ -32,17 +32,11 @@
                     <table>
                         <tbody>
                             <thead>
-                                <th>Entity</th>
-                                <th>Start Token</th>
-                                <th>Stop Token</th>
+                                <th>City</th>
                             </thead>
-                            {% for ent, start, stop in data %}
                             <tr>
-                                <td>{{ent}}</td>
-                                <td>{{start}}</td>
-                                <td>{{stop}}</td>
+                                <td>{{data}}</td>
                             </tr>
-                            {% endfor %}
                         </tbody>
                     </table>
                     {% endif %}

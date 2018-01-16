@@ -15,5 +15,5 @@ def prediction(model, input):
     classes = {0: "San Francisco, CA", 1: "New York, NY", 2: "Chicago, IL",
                3: "Austin, TX"}
     data = model.processing.transform(input)
-    predicted_class = model.model.predict()
-    return classes[predicted_class]
+    predicted_class = model.model.predict(data)
+    return classes[predicted_class[0]]
