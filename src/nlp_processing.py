@@ -19,7 +19,7 @@ class NLPProcessing:
     """
 
     def __init__(self, stemlem="", min_df=1, max_df=1.0, num_cities=2,
-                 n_grams=(1, 1), use_stopwords=True):
+                 n_grams=(1, 1), use_stopwords=True, tokenize="tfidf"):
         """
         Instantiate the preprocessing class.
         :param stemlem: str or list, stemmatizer or lemmatizer to use.
@@ -28,6 +28,7 @@ class NLPProcessing:
         :param max_df: float or int, maximum document frequency of term.
         :param n_grams: int, n-gram to use
         :param use_stopwords: bool, whether to use stopwords or not
+        :param tokenize: str, which vectorizer to use
         """
         self.model = None
         self.stemlem = stemlem
@@ -38,6 +39,7 @@ class NLPProcessing:
         self.n_grams = n_grams
         self.use_stopwords = use_stopwords
         self.done_stopwords = False
+        self.tokenize = tokenize
 
     def fit(self, data=None, bucket=None, filename=None):
         """
@@ -50,7 +52,7 @@ class NLPProcessing:
         df = import_data(bucket, filename) if data is None else data
         fit_array = self._create_text_matrix(df[df["cleaned"]]["job_description"])
         fit_array = self._stemlem(fit_array)
-        self.tfidf_vectorize(fit_array)
+        self._do_vectorize(fit_array)
 
     def transform(self, data=None, bucket=None, filename=None):
         """
@@ -83,7 +85,7 @@ class NLPProcessing:
         df = import_data(bucket, filename) if data is None else data
         fit_array = self._create_text_matrix(df[df["cleaned"]]["job_description"])
         fit_array = self._stemlem(fit_array)
-        self.tfidf_vectorize(fit_array)
+        self._do_vectorize(fit_array)
         doc_array = self._create_text_matrix(df["job_description"])
         x = self.vectorize.transform(doc_array)
         return x
@@ -154,10 +156,21 @@ class NLPProcessing:
         return [" ".join([word for word in text.split(" ")
                           if word.lower() not in stop_words]) for text in documents]
 
+    def _do_vectorize(self, docs):
+        """
+        Control the tokenization and vectorization of the text
+        :param docs: ndarray the text to fit the vectorizer.
+        """
+        if self.tokenize == "tfidf":
+            self.tfidf_vectorize(docs)
+        else:
+            self.count_vectorize(docs)
+
+
     def count_vectorize(self, training_docs):
         """
         Vectorize the corpus using bag of words vectorization
-        :param training_docs: Numpy array, the text to fit the vectorizer
+        :param training_docs: ndarray, the text to fit the vectorizer.
         :return: SK Learn vectorizer object
         """
         # Instantiate class and fit vocabulary

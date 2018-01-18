@@ -22,7 +22,7 @@ def topic_modelling(df, city, n_words=10, n_topics=10):
     column_names = np.array(p.vectorize.get_feature_names())
     model.fit(features).transform(features)
     h_sk= model.components_
-    words_and_topics(h_sk, column_names)
+    words_and_topics(h_sk, column_names, n_topics)
 
 
 def words_and_topics(h, words, num_topics):
