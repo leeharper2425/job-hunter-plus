@@ -6,7 +6,6 @@ import pandas as pd
 import numpy as np
 import re
 from .utils import get_stopwords, import_data
-from .dataframe_processing import create_model_data
 from nltk.stem.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -20,7 +19,7 @@ class NLPProcessing:
     """
 
     def __init__(self, stemlem="", min_df=1, max_df=1.0, num_cities=2,
-                 n_grams=1, use_stopwords=True):
+                 n_grams=(1, 1), use_stopwords=True):
         """
         Instantiate the preprocessing class.
         :param stemlem: str or list, stemmatizer or lemmatizer to use.

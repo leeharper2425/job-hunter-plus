@@ -7,10 +7,13 @@ from .utils import import_data
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import AdaBoostClassifier
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import KFold
 from sklearn.metrics import confusion_matrix
 from .dataframe_processing import create_model_data
+from xgboost import XGBClassifier
 
 
 class JHPModel:
@@ -47,7 +50,7 @@ class JHPModel:
         :param filename: str, name of the data file, if applicable.
         """
         df = import_data(bucket, filename) if training is None else training
-        df = create_model_data(df)
+        df = create_model_data(df, num_cities=self.classes)
         features = self.processing.fit_transform(df)
         labels = self._get_labels(df)
         self.model.fit(features, labels)
@@ -80,14 +83,31 @@ class JHPModel:
         confusion = np.zeros((self.classes, self.classes))
         for train_index, test_index in kf.split(df):
             self.fit(training=df.iloc[train_index])
-            df_test = create_model_data(df.iloc[test_index])
+            df_test = create_model_data(df.iloc[test_index], num_cities=self.classes)
             X_test = self.processing.transform(df_test)
             y_test = self._get_labels(df_test)
             scores.append(self.model.score(X_test, y_test))
             confusion += confusion_matrix(y_test, self.model.predict(X_test))
         print("Model Accuracy = {}".format(np.array(scores).mean()))
+        np.set_printoptions(suppress=True)
         print("Confusion_Matrix:")
         print(confusion)
+        self._get_scores(confusion)
+
+    @staticmethod
+    def _get_scores(confusion_matrix):
+        """
+        Use the confusion matrix to get precision, recall, F1 score.
+        :param confusion_matrix: ndarray
+        :return: None, prints scores to the console
+        """
+        d = np.diag(confusion_matrix) #Diagonals, TP
+        precision = d / confusion_matrix.sum(axis=1)
+        recall = d / confusion_matrix.sum(axis=0)
+        F1 = 2 / ((1/precision) + (1/recall))
+        for i in range(confusion_matrix.shape[0]):
+            print("Class {} | Precision = {:.3f} | Recall = {:.3f} | F1 = {:.3f}"
+                  .format(i, precision[i], recall[i], F1[i]))
 
     def show_informative_features(self, n=20):
         """
