@@ -41,7 +41,7 @@ def get_stopwords():
              "cookies", "date", "browser", "searchjobs", "city", "area",
              "carequired", "application", "mateo", "copyright", "resume",
              "indeedcom", "keywords", "firefox", "texas", "job", "long island",
-             "location south"}
+             "location south", "illinois"}
     return text.ENGLISH_STOP_WORDS.union(words)
 
 
