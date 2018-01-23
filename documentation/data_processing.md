@@ -21,7 +21,7 @@ An illustration of the problem is shown below. The image shows an example observ
 highlights the actual text that we want to extract - in this case less than 50% of the total text. This
 issue was resolved using a 2-step process for data processing, which is described in the next section.
 
-![Messy Data Example](https://github.com/leeharper2425/job-hunter-plus/tree/master/images/MessyData.PNG?raw=true "Messy Data Example")
+![Messy Data Example](https://github.com/leeharper2425/job-hunter-plus/tree/master/images/MessyData.PNG?raw=true "Messy_Data_Example")
 
 
 ## 2: Standard Workflow
