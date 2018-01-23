@@ -1,11 +1,45 @@
-# NLP Processing
+# Data Processing
 
 This document outlines the methodology that was used to process the the raw scraped data into forms
 that could be used in machine learning models. This document relates to the following modules:
 - dataframe_processing.py
 - nlp_processing.py
 
-## 1: nlp_processing.py
+## 1: Motivation
+
+The data for this project consisted of the raw text scraper directly from the web page on which a
+job description is located. Sometimes the job would be posted directly by an employer on the Indeed.com
+website, but often the job would link to the employer's website. It is straightforward to remove any
+javascript and CSS elements from the page, but this still leaves a few problems
+
+1. Some words are combined together due to the stripping of elements
+2. There is a lot of text that is not part of the job description on the web page
+3. The HTML structure of the pages are not the same, so there is no standard way of removing
+the irrelevant text,
+
+An illustration of the problem is shown below. The image shows an example observation, and the red box
+highlights the actual text that we want to extract - in this case less than 50% of the total text. This
+issue was resolved using a 2-step process for data processing, which is described in the next section.
+
+![alt text](https://github.com/leeharper2425/job-hunter-plus/tree/master/images/MessyData.PNG "Messy Data Example")
+
+
+## 2: Standard Workflow
+
+The following steps make up the data processing workflow.
+
+1. Import data from the job-hunter-plus AWS S3 bucket
+2. Remove unusable job descriptions (eg 403 errors, timeout errors, null values)
+3. Filter out the required number of cities
+4. Select the direct job postings on Indeed.com ("clean subset")
+5. Select the job description text from these postings
+6. Perform additional cleaning to subset (eg remove special unicode characters, split joined words)
+7. Stemmatize/lemmatize the text
+8. Fit vocabularly using the clean subset
+9. Clean text in the entire corpus
+10. Vectorize corpus using previously trained vocabulary
+
+## 3: nlp_processing.py
 
 This modules contains the NLPProcessing class. Within the standard data processing workflow for the model
 building process, this class controls all preprocessing.
