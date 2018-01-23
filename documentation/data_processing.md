@@ -23,6 +23,8 @@ issue was resolved using a 2-step process for data processing, which is describe
 
 ![MessyData](../images/MessyData.PNG?raw=true "MessyDataExample")
 
+Fig 1: An example of a scraped job description page. The red box indicates the desired information.
+
 
 ## 2: Standard Workflow
 

@@ -1,57 +1,52 @@
-# Helping new data scientists narrow their job search
+# Using Natural Language Processing to Help New Data Scientists Narrow Their Job Search
 
-## Objectives
-In this project, I intend to use the job postings from multiple online job search
-websites to do the following:
-- Identify the skills and/or technologies that can be used to differentiate between
-different job markets.
-- Use those findings to build a model that predicts the locations where a data
-scientist with specific expertise might most easily find work.
-- Combine these findings and the model into a usable web application.
-
-## Background and motivation
+## 1. Background and motivation
 Data science is seen by many independent bodies as one of the most rapidly growing
 "hot" jobs of the 21$^{st}$ century. Despite the need, there is still a dearth of
-professionals with the requisite skill sets to fill all the growing need. In
-response to this, many Universities and for-profit education institutions are
-offering courses in topics such as "data science" and "data analytics".
+professionals with the requisite skill sets. In response to this, many Universities
+and for-profit education institutions are offering courses in topics such as "data
+science" and "data analytics".
 
 However, there is a lack of consensus as to what "data science" really means - and
 job postings vary tremendously in the skills that they emphasize. In addition,
 many companies offer relocation packages for these roles, meaning that new, skilled
-graduates have tremendous choice in the job market. Such choice can be overwhelming,
+graduates have a high level of choice in the job market. Such choice can be overwhelming,
 and this project seeks to help alleviate some of this burden, by helping to narrow
 a graduate's job search.
 
 While there is little in the academic literature on key data science job skills,
-building a web scraper for America's most popular job search engine, indeed.com, to
+building a web scraper for America's most popular job search engine, Indeed.com, to
 perform exploratory data analysis on this topic is a common project for aspiring
 data scientists. Several such projects have uncovered some evidence for geographic
-differences in desired skill sets. Other common projects include trying to scrape
-salary data for use in regression analysis, or scraping jobs for simple keyword
-matching to help in a user's job search.
+differences in desired skill sets, and this project extends this work to build
+inferential machine learning models to gain further insight into this.
 
-This project is differentiated from these prior projects in two ways. Firstly,
-job data will be aggregated from multiple sites. Initially:
-- Indeed.com
-- Jobs2Careers.com
-- Dice.com
-- ZipRecruiter.com (if time allows)
+## 2. Methodology and Technology Stack
 
-Secondly, the data collected will be used to build an unsupervised predictive model
-based on the text from the job descriptions.
+![Technologies]("images/TechStack.PNG?raw=true" "TechnologyStack")
 
-## Specific Challenges
-There are several potential hurdles to the success of this project:
-- Having a web scraper's IP address get blocked from one of the websites. To mitigate this,
-the web scrapers will run on Amazon Web Services (AWS) ec2 instances, so that should one
-get blocked, another can be spun up.
-- Detecting a small "signal" on a large background. It is likely that many jobs are of a
-"cookie cutter" nature, and might well have the same skills listed (such as Python or R)
-regardless of geography. To mitigate this, as many job descriptions as possible should
-be collected. Extremely common terms (which are probably also highly correlated) can be
-de-emphasized using techniques like Term Frequency - Inverse Document Frequency (TF-IDF), and
-by certain dimensionality reduction techniques, such as principal components analysis.
+Data was collected by web scraping job descriptions from Indeed.com, using the
+Beautiful Soup package. The scraper ran on an Amazon Web Services (AWS) EC2 instance,
+and the results were stored in CSV format in an S3 bucket. More details about the
+process and the data can be found here.
+
+Data processing was performed using Pandas and Numpy. There were significant data cleaning
+issues, and these were resolved by creating a 2-step model building process. A vocabulary
+was trained using a subset of cleaned job descriptions, and then a model fitted on the entire
+corpus using this vocabulary. More information about the processing pipeline can be found here.
+
+Another challenge that had to be overcome was the similarity of job descriptions. Whilst there
+are detectable differences, many of the words and phrases are somewhat "cookie cutter". Thus, any
+inferential model must be able to successfully zoom in on the key words and phrases that differentiate
+between cities. This requirement makes decision tree based methods, for example random forests and
+extreme gradient boosting, ideal candidates.
+
+Project outputs come in two forms. Firstly, I developed a simple Flask web app to predict the
+city where a job seeker might have the highest chance of success using a brief written paragraph
+about themselves. In addition, I used Matplotlib and Seaborn to produce visualizations, particularly
+of the results of topic modeling.
+
+## 3. Model Results
 
 ## Data Requirements and Analysis
 In order to keep this problem tractable within 2 and a half weeks, data collection
