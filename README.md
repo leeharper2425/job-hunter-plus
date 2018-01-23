@@ -23,7 +23,7 @@ inferential machine learning models to gain further insight into this.
 
 ## 2. Methodology and Technology Stack
 
-![Technologies]("images/TechStack.PNG?raw=true" "TechnologyStack")
+![Technologies]("/images/TechStack.PNG?raw=true" "TechnologyStack")
 
 Data was collected by web scraping job descriptions from Indeed.com, using the
 Beautiful Soup package. The scraper ran on an Amazon Web Services (AWS) EC2 instance,
