@@ -104,3 +104,5 @@ of the "medical" topic - this includes words such as "physician" and "hospital".
 of the "SalesForce" and "Qualifications" topics.
 
 ![InDepthTopics](/images/two_city_comparison.png "TwoCityComparison")
+
+Figure 6: Topic distributions for New York and San Francisco.
