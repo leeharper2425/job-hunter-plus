@@ -41,12 +41,13 @@ Fig. 1: Schematic of the technology stack used in this project.
 Data was collected by web scraping job descriptions from Indeed.com, using the
 Beautiful Soup package. The scraper ran on an Amazon Web Services (AWS) EC2 instance,
 and the results were stored in CSV format in an S3 bucket. More details about the
-process and the data can be found here.
+process and the data can be found [here](/documentation/data_collection.md).
 
 Data processing was performed using Pandas and Numpy. There were significant data cleaning
 issues, and these were resolved by creating a 2-step model building process. A vocabulary
 was trained using a subset of cleaned job descriptions, and then a model fitted on the entire
-corpus using this vocabulary. More information about the processing pipeline can be found here.
+corpus using this vocabulary. More information about the processing pipeline can be found
+[here](/documentation/data_processing.md).
 
 Another challenge that had to be overcome was the similarity of job descriptions. Whilst there
 are detectable differences, many of the words and phrases are somewhat "cookie cutter". Thus, any
