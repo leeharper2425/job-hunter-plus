@@ -14,4 +14,4 @@ text box and hit submit. This will cause the predicted probabilities to appear o
 right hand side of the app. An example screenshot from the app is shown below, demonstrating
 its usage.
 
-![WebApp][../images/WebApp.png?raw=true "WebApp"]
+![WebApp](../images/WebApp.png?raw=true "WebApp")
