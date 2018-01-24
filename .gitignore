@@ -109,5 +109,3 @@ ENV/
 *data/
 *.idea/
 *legacy/
-*.ipynb
-!ModelResults.ipynb

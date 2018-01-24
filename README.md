@@ -68,7 +68,8 @@ Scoring was performed using 5-fold cross-validation.
 
 The results of the best model for each target city are shown below. This model used extreme gradient boosted trees
 (XGBoost algorithm), with 2000 estimators, and a maximum tree depth of three. This model had an overall cross-validated
-accuracy of 73.1%. By way of comparison, the optimal random forest model achieved 71.8% accuracy.
+accuracy of 73.1%. By way of comparison, the optimal random forest model achieved 71.8% accuracy. A selection of model
+comparisons can be found in [this notebook](/notebooks/ModelResults.ipynb)
 
 ![ModelResults](/images/ModelResults.PNG?raw=true "ModelResults")
 
@@ -89,21 +90,21 @@ of a larger number of jobs being scraped for these cities.
 
 To try and understand the underlying reasons for the good levels of discrimination between cities, topic modeling was performed.
 In order to try and capture the spirit of the model, non-negative matrix factorization was used, applied to the TFIDF vectorized
-matrix for each city in turn. A notebook detailing the actual vocabulary from each topic can be found here.
+matrix for each city in turn. A notebook detailing the actual vocabulary from each topic can be found [here](/notebooks/TopicModelling.ipynb).
 
-A visualization of the distribution of topics in each target city is shown in Fig. 5. In this visualization, each city's distribution of
+A visualization of the distribution of topics in each target city is shown in Figure 4. In this visualization, each city's distribution of
 topics can be viewed as lines in a "topic barcode" that represents the city. It is clear from the visualization that these barcodes are
 substantially different to each other.
 
 ![CityBarcodes](/images/topic_barcodes.png "TopicBarcodes")
 
-Figure 5: "Topic Barcodes" illustrating the differences between cities at a high level.
+Figure 4: "Topic Barcodes" illustrating the differences between cities at a high level.
 
-A more in depth comparison between New York and San Francisco is shown in Fig. 6. This visualization shows that both cities have several
+A more in depth comparison between New York and San Francisco is shown in Figure 5. This visualization shows that both cities have several
 topics in common, for example EEO and digital marketing. It also clearly shows that New York uniquely has a large number of appearances
 of the "medical" topic - this includes words such as "physician" and "hospital". By contrast, San Francisco uniquely shows appearances
 of the "SalesForce" and "Qualifications" topics.
 
 ![InDepthTopics](/images/two_city_comparison.png "TwoCityComparison")
 
-Figure 6: Topic distributions for New York and San Francisco.
+Figure 5: Topic distributions for New York and San Francisco.
