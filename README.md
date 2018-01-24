@@ -112,9 +112,7 @@ Figure 5: Topic distributions for New York and San Francisco.
 ## 5. Web Application
 
 A simple Flask web application has also been created for this project, and instructions are provided for running it on your local machine
-here. The app provides and simple text box in which you can write a brief bio about yourself, and the model will make predict the
-probability of matching with a city. At the present time, the app is merely a demonstration, and so only makes predictions on New York and
-San Francisco.
+[here](/documentation/web_app.md). The app provides and simple text box in which you can write a brief bio about yourself, and the model will make predict the probability of matching with a city. At the present time, the app is merely a demonstration, and so only makes predictions on New York and San Francisco.
 
 A screen shot of the app in action is shown in Figure 6.
 
