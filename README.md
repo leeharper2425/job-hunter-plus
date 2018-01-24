@@ -36,6 +36,8 @@ And the following job description search queries were used:
 
 ![Technologies](/images/TechStack.PNG?raw=true "TechnologyStack")
 
+Fig. 1: Schematic of the technology stack used in this project.
+
 Data was collected by web scraping job descriptions from Indeed.com, using the
 Beautiful Soup package. The scraper ran on an Amazon Web Services (AWS) EC2 instance,
 and the results were stored in CSV format in an S3 bucket. More details about the
@@ -59,7 +61,7 @@ of the results of topic modeling.
 
 ## 3. Model Results
 
-Since the classes were reasonably balanced, model optimization was done using the accuracy metric. This is the
+Since the classes were not hugely unbalanced, model optimization was done using the accuracy metric. This is the
 proportion of times that the model predicted the correct city from the text of the processed job description.
 Scoring was performed using 5-fold cross-validation.
 
@@ -69,13 +71,30 @@ accuracy of 73.1%. By way of comparison, the optimal random forest model achieve
 
 ![ModelResults](/images/ModelResults.PNG?raw=true "ModelResults")
 
+Figure 2: Cross-validated classification scores of the XGBoost model.
+
 The confusion matrix from which these results is derived is shown below:
 
 ![ConfusionMatrix](/images/ConfusionMatrix.PNG?raw=true "ConfusionMatrix")
+
+Figure 3: Cross-validated aggregate confusion matrix for the XGBoost model
 
 These results show two things:
 1. For every city considered, the model shows significantly more inferential power than randomly assigning a city.
 2. In absolute terms, job descriptions are more likely to be misclassified as San Francisco or New York. This is a result
 of a larger number of jobs being scraped for these cities.
 
-#Insert confusion matrix here
+## 4. Topic Modeling
+
+To try and understand the underlying reasons for the good levels of discrimination between cities, topic modeling was performed.
+In order to try and capture the spirit of the model, non-negative matrix factorization was used, applied to the TFIDF vectorized
+matrix for each city in turn.
+
+A visualization of the distribution of topics in each target city is shown in Fig. 5, and a more in depth comparison between
+New York and San Francisco is shown in Fig. 6.
+
+![CityBarcodes](/images/topic_barcodes.png "TopicBarcodes")
+
+Figure 5: "Topic Barcodes" illustrating the differences between cities at a high level.
+
+![InDepthTopics](/images/two_city_comparison.png "TwoCityComparison")
