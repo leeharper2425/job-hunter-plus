@@ -21,6 +21,17 @@ data scientists. Several such projects have uncovered some evidence for geograph
 differences in desired skill sets, and this project extends this work to build
 inferential machine learning models to gain further insight into this.
 
+To limit the scope of this project, the following cities were chosen:
+- San Francisco, CA
+- New York, NY
+- Chicago, IL
+- Austin, TX
+
+And the following job description search queries were used:
+- Data Scientist
+- Data Analyst
+- Business Intelligence
+
 ## 2. Methodology and Technology Stack
 
 ![Technologies](/images/TechStack.PNG?raw=true "TechnologyStack")
@@ -48,63 +59,23 @@ of the results of topic modeling.
 
 ## 3. Model Results
 
-## Data Requirements and Analysis
-In order to keep this problem tractable within 2 and a half weeks, data collection
-will be limited to three common data science geographies - Austin, New York and San
-Francisco. The search radius will be 50 miles. In order to ensure a large corpus,
-the search term "data" will be used, and irrelevant job titles will be removed.
+Since the classes were reasonably balanced, model optimization was done using the accuracy metric. This is the
+proportion of times that the model predicted the correct city from the text of the processed job description.
+Scoring was performed using 5-fold cross-validation.
 
-The raw information that will be needed in order to explore the differences between
-data science job markets is the text of job descriptions. These will be obtained
-by running web scrapers using several (AWS) ec2 instances. During this process,
-javascript page elements and page formatting will be removed, so that only the
-visible on-page text remains. The results of the web scraping will be stored in an
-AWS S3 bucket.
+The results of the best model for each target city are shown below. This model used extreme gradient boosted trees
+(XGBoost algorithm), with 2000 estimators, and a maximum tree depth of three. This model had an overall cross-validated
+accuracy of 73.1%. By way of comparison, the optimal random forest model achieved 71.8% accuracy.
 
-It is likely that certain jobs will be posted on multiple sites, or might appear
-multiple times on the same site (for example in sponsored listings). This will be
-dealt with by checking for precise duplicates (to remove same-site duplication)
-or checking the similarity between count vectors of each pair of documents from
-different websites (without stopwords). Extremly similar documents (criteria to
-be established) shall be removed.
+![ModelResults](/images/ModelResults.PNG?raw=true "ModelResults")
 
-The raw information will then be converted into a form that can be used to build
-machine learning models using natural language processing (NLP) techniques. To
-emphasize the differences between cities, rather than their similarities TF-IDF
-vectorization or Count Vectorization on a per-geography basis will be used.
+The confusion matrix from which these results is derived is shown below:
 
-Topic modelling for each geography will be performed using non-negative matrix
-factorization (NMF) or Latent Dirichlet Allocation (LDA). This will help to uncover
-the differences and similarities.
+![ConfusionMatrix](/images/ConfusionMatrix.PNG?raw=true "ConfusionMatrix")
 
-The final model will be build by projecting a set of user-entered keywords onto
-the identified topics.
+These results show two things:
+1. For every city considered, the model shows significantly more inferential power than randomly assigning a city.
+2. In absolute terms, job descriptions are more likely to be misclassified as San Francisco or New York. This is a result
+of a larger number of jobs being scraped for these cities.
 
-There are two MOEs/MOPs for this project, based around two outcomes:
-- Is there a difference in skills/technologies between geographies?
-- Are new data scientists happy with the recommendations given to them?
-
-Due to the qualitative nature of the model output it is difficult to quantify a
-the second of these. One could consider that a good model would be one where 90%
-of surveyed individual stakeholders felt that the returned skill or technology
-"topics" were well-aligned with their skill set. However, getting a large enough
-sample size to accurately validate this will be difficult.
-
-The first MOE can be assessed through cross-validation. In this process, I will
-tune model parameters (such as the number of retained topics, and the stop word
-list that is used in the tokenization process) and try and predict
-the geography that specific job descriptions relate to. A good model of this
-nature would be have sensitivity and specificity of at least 80% of the time.
-If the MOEs were less than around 50% for the three geographies, this would
-indicate the model had little predictive power over a random guess, and that
-there is generally little detectable difference between the job markets. I expect
-that, as a minimum, this determination will possible within the 2.5 week timeframe.
-
-I should be able to build a good model with a few thousand examples of job descriptions
-from each location. I anticipate being able to scrape of the order of 50,000 job
-descriptions from the internet using the "data" search in the three locations
-being considered. Once filtering out irrelevant posting, I still anticipate having
-more than enough to meet these criteria.
-
-A proof of concept scraped data csv can be found in the data folder in this
-repository.
+#Insert confusion matrix here
